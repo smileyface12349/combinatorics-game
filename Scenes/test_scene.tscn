@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://bt2oy24n476i1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gghq7"]
+bg_color = Color(0.562866, 0.617537, 0.571826, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(1017, 493)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.528
+anchor_top = 0.5
+anchor_right = 0.528
+anchor_bottom = 0.5
+offset_left = -750.76
+offset_top = -515.0
+offset_right = 758.24
+offset_bottom = 505.0
+rotation = 0.00634912
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gghq7")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -39.7437
+offset_top = 38.7484
+offset_right = 53.2563
+offset_bottom = 69.7484
+grow_horizontal = 2
+text = "Bijections"
