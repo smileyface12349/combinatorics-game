@@ -1,4 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bt2oy24n476i1"]
+[gd_scene load_steps=4 format=3 uid="uid://bt2oy24n476i1"]
+
+[ext_resource type="Script" path="res://Bijections/match.gd" id="1_bu00l"]
+[ext_resource type="FontFile" uid="uid://c13m3wup8q1k5" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Black.ttf" id="1_vovdu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gghq7"]
 bg_color = Color(0.562866, 0.617537, 0.571826, 1)
@@ -13,6 +16,7 @@ position = Vector2(1017, 493)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
+visible = false
 anchors_preset = -1
 anchor_left = 0.528
 anchor_top = 0.5
@@ -36,4 +40,33 @@ offset_top = 38.7484
 offset_right = 53.2563
 offset_bottom = 69.7484
 grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("1_vovdu")
 text = "Bijections"
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_left = 340.0
+offset_top = 55.0
+offset_right = 1638.0
+offset_bottom = 1017.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/ColorRect"]
+layout_mode = 0
+offset_left = 446.0
+offset_top = 62.0
+offset_right = 868.0
+offset_bottom = 142.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 52
+text = "Match Them Up!"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/ColorRect"]
+layout_mode = 0
+offset_left = 129.0
+offset_top = 340.0
+offset_right = 1176.0
+offset_bottom = 914.0
+
+[node name="Control" type="Control" parent="CanvasLayer/ColorRect/ScrollContainer"]
+layout_mode = 2
+script = ExtResource("1_bu00l")
+font = ExtResource("1_vovdu")
