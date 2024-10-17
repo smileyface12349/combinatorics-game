@@ -18,23 +18,87 @@ offset_right = 557.0
 offset_bottom = 876.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7welf")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+[node name="Title" type="RichTextLabel" parent="Panel"]
 layout_mode = 2
-offset_left = 477.0
-offset_top = 61.0
-offset_right = 897.0
-offset_bottom = 155.0
+offset_left = 507.0
+offset_top = 62.0
+offset_right = 934.0
+offset_bottom = 156.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 52
-text = "Match Them Up!"
+bbcode_enabled = true
+text = "[center]Match Them Up!"
 
-[node name="Control" type="Control" parent="Panel"]
+[node name="Subtitle" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 451.0
+offset_top = 132.0
+offset_right = 966.0
+offset_bottom = 178.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center]Find a bijection to show that these two are the same size.
+Your bijection should work for all n.[/center]"
+
+[node name="MatchElements" type="Control" parent="Panel" node_paths=PackedStringArray("problemSizeIndicator")]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 anchors_preset = 0
-offset_left = 140.0
-offset_top = 264.0
-offset_right = 1274.0
-offset_bottom = 1222.0
+offset_left = 133.0
+offset_top = 307.0
+offset_right = 1267.0
+offset_bottom = 1265.0
 script = ExtResource("1_bu00l")
 font = ExtResource("2_5qvkd")
+problemSizeIndicator = NodePath("../ProblemSizeIndicator")
+
+[node name="DescriptionRight" type="RichTextLabel" parent="Panel"]
+offset_left = 1029.0
+offset_top = 224.0
+offset_right = 1283.0
+offset_bottom = 311.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center]Binary Strings"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/DescriptionRight"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 42.0
+offset_right = 231.0
+offset_bottom = 82.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center]Binary strings of length n"
+
+[node name="DescriptionLeft" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 220.0
+offset_right = 337.0
+offset_bottom = 307.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center]Subsets"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/DescriptionLeft"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 44.0
+offset_right = 214.0
+offset_bottom = 84.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center]Subsets of {1, 2, ..., n}"
+
+[node name="ProblemSizeIndicator" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 38.0
+offset_right = 190.0
+offset_bottom = 114.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 48
+text = "n = 0"

@@ -11,6 +11,8 @@ func _ready() -> void:
 	
 
 func initialise_bijection(problem_size):
+	problemSizeIndicator.text = "n = " + str(problem_size-1)
+	
 	if problem_size == 1:
 		bijection = Bijection.new(
 			# Left elements
@@ -86,11 +88,13 @@ func initialise_bijection(problem_size):
 	bijection.to.shuffle()
 
 var line_width: int = 8
+var circle_radius: float = 6
 var done: bool = false
 
 var mouse_position_drawn: Vector2 = Vector2(0, 0)
 
 @export var font: Font
+@export var problemSizeIndicator: RichTextLabel
 
 ## An element in a bijection
 ##
@@ -233,14 +237,16 @@ func _draw():
 		# Draw outline for button
 		draw_rect(Rect2(element.pos, element.size), Color.BLUE if hover else Color.BLACK, false)
 		# Position of text is the bottom-left corner
-		draw_string(font, element.pos + Vector2(0, element.size.y/2), element.text, HORIZONTAL_ALIGNMENT_CENTER, -1, 24, Color(0, 0, 0))
+		draw_string(font, element.pos + Vector2(16, element.size.y/2), element.text, HORIZONTAL_ALIGNMENT_CENTER, -1, 24, Color(0, 0, 0))
+		# Draw dot later so it's in front of the lines
+		
 
 	# Draw the elements
 	bijection.draw_elements(
 		draw_element,
 		16,
 		Vector2(32, 32),
-		Vector2(900, 32),
+		Vector2(948, 32),
 		mouse_position_drawn
 	)
 	
@@ -252,3 +258,7 @@ func _draw():
 	# Draw active matching (if applicable)
 	if active_element != null:
 		draw_line(active_element.get_line_pos(), mouse_position_drawn, Color.BLUE, line_width)
+		
+	# Draw dots (so they are in front of the lines)
+	for element in bijection.all_elements():
+		draw_circle(element.pos + Vector2(element.size.x if element.left else 0, element.size.y/2), circle_radius, Color.BLACK)
