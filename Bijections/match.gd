@@ -19,7 +19,7 @@ func initialise_bijection(problem_size):
 			],
 			# Right elements 
 			[
-				BijectionElement.new("0", false, 1),
+				BijectionElement.new("", false, 1),
 			]
 		)
 
@@ -212,10 +212,11 @@ func _input(event) -> void:
 func check_bijection():
 	if bijection.check():
 		done = true
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(1.0).timeout
 		problem_size += 1
 		initialise_bijection(problem_size)
 		done = false
+		queue_redraw()
 
 func _process(_delta):
 	var mouse_position = get_viewport().get_mouse_position() - get_global_position()
