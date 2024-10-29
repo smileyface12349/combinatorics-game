@@ -1,6 +1,6 @@
 extends Control
 
-var problem_size = 1
+var problem_size: int = 1
 var bijection: Bijection
 
 # Called when the node enters the scene tree for the first time.
@@ -10,7 +10,7 @@ func _ready() -> void:
 	# Shuffling order currently done inside this function	
 	
 
-func initialise_bijection(problem_size):
+func initialise_bijection(problem_size: int) -> void:
 	problemSizeIndicator.text = "n = " + str(problem_size-1)
 	
 	if problem_size == 1:
@@ -151,7 +151,7 @@ class Bijection:
 			start_left: Vector2 = Vector2(32, 32), start_right: Vector2 = Vector2(1000, 32),
 			mouse_position: Vector2 = Vector2(0, 0)) -> void:
 		# Draw LHS
-		var pos := start_left
+		var pos: Vector2 = start_left
 		for element: BijectionElement in self.from:
 			element.pos = pos
 			draw_element.call(element, element.is_inside(mouse_position))
@@ -166,7 +166,7 @@ class Bijection:
 			
 	## Checks if the current matching is correct
 	func check() -> bool:
-		for element in self.from:
+		for element: BijectionElement in self.from:
 			if element.match == null || element.match.id != element.id:
 				return false
 		return true
@@ -175,32 +175,32 @@ class Bijection:
 
 var active_element: BijectionElement = null
 
-func _input(event) -> void:
+func _input(event: InputEvent) -> void:
 	# Left mouse button pressed
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		# If there aren't any selected yet...
 		if active_element == null:
 			# See if we've clicked on any elements
-			for element in bijection.all_elements():
+			for element: BijectionElement in bijection.all_elements():
 				if element.is_inside(event.position - get_global_position()):
 					# If so, draw a line starting at this element
 					active_element = element
 					# Check if we need to remove any old lines
-					for e in bijection.from:
+					for e: BijectionElement in bijection.from:
 						if e == active_element || e.match == active_element:
 							e.match = null
 					break
 		# If we've already selected an element...
 		else:
 			# See if we've clicked on any elements on the other side
-			for element in bijection.get_elements(!active_element.left):
+			for element: BijectionElement in bijection.get_elements(!active_element.left):
 				if element.is_inside(event.position - get_global_position()):
 					# If so, match these up. Only store matchings from left to right
 					if element.left:
 						element.match = active_element
 					else:
 						# Check if we need to remove an old matching
-						for e in bijection.from:
+						for e: BijectionElement in bijection.from:
 							if e.match == element:
 								e.match = null
 						# Add the new matching
@@ -213,7 +213,7 @@ func _input(event) -> void:
 		# Whatever happened, it's time for a redraw
 		queue_redraw()
 
-func check_bijection():
+func check_bijection() -> void:
 	if bijection.check():
 		done = true
 		await get_tree().create_timer(1.0).timeout
@@ -222,16 +222,16 @@ func check_bijection():
 		done = false
 		queue_redraw()
 
-func _process(_delta):
-	var mouse_position = get_viewport().get_mouse_position() - get_global_position()
+func _process(_delta: float) -> void:
+	var mouse_position: Vector2 = get_viewport().get_mouse_position() - get_global_position()
 	if mouse_position != mouse_position_drawn:
 		mouse_position_drawn = mouse_position
 		queue_redraw()
 
-func _draw():
+func _draw() -> void:
 		
 	# Define function to draw an element after its position has been assigned
-	var draw_element = func (element: BijectionElement, hover: bool = false):
+	var draw_element: Callable = func (element: BijectionElement, hover: bool = false) -> void:
 		# Draw background for button
 		draw_rect(Rect2(element.pos, element.size), Color.ALICE_BLUE if hover else Color.WHITE, true)
 		# Draw outline for button
@@ -260,5 +260,5 @@ func _draw():
 		draw_line(active_element.get_line_pos(), mouse_position_drawn, Color.BLUE, line_width)
 		
 	# Draw dots (so they are in front of the lines)
-	for element in bijection.all_elements():
+	for element: BijectionElement in bijection.all_elements():
 		draw_circle(element.pos + Vector2(element.size.x if element.left else 0, element.size.y/2), circle_radius, Color.BLACK)

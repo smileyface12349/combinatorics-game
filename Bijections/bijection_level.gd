@@ -3,8 +3,8 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var scene = preload("res://Scenes/bijection_element.tscn")
-	var instance = scene.instantiate()
+	var scene: PackedScene = preload("res://Bijections/bijection_element.tscn")
+	var instance: Node = scene.instantiate()
 	add_child(instance)
 
 
