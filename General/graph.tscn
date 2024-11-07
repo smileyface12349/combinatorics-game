@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://5v3234uyglvs"]
+
+[ext_resource type="Script" path="res://General/graph_test.gd" id="1_okpbn"]
+
+[node name="Graph" type="Node2D"]
+script = ExtResource("1_okpbn")
