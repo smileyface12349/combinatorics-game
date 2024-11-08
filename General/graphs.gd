@@ -70,6 +70,14 @@ class Graph:
 		graph.complete_random(edge_chance)
 		return graph
 		
+	# Determines what edge chance you need to obtain this average degree
+	static func get_edge_chance(n_vertices: int, average_degree: int) -> float:
+		return (average_degree * n_vertices) / pow(2, n_vertices + 1)
+		
+	# Determines what edge chance you need to obtain this average_degree, when starting from an mst
+	static func get_edge_chance_from_mst(n_vertices: int, average_degree: int) -> float:
+		return ((average_degree-2) * n_vertices + 2) / (pow(2, n_vertices) - n_vertices + 1) / 2
+		
 	# Outputs a graph drawing where all nodes are positioned randomly
 	func get_drawing_random() -> GraphDrawing:
 		var vertex_positions: Dictionary = {}
@@ -199,12 +207,14 @@ class GraphDrawing extends Graph:
 	# Test if two edges cross
 	# TODO: This code doesn't work. Make a new system to detect edge crossings in the Edge class
 	static func test_edge_crossing(edge1: Edge, edge2: Edge) -> bool:
-		#var t: float = (edge2.head.position.x - edge1.head.position.x) / (edge1.tail.position.x - edge1.head.position.x - edge2.tail.position.x + edge2.head.position.x)
-		#var t2: float = (edge2.head.position.y - edge1.head.position.y) / (edge1.tail.position.y - edge1.head.position.y - edge2.tail.position.y + edge2.head.position.y)
-		#print("x: " + str(t) + ", y: " + str(t2) + ", result: " + str((0 <= t && t <= 1) && (0 <= t2 && t2 <= 1)))
-		#return (0 <= t && t <= 1) && (0 <= t2 && t2 <= 1)
-		return ccw(edge1.head, edge2.head, edge2.tail) != ccw(edge1.tail, edge2.head, edge2.tail) \
-			and ccw(edge1.head, edge1.tail, edge2.head) != ccw(edge1.head, edge1.tail, edge2.tail)
+		var t: float = (edge2.head.position.x - edge1.head.position.x) / (edge1.tail.position.x - edge1.head.position.x - edge2.tail.position.x + edge2.head.position.x)
+		var t2: float = (edge2.head.position.y - edge1.head.position.y) / (edge1.tail.position.y - edge1.head.position.y - edge2.tail.position.y + edge2.head.position.y)
+		print("x: " + str(t) + ", y: " + str(t2) + ", result: " + str((0 <= t && t <= 1) && (0 <= t2 && t2 <= 1)))
+		return (0.05 <= t && t <= 0.95) && (0.05 <= t2 && t2 <= 0.95)
+		
+		# StackOverflow version
+		#return ccw(edge1.head, edge2.head, edge2.tail) != ccw(edge1.tail, edge2.head, edge2.tail) \
+			#and ccw(edge1.head, edge1.tail, edge2.head) != ccw(edge1.head, edge1.tail, edge2.tail)
 	
 	# credit: https://stackoverflow.com/questions/3838329/how-can-i-check-if-two-segments-intersect
 	static func ccw(A: PositionedVertex, B: PositionedVertex, C: PositionedVertex) -> float:

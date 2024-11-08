@@ -4,6 +4,7 @@ var graph: Graphs.Graph
 var drawing: Graphs.RearrangeableGraphDrawing
 
 const n_vertices: int = 8
+const average_degree: int = 7
 const size: Vector2 = Vector2(500, 500)
 
 @export var font: Font
@@ -19,7 +20,9 @@ func _ready() -> void:
 		#5: [2, 3],
 		#6: []
 	#})
-	graph = Graphs.Graph.get_random_connected(n_vertices)
+	print("Hi " + str(Graphs.Graph.get_edge_chance_from_mst(n_vertices, average_degree)))
+	graph = Graphs.Graph.get_random_connected(n_vertices, Graphs.Graph.get_edge_chance_from_mst(n_vertices, average_degree))
+	#graph = Graphs.Graph.get_random_mst(n_vertices)
 	drawing = graph.get_drawing_best().get_rearrangeable()
 
 var last_mouse_position: Vector2
@@ -28,7 +31,7 @@ var last_mouse_position: Vector2
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
 		#drawing.improve_spacing()
-		graph = Graphs.Graph.get_random_connected(n_vertices)
+		graph = Graphs.Graph.get_random_connected(n_vertices, Graphs.Graph.get_edge_chance_from_mst(n_vertices, average_degree))
 		drawing = graph.get_drawing_best().get_rearrangeable()
 		queue_redraw()
 	#if Input.is_action_just_pressed("ui_down"):
