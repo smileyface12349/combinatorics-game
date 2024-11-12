@@ -58,10 +58,15 @@ func _draw() -> void:
 		
 	var draw_edge: Callable = func (end1: Vector2, end2: Vector2, crosses: bool = false) -> void:
 		draw_line(end1, end2, Color.RED if crosses else Color.BLACK, 2)
+		#draw_line(end1, end2, Color.BLACK, 2)
+		
+	var draw_edge_crossing: Callable = func (position: Vector2) -> void:
+		draw_circle(position, 5, Color.RED, true)
 	
-	graph.draw(
+	graph.draw_rearrangeable(
 		size,
 		draw_vertex,
 		draw_edge,
-		true
+		draw_edge_crossing
 	)
+	

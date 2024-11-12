@@ -79,17 +79,20 @@ class Graph:
 		return ((average_degree-2) * n_vertices + 2) / (pow(2, n_vertices) - n_vertices + 1) / 2
 		
 	# Outputs a graph drawing where all nodes are positioned randomly
-	func get_drawing_random() -> GraphDrawing:
+	func get_drawing_random(deep_copy: bool = false) -> GraphDrawing:
 		var vertex_positions: Dictionary = {}
 		for vertex: int in self.vertex_neighbours.keys():
 			vertex_positions[vertex] = Vector2(randf(), randf())
-		return GraphDrawing.new(vertex_neighbours, vertex_positions)
+		if deep_copy:
+			return GraphDrawing.new(vertex_neighbours.duplicate(true), vertex_positions)
+		else:
+			return GraphDrawing.new(vertex_neighbours, vertex_positions)
 		
 	# Outputs a graph drawing using the Fruchterman-Reingold algorithm such that nodes are spaced
 	# far apart, but also close to their neighbours
 	# Keeps going until max time or min amount of total movement, whichever comes first.
-	func get_drawing_best(max_time: float = 0.1, min_movement: float = 0.01) -> GraphDrawing:
-		var drawing: GraphDrawing = self.get_drawing_random()
+	func get_drawing_best(deep_copy: bool = false, max_time: float = 0.1, min_movement: float = 0.01) -> GraphDrawing:
+		var drawing: GraphDrawing = self.get_drawing_random(deep_copy)
 		var total_movement: float
 		var start_time: float = Time.get_unix_time_from_system()
 		while (Time.get_unix_time_from_system() - start_time) < max_time:
@@ -107,18 +110,28 @@ class Graph:
 	func is_planar() -> bool:
 		return true # TODO
 		
+	# Deletes a vertex, and all edges incident to it
+	func delete_vertex(vertex: int) -> void:
+		var neighbours: Array = self.vertex_neighbours[vertex]
+		for neighbour: int in neighbours:
+			self.vertex_neighbours[neighbour].erase(vertex)
+		self.vertex_neighbours.erase(vertex)
+		
 	
 # A graph where each node has a position
 class GraphDrawing extends Graph:
 	var vertex_positions: Dictionary
 	var edge_crossings_cache: Array[Edge]
+	var edge_intersections_cache: Array[Vector2]
 	var edge_crossings_cache_invalidate: bool
+	var edge_intersections_cache_invalidate: bool
 	
 	func _init(vertex_neighbours: Dictionary = {}, vertex_positions: Dictionary = {}) -> void:
 		super(vertex_neighbours)
 		self.vertex_positions = vertex_positions
 		self.edge_crossings_cache = []
 		self.edge_crossings_cache_invalidate = true
+		self.edge_intersections_cache_invalidate = true
 		
 	func get_vertex_info(vertex: int) -> PositionedVertex:
 		return PositionedVertex.new(vertex, self.vertex_positions[vertex])
@@ -161,8 +174,16 @@ class GraphDrawing extends Graph:
 			self.edge_crossings_cache_invalidate = false
 		return self.edge_crossings_cache
 		
+	# Gets all the points at which edges intersect with each other
+	func get_edge_intersections() -> Array[Vector2]:
+		if self.edge_intersections_cache_invalidate:
+			self.edge_intersections_cache = self.force_get_edge_intersections()
+			self.edge_intersections_cache_invalidate = false
+		return self.edge_intersections_cache
+		
 	func invalidate_edge_crossings_cache() -> void:
 		self.edge_crossings_cache_invalidate = true
+		self.edge_intersections_cache_invalidate = true
 		
 	func force_get_crossing_edges() -> Array[Edge]:
 		var edges: Array[Edge] = []
@@ -181,6 +202,47 @@ class GraphDrawing extends Graph:
 						edges.append(edge2)
 		
 		return edges
+		
+	func force_get_edge_intersections() -> Array[Vector2]:
+		var vertices: Array[Vector2] = []
+
+		for edge1: Edge in self.get_undirected_edge_list():
+			for edge2: Edge in self.get_undirected_edge_list():
+				# only consider each pair once
+				if not (edge1.head.id < edge2.head.id || (edge1.head.id == edge2.head.id && edge1.tail.id < edge2.tail.id)):
+					continue
+					
+				var intersection: Vector2 = self.get_intersection_point(edge1, edge2)
+				if intersection != Vector2(-1, -1):
+					vertices.append(intersection)
+					
+		return vertices
+		
+	# Gets the intersection point between two edges by solving parametric equations
+	static func get_intersection_point(e1: Edge, e2: Edge) -> Vector2:
+		var x1: float = e1.t.p.x
+		var y1: float = e1.t.p.y
+		var x2: float = e1.h.p.x
+		var y2: float = e1.h.p.y
+		
+		var x3: float = e2.t.p.x
+		var y3: float = e2.t.p.y
+		var x4: float = e2.h.p.x
+		var y4: float = e2.h.p.y
+
+		var denom: float = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
+		if abs(denom) < 0.0001:  # Check for parallel lines
+			return Vector2(-1, -1)
+
+		var t: float = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / denom
+		var u: float = ((x1 - x3) * (y1 - y2) - (y1 - y3) * (x1 - x2)) / denom
+
+		if (0.00001 <= t && t <= 0.99999) and (0 <= u && u <= 1):
+			return Vector2(
+				x1 + t * (x2 - x1),
+				y1 + t * (y2 - y1)
+			)
+		return Vector2(-1, -1)
 		
 	# Gets all the edges not listed in the input
 	func get_other_edges(edges: Array[Edge]) -> Array[Edge]:
@@ -205,22 +267,9 @@ class GraphDrawing extends Graph:
 		return self.get_crossing_edges().is_empty()
 		
 	# Test if two edges cross
-	# TODO: This code doesn't work. Make a new system to detect edge crossings in the Edge class
 	static func test_edge_crossing(edge1: Edge, edge2: Edge) -> bool:
-		var t: float = (edge2.head.position.x - edge1.head.position.x) / (edge1.tail.position.x - edge1.head.position.x - edge2.tail.position.x + edge2.head.position.x)
-		var t2: float = (edge2.head.position.y - edge1.head.position.y) / (edge1.tail.position.y - edge1.head.position.y - edge2.tail.position.y + edge2.head.position.y)
-		print("x: " + str(t) + ", y: " + str(t2) + ", result: " + str((0 <= t && t <= 1) && (0 <= t2 && t2 <= 1)))
-		return (0.05 <= t && t <= 0.95) && (0.05 <= t2 && t2 <= 0.95)
-		
-		# StackOverflow version
-		#return ccw(edge1.head, edge2.head, edge2.tail) != ccw(edge1.tail, edge2.head, edge2.tail) \
-			#and ccw(edge1.head, edge1.tail, edge2.head) != ccw(edge1.head, edge1.tail, edge2.tail)
+		return get_intersection_point(edge1, edge2) != Vector2(-1, -1)
 	
-	# credit: https://stackoverflow.com/questions/3838329/how-can-i-check-if-two-segments-intersect
-	static func ccw(A: PositionedVertex, B: PositionedVertex, C: PositionedVertex) -> float:
-		return (C.position.y-A.position.y) * (B.position.x-A.position.x) \
-			> (B.position.y-A.position.y) * (C.position.x-A.position.x)
-		
 	# Repositions the nodes to (hopefully) lead to a better drawing
 	# Outputs the total amount of movement (you may want to use this to detect convergence)
 	func improve_spacing() -> float:
@@ -267,11 +316,41 @@ class GraphDrawing extends Graph:
 			self.vertex_positions[vertex] -= displacement.normalized() * force
 			forces[vertex] -= displacement.normalized() * force
 			
+		# Graph changed: invalidate cache
+		self.invalidate_edge_crossings_cache()
+			
 		# Output total amount of movement (use this to detect convergence)
 		var total_force: float = 0
 		for force: Vector2 in forces.values(): 
 			total_force += force.length()
 		return total_force
+		
+	# Moves the drawing to the center of the page, preserving the shape and distances
+	func recenter_drawing() -> void:
+		# Determine the bounds
+		var x_min: float = 1
+		var x_max: float = 0
+		var y_min: float = 1
+		var y_max: float = 0
+		
+		for pos: Vector2 in self.vertex_positions.values():
+			if pos.x < x_min:
+				x_min = pos.x
+			if pos.x > x_max:
+				x_max = pos.x
+			if pos.y < y_min:
+				y_min = pos.y
+			if pos.y > y_max:
+				y_max = pos.y
+				
+		# Translate and scale each coordinate
+		for vertex: int in self.vertex_positions:
+			self.vertex_positions[vertex] -= Vector2(x_min, y_min)
+			self.vertex_positions[vertex].x /= x_max - x_min
+			self.vertex_positions[vertex].y /= y_max - y_min
+		
+		# We've changed the graph - invalidate the cache
+		self.invalidate_edge_crossings_cache()
 		
 	# Forces a vertex inside bounds (moves it onto the boundary)
 	func keep_vertex_inside(vertex: int) -> void:
@@ -313,9 +392,18 @@ class GraphDrawing extends Graph:
 		for vertex: int in self.vertex_neighbours.keys():
 			draw_vertex.call(self.get_draw_pos(vertex, size), vertex)
 			
+	# Deletes a vertex, and all edges incident to it
+	func delete_vertex(vertex: int) -> void:
+		self.vertex_positions.erase(vertex)
+		super(vertex)
+		self.invalidate_edge_crossings_cache()
+			
 	# Get a rearrangeable version of the graph
-	func get_rearrangeable() -> RearrangeableGraphDrawing:
-		return RearrangeableGraphDrawing.new(self.vertex_neighbours, self.vertex_positions)
+	func get_rearrangeable(deep_copy: bool = false) -> RearrangeableGraphDrawing:
+		if deep_copy:
+			return RearrangeableGraphDrawing.new(self.vertex_neighbours.duplicate(true), self.vertex_positions.duplicate(true))
+		else:
+			return RearrangeableGraphDrawing.new(self.vertex_neighbours, self.vertex_positions)
 
 
 # A class to handle a graph that can be rearranged by the user. Don't forget to keep it updated
@@ -364,26 +452,25 @@ class RearrangeableGraphDrawing extends GraphDrawing:
 	func left_mouse_released() -> void:
 		self.selected_vertex = -1
 		
-	func draw(size: Vector2, draw_vertex: Callable, draw_edge: Callable, compute_crossings: bool = true) -> void:
+	func right_mouse_clicked() -> void:
+		pass # only used for minor stuff
+		
+	func right_mouse_released() -> void:
+		pass # unused
+		
+	func draw_rearrangeable(size: Vector2, draw_vertex: Callable, draw_edge: Callable, draw_edge_intersection: Callable) -> void:
 		# Update cached size
 		self.size = size
 		
-		print("Total Edges: " + str(self.get_undirected_edge_list().size()))
-		
 		# Draw edges first so that they are behind
-		if compute_crossings:
-			var crossing_edges: Array[Edge] = self.get_crossing_edges()
-			print("Crossing Edges: " + str(crossing_edges.size()))
-			#assert(self.get_other_edges(crossing_edges).size() + crossing_edges.size() == self.get_undirected_edge_list().size())
-			# Draw non-crossing edges first
-			for edge: Edge in self.get_other_edges(crossing_edges):
-				draw_edge.call(self.get_draw_pos(edge.head.id, size), self.get_draw_pos(edge.tail.id, size), false)
-			# Then emphasise the edges that are crossing over others
-			for edge: Edge in crossing_edges:
-				draw_edge.call(self.get_draw_pos(edge.head.id, size), self.get_draw_pos(edge.tail.id, size), true)
-		else:
-			for edge: Edge in self.get_undirected_edge_list():
-				draw_edge.call(self.get_draw_pos(edge.head.id, size), self.get_draw_pos(edge.tail.id, size))
+		var crossing_edges: Array[Edge] = self.get_crossing_edges()
+		#(self.get_other_edges(crossing_edges).size() + crossing_edges.size() == self.get_undirected_edge_list().size())
+		# Draw non-crossing edges first
+		for edge: Edge in self.get_other_edges(crossing_edges):
+			draw_edge.call(self.get_draw_pos(edge.head.id, size), self.get_draw_pos(edge.tail.id, size), false)
+		# Then emphasise the edges that are crossing over others
+		for edge: Edge in crossing_edges:
+			draw_edge.call(self.get_draw_pos(edge.head.id, size), self.get_draw_pos(edge.tail.id, size), true)
 			
 		# Draw vertices second
 		for vertex: int in self.vertex_neighbours.keys():
@@ -395,7 +482,54 @@ class RearrangeableGraphDrawing extends GraphDrawing:
 			else:
 				state = RearrangeableVertexState.Default
 			draw_vertex.call(self.get_draw_pos(vertex, size), vertex, state)
+		
+		# Draw edge intersections
+		for crossing_vertex: Vector2 in self.get_edge_intersections():
+			draw_edge_intersection.call(self.vertex_to_world(crossing_vertex, size))
 	
+	func get_minor_rearrangeable(deep_copy: bool = false) -> MinorRearrangeableGraphDrawing:
+		if deep_copy:
+			return MinorRearrangeableGraphDrawing.new(self.vertex_neighbours.duplicate(true), self.vertex_positions.duplicate(true))
+		else:
+			return MinorRearrangeableGraphDrawing.new(self.vertex_neighbours, self.vertex_positions)
+	
+class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
+	# A rearrangeable graph that also supports vertex and edge deletions using right click, and
+	# vertex contractions by dragging vertices on top of each other
+	
+	func _init(vertex_neighbours: Dictionary = {}, vertex_positions: Dictionary = {}) -> void:
+		super(vertex_neighbours, vertex_positions)
+		
+	func right_mouse_clicked() -> void:
+		var vertex_to_delete: int = self.get_vertex_at_mouse()
+		if vertex_to_delete != -1:
+			self.delete_vertex(vertex_to_delete)
+			
+		# TODO: Delete edge if clicked on
+		
+	func right_mouse_released() -> void:
+		pass # don't actually care right now
+		
+	func draw_rearrangeable(size: Vector2, draw_vertex: Callable, draw_edge: Callable, draw_edge_intersection: Callable) -> void:
+		# Update cached size
+		self.size = size
+
+		# We don't care about what's crossing over any more
+		for edge: Edge in self.get_undirected_edge_list():
+			draw_edge.call(self.get_draw_pos(edge.head.id, size), self.get_draw_pos(edge.tail.id, size), false)
+		# TODO: Draw edges differently if they are being hovered over (only highlight the first one being hovered over)
+			
+		# Draw vertices second
+		for vertex: int in self.vertex_neighbours.keys():
+			var state: RearrangeableVertexState
+			if self.selected_vertex == vertex:
+				state = RearrangeableVertexState.Selected
+			elif self.is_hovering_over_vertex(vertex):
+				state = RearrangeableVertexState.Hover
+			else:
+				state = RearrangeableVertexState.Default
+			draw_vertex.call(self.get_draw_pos(vertex, size), vertex, state)
+		
 				
 # An edge in a graph (not used in representing graphs, but can be useful in some situations).
 # These may be used as directed or undirected edges.
@@ -403,6 +537,14 @@ class RearrangeableGraphDrawing extends GraphDrawing:
 class Edge:
 	var head: PositionedVertex
 	var tail: PositionedVertex
+	
+	# Shorthand
+	var h: PositionedVertex:
+		get:
+			return head
+	var t: PositionedVertex:
+		get:
+			return tail
 	
 	func _init(head: PositionedVertex, tail: PositionedVertex) -> void:
 		self.head = head
@@ -421,6 +563,11 @@ class Vertex:
 # Not used internally when storing graphs, but can be used when returning values
 class PositionedVertex extends Vertex:
 	var position: Vector2
+	
+	# Shorthand
+	var p: Vector2:
+		get:
+			return position
 	
 	func _init(id: int, position: Vector2) -> void:
 		super(id)
