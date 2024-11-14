@@ -78,6 +78,20 @@ class Graph:
 	static func get_edge_chance_from_mst(n_vertices: int, average_degree: int) -> float:
 		return ((average_degree-2) * n_vertices + 2) / (pow(2, n_vertices) - n_vertices + 1) / 2
 		
+	# Get number of edges
+	func get_edge_count() -> int:
+		var edge_count: int = 0
+		for vertex: int in self.vertex_neighbours.keys():
+			for neighbour: int in self.vertex_neighbours[vertex]:
+				if vertex >= neighbour:
+					continue
+				edge_count += 1
+		return edge_count
+		
+	# Get number of vertices
+	func get_vertex_count() -> int:
+		return self.vertex_neighbours.keys().size()
+		
 	# Outputs a graph drawing where all nodes are positioned randomly
 	func get_drawing_random(deep_copy: bool = false) -> GraphDrawing:
 		var vertex_positions: Dictionary = {}
@@ -117,6 +131,29 @@ class Graph:
 			self.vertex_neighbours[neighbour].erase(vertex)
 		self.vertex_neighbours.erase(vertex)
 		
+	# Deletes an edge
+	func delete_edge(edge: Edge) -> void:
+		self.vertex_neighbours[edge.head.id].erase(edge.tail.id)
+		self.vertex_neighbours[edge.tail.id].erase(edge.head.id)
+		
+	# Contract two vertices
+	func contract_vertices(vertex1: int, vertex2: int) -> void:
+		# Determine new list of neighbours
+		var new_neighbours: Array[int] = []
+		
+		# For each neighbour of vertex2, replace it with vertex1
+		for neighbour: int in self.vertex_neighbours[vertex2]:
+			self.vertex_neighbours[neighbour].erase(vertex2)
+			if vertex1 not in self.vertex_neighbours[neighbour]:
+				self.vertex_neighbours[neighbour].append(vertex1)
+				new_neighbours.append(neighbour)
+				
+		# Remove vertex2
+		self.vertex_neighbours.erase(vertex2)
+		
+		# Add the new neighbours to vertex1
+		self.vertex_neighbours[vertex1].append_array(new_neighbours)
+	
 	
 # A graph where each node has a position
 class GraphDrawing extends Graph:
@@ -181,9 +218,14 @@ class GraphDrawing extends Graph:
 			self.edge_intersections_cache_invalidate = false
 		return self.edge_intersections_cache
 		
-	func invalidate_edge_crossings_cache() -> void:
+	func graph_drawing_changed() -> void:
 		self.edge_crossings_cache_invalidate = true
 		self.edge_intersections_cache_invalidate = true
+		self.check_win()
+		
+	# Override depending on type of graph
+	func check_win() -> void:
+		pass
 		
 	func force_get_crossing_edges() -> Array[Edge]:
 		var edges: Array[Edge] = []
@@ -261,7 +303,6 @@ class GraphDrawing extends Graph:
 				break
 		return in_test
 		
-	
 	# Determines if this particular drawing of the graph is planar.
 	func is_drawing_planar() -> bool:
 		return self.get_crossing_edges().is_empty()
@@ -317,7 +358,7 @@ class GraphDrawing extends Graph:
 			forces[vertex] -= displacement.normalized() * force
 			
 		# Graph changed: invalidate cache
-		self.invalidate_edge_crossings_cache()
+		self.graph_drawing_changed()
 			
 		# Output total amount of movement (use this to detect convergence)
 		var total_force: float = 0
@@ -350,7 +391,23 @@ class GraphDrawing extends Graph:
 			self.vertex_positions[vertex].y /= y_max - y_min
 		
 		# We've changed the graph - invalidate the cache
-		self.invalidate_edge_crossings_cache()
+		self.graph_drawing_changed()
+	
+	# Shrinks the drawing, bringing it naturally closer to the center
+	func shrink_drawing(amount: float = 0.1) -> void:
+		for vertex: int in self.vertex_positions:
+			# Get distance and direction from center
+			var distance: float = self.vertex_positions[vertex].distance_to(Vector2(0.5, 0.5))
+			var direction: Vector2 = (self.vertex_positions[vertex] - Vector2(0.5, 0.5)).normalized()
+			
+			# Shrink this distance by the given amount
+			distance *= (1-amount)
+			
+			# Update the new position
+			self.vertex_positions[vertex] = Vector2(0.5, 0.5) + direction * distance
+			
+		# Invalidate cache
+		self.graph_drawing_changed()
 		
 	# Forces a vertex inside bounds (moves it onto the boundary)
 	func keep_vertex_inside(vertex: int) -> void:
@@ -396,7 +453,13 @@ class GraphDrawing extends Graph:
 	func delete_vertex(vertex: int) -> void:
 		self.vertex_positions.erase(vertex)
 		super(vertex)
-		self.invalidate_edge_crossings_cache()
+		self.graph_drawing_changed()
+		
+	# Contracts two vertices
+	func contract_vertices(vertex1: int, vertex2: int) -> void:
+		super(vertex1, vertex2)
+		self.vertex_positions.erase(vertex2)
+		self.graph_drawing_changed()
 			
 	# Get a rearrangeable version of the graph
 	func get_rearrangeable(deep_copy: bool = false) -> RearrangeableGraphDrawing:
@@ -413,16 +476,26 @@ class RearrangeableGraphDrawing extends GraphDrawing:
 	var selected_vertex_offset_from_mouse: Vector2
 	var mouse_position: Vector2
 	var size: Vector2
+	var on_win: Callable
+	var has_won: bool # only need to call the win function once. cannot undo a win
 	
-	func _init(vertex_neighbours: Dictionary = {}, vertex_positions: Dictionary = {}) -> void:
+	func _init(vertex_neighbours: Dictionary = {}, vertex_positions: Dictionary = {}, on_win: Callable = Callable()) -> void:
 		super(vertex_neighbours, vertex_positions)
 		self.selected_vertex = -1
 		self.mouse_position = Vector2(0, 0)
 		self.size = Vector2(0, 0)
+		self.on_win = on_win
+		self.has_won = false
 		
 	# Resize the drawing. This can instead be done when calling draw().
 	func resize(new_size: Vector2) -> void:
 		self.size = new_size
+		
+	# Check for win
+	func check_win() -> void:
+		if not self.has_won and self.get_crossing_edges().is_empty():
+			self.on_win.call()
+			self.has_won = true
 	
 	# Check if mouse is hovering over this vertex. Last drawn size is used
 	func is_hovering_over_vertex(vertex: int, vertex_radius: int = 10) -> bool:
@@ -436,13 +509,59 @@ class RearrangeableGraphDrawing extends GraphDrawing:
 			if self.is_hovering_over_vertex(vertex):
 				return vertex
 		return -1
-
+		
+	func get_other_vertex_at_mouse(exclude_vertex: int) -> int:
+		for vertex: int in self.vertex_positions.keys():
+			if vertex == exclude_vertex:
+				continue
+			if self.is_hovering_over_vertex(vertex):
+				return vertex
+		return -1
+		
+	func is_hovering_over_edge(edge: Edge, distance_to_edge: float = 4) -> bool:
+		# If we're also hovering over a vertex, then don't hover over any edges
+		# TODO: This could be more efficient
+		if self.get_vertex_at_mouse() != -1:
+			return false
+		
+		# Get necessary variables, all in vertex coordinates
+		var line_segment: Vector2 = edge.tail.position - edge.head.position
+		var head_to_point: Vector2 = self.mouse_position - edge.head.position
+		
+		# Project point onto line using a dot product
+		var t: float = clamp(head_to_point.dot(line_segment) / line_segment.length_squared(), 0, 1)
+		var closest_point: Vector2 = edge.head.position + t * line_segment
+		
+		# Convert to world coordinates so we can test a pixel value instead of relative to graph size
+		var mouse_pos: Vector2 = self.vertex_to_world(self.mouse_position, self.size)
+		var closest: Vector2 = self.vertex_to_world(closest_point, self.size)
+		
+		# Determine if the closest point is close enough
+		return mouse_pos.distance_to(closest) <= distance_to_edge
+		
+	func get_edge_at_mouse() -> Edge:
+		for edge: Edge in self.get_undirected_edge_list():
+			if self.is_hovering_over_edge(edge):
+				return edge
+		return null
+		
+	func is_vertex_intersecting_with(vertex1: int, vertex2: int, vertex_radius: float = 10) -> bool:
+		return self.get_draw_pos(vertex1, self.size).distance_to(self.get_draw_pos(vertex2, self.size)) <= vertex_radius
+		
+	func is_vertex_intersecting_with_any(vertex: int, vertex_radius: float = 10) -> bool:
+		for vertex2: int in self.vertex_neighbours.keys():
+			if vertex2 == vertex:
+				continue
+			if self.is_vertex_intersecting_with(vertex, vertex2, vertex_radius):
+				return true
+		return false
+		
 	func mouse_moved(new_position: Vector2) -> void:
 		self.mouse_position = new_position
 		if self.selected_vertex != -1:
 			self.vertex_positions[self.selected_vertex] = mouse_position + self.selected_vertex_offset_from_mouse
 			self.keep_vertex_inside(self.selected_vertex)
-			self.invalidate_edge_crossings_cache()
+			self.graph_drawing_changed()
 		
 	func left_mouse_clicked() -> void:
 		self.selected_vertex = self.get_vertex_at_mouse()
@@ -453,7 +572,7 @@ class RearrangeableGraphDrawing extends GraphDrawing:
 		self.selected_vertex = -1
 		
 	func right_mouse_clicked() -> void:
-		pass # only used for minor stuff
+		pass # only used for stuff with graph minors
 		
 	func right_mouse_released() -> void:
 		pass # unused
@@ -487,18 +606,50 @@ class RearrangeableGraphDrawing extends GraphDrawing:
 		for crossing_vertex: Vector2 in self.get_edge_intersections():
 			draw_edge_intersection.call(self.vertex_to_world(crossing_vertex, size))
 	
-	func get_minor_rearrangeable(deep_copy: bool = false) -> MinorRearrangeableGraphDrawing:
+	func get_minor_rearrangeable(deep_copy: bool = false, on_win: Callable = Callable()) -> MinorRearrangeableGraphDrawing:
 		if deep_copy:
-			return MinorRearrangeableGraphDrawing.new(self.vertex_neighbours.duplicate(true), self.vertex_positions.duplicate(true))
+			return MinorRearrangeableGraphDrawing.new(self.vertex_neighbours.duplicate(true), self.vertex_positions.duplicate(true), on_win)
 		else:
-			return MinorRearrangeableGraphDrawing.new(self.vertex_neighbours, self.vertex_positions)
+			return MinorRearrangeableGraphDrawing.new(self.vertex_neighbours, self.vertex_positions, on_win)
 	
 class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 	# A rearrangeable graph that also supports vertex and edge deletions using right click, and
 	# vertex contractions by dragging vertices on top of each other
 	
-	func _init(vertex_neighbours: Dictionary = {}, vertex_positions: Dictionary = {}) -> void:
-		super(vertex_neighbours, vertex_positions)
+	func _init(vertex_neighbours: Dictionary = {}, vertex_positions: Dictionary = {}, on_win: Callable = Callable()) -> void:
+		super(vertex_neighbours, vertex_positions, on_win)
+		
+	# Check for win
+	func check_win() -> void:
+		if self.has_won:
+			return
+			
+		var num_vertices: int = self.get_vertex_count()
+		var num_edges: int = self.get_edge_count()
+		
+		# Check if it's a K_5
+		if (num_vertices == 5 and num_edges == 10):
+			# We don't need to check how the vertices are matched up, there's no other way to do it
+			self.on_win.call()
+			self.has_won = true
+			
+		# Check if it's a K_33
+		if num_vertices == 6 and num_edges == 9:
+			# Choose a vertex arbitrarily to deduce the second set
+			var vertex1: int = self.vertex_neighbours.keys()[0]
+			var set2: Array[int] = self.vertex_neighbours[vertex1]
+			if set2.size() == 3:
+				# check that every vertex in set 2 points to a vertex in set 1 (i.e. check for bipartite)
+				var win: bool = true
+				for vertex: int in set2:
+					for neighbour: int in set2:
+						win = false
+						break
+					if not win:
+						break
+				if win:
+					self.on_win.call()
+					self.has_won = true
 		
 	func right_mouse_clicked() -> void:
 		var vertex_to_delete: int = self.get_vertex_at_mouse()
@@ -506,9 +657,20 @@ class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 			self.delete_vertex(vertex_to_delete)
 			
 		# TODO: Delete edge if clicked on
+		var edge_to_delete: Edge = self.get_edge_at_mouse()
+		if edge_to_delete != null:
+			self.delete_edge(edge_to_delete)
 		
 	func right_mouse_released() -> void:
 		pass # don't actually care right now
+		
+	# Handle edge contractions when left mouse released
+	func left_mouse_released() -> void:
+		var other_vertex: int = self.get_other_vertex_at_mouse(self.selected_vertex)
+		if other_vertex != -1:
+			# Contract selected vertex and the other vertex
+			self.contract_vertices(other_vertex, self.selected_vertex)
+		super()
 		
 	func draw_rearrangeable(size: Vector2, draw_vertex: Callable, draw_edge: Callable, draw_edge_intersection: Callable) -> void:
 		# Update cached size
@@ -517,15 +679,24 @@ class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 		# We don't care about what's crossing over any more
 		for edge: Edge in self.get_undirected_edge_list():
 			draw_edge.call(self.get_draw_pos(edge.head.id, size), self.get_draw_pos(edge.tail.id, size), false)
-		# TODO: Draw edges differently if they are being hovered over (only highlight the first one being hovered over)
+		# Now draw the edge (if any) that is being hovered over. Drawing this twice is fine, but could be changed in future.
+		var hover_edge: Edge = self.get_edge_at_mouse()
+		if hover_edge != null:
+			draw_edge.call(self.get_draw_pos(hover_edge.head.id, size), self.get_draw_pos(hover_edge.tail.id, size), true)
 			
 		# Draw vertices second
 		for vertex: int in self.vertex_neighbours.keys():
 			var state: RearrangeableVertexState
 			if self.selected_vertex == vertex:
-				state = RearrangeableVertexState.Selected
+				if self.get_other_vertex_at_mouse(vertex) != -1:
+					state = RearrangeableVertexState.Contract
+				else:
+					state = RearrangeableVertexState.Selected
 			elif self.is_hovering_over_vertex(vertex):
-				state = RearrangeableVertexState.Hover
+				if self.selected_vertex != -1:
+					state = RearrangeableVertexState.Contract
+				else:
+					state = RearrangeableVertexState.Hover
 			else:
 				state = RearrangeableVertexState.Default
 			draw_vertex.call(self.get_draw_pos(vertex, size), vertex, state)
@@ -577,5 +748,6 @@ class PositionedVertex extends Vertex:
 enum RearrangeableVertexState {
 	Default,
 	Hover,
-	Selected
+	Selected,
+	Contract
 }

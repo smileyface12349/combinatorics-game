@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://chda3relvewy7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_emykv"]
+bg_color = Color(0.258169, 0.705855, 0.31945, 1)
+
+[resource]
+Button/font_sizes/font_size = 32
+Button/styles/normal = SubResource("StyleBoxFlat_emykv")
