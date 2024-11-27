@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://po8854lqyopy"]
+
+[ext_resource type="Script" path="res://ChooseTopic/menu_car.gd" id="1_g4u3r"]
+[ext_resource type="Texture2D" uid="uid://cxqwpsa552str" path="res://ChooseTopic/car_blue_5.png" id="1_vj784"]
+
+[node name="ChooseTopic" type="Node2D"]
+
+[node name="Car" type="Node2D" parent="."]
+position = Vector2(524, 329)
+script = ExtResource("1_g4u3r")
+
+[node name="Sprite2D" type="Sprite2D" parent="Car"]
+texture = ExtResource("1_vj784")

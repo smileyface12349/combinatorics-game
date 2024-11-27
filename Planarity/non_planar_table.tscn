@@ -30,6 +30,7 @@ theme = ExtResource("2_tajbw")
 text = "Nodes"
 
 [node name="Edges" type="RichTextLabel" parent="Col1"]
+layout_mode = 0
 offset_top = 80.0
 offset_right = 68.0
 offset_bottom = 120.0
@@ -50,6 +51,7 @@ theme = ExtResource("2_tajbw")
 text = "Your Graph"
 
 [node name="CustomNodes" type="RichTextLabel" parent="Col2"]
+layout_mode = 0
 offset_top = 40.0
 offset_right = 98.0
 offset_bottom = 80.0
@@ -57,6 +59,7 @@ theme = ExtResource("2_tajbw")
 text = "###"
 
 [node name="CustomEdges" type="RichTextLabel" parent="Col2"]
+layout_mode = 0
 offset_top = 80.0
 offset_right = 98.0
 offset_bottom = 120.0
@@ -79,6 +82,7 @@ bbcode_enabled = true
 text = "K₅"
 
 [node name="K5Nodes" type="RichTextLabel" parent="Col3"]
+layout_mode = 0
 offset_top = 40.0
 offset_right = 98.0
 offset_bottom = 80.0
@@ -86,6 +90,7 @@ theme = ExtResource("2_tajbw")
 text = "5"
 
 [node name="K5Edges" type="RichTextLabel" parent="Col3"]
+layout_mode = 0
 offset_top = 80.0
 offset_right = 98.0
 offset_bottom = 120.0
@@ -108,6 +113,7 @@ bbcode_enabled = true
 text = "K₃₃"
 
 [node name="K5Nodes" type="RichTextLabel" parent="Col4"]
+layout_mode = 0
 offset_top = 40.0
 offset_right = 98.0
 offset_bottom = 80.0
@@ -115,6 +121,7 @@ theme = ExtResource("2_tajbw")
 text = "6"
 
 [node name="K5Edges" type="RichTextLabel" parent="Col4"]
+layout_mode = 0
 offset_top = 80.0
 offset_right = 98.0
 offset_bottom = 120.0

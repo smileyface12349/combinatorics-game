@@ -1,0 +1,92 @@
+extends Node
+
+const acceleration: float = 3
+const braking: float = 3
+const reverse_delay: float = 0.2
+const reverse_amount: float = 0.8
+const turn_amount: float = 3
+
+# Max speed is now controlled by air resistance alone
+#const max_forwards_speed: float = 5
+#const max_reverse_speed: float = 1
+
+const air_resistance: float = 0.2 # multiplied by velocity squared, per second
+const damping: float = 0.4 # does not scale with velocity, per second
+
+var speed: float
+var direction: float
+var reverse_delay_elapsed: float
+var is_reversing: bool
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	speed = 0
+	direction = 0
+	reverse_delay_elapsed = 0
+	is_reversing = false
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if Input.is_action_pressed("driving_accelerate"):
+		# Attempting to accelerate
+		if speed > 0:
+			# Only switch from reverse after a delay
+			if is_reversing:
+				if reverse_delay_elapsed < reverse_delay:
+					speed = 0
+					reverse_delay_elapsed += delta
+				else:
+					is_reversing = false
+					reverse_delay_elapsed = 0
+					# will accelerate next frame
+			else:
+				speed += acceleration * delta
+				#if speed > max_forwards_speed:
+					#speed = max_forwards_speed
+		# Attempting to brake
+		else:
+			speed += braking * delta
+	if Input.is_action_pressed("driving_brake"):
+		# Attempting to reverse
+		if speed < 0:
+			# Only reverse after a delay
+			if not is_reversing:
+				if reverse_delay_elapsed < reverse_delay:
+					speed = 0
+					reverse_delay_elapsed += delta
+				else:
+					is_reversing = true
+					reverse_delay_elapsed = 0
+					# will reverse next frame
+			else:
+				speed -= reverse_amount * delta
+				#if speed < -max_reverse_speed:
+					#speed = -max_reverse_speed
+		# Attempting to brake
+		else:
+			speed -= braking * delta
+	# TODO: Turn less when moving faster
+	if Input.is_action_pressed("driving_left"):
+		direction -= turn_amount * delta
+	if Input.is_action_pressed("driving_right"):
+		direction += turn_amount * delta
+		
+	# Air resistance (always against direction of travel, bigger for faster speeds)
+	if speed > 0:
+		speed -= air_resistance * delta * pow(speed, 2)
+	elif speed < 0:
+		speed += air_resistance * delta * pow(speed, 2)
+		
+	# Fixed damping (especially useful for slower speeds)
+	if speed > 0:
+		speed -= damping * delta
+		if speed < 0:
+			speed = 0
+	if speed < 0:
+		speed += damping * delta
+		if speed > 0:
+			speed = 0
+		
+	print("Speed: " + str(speed) + ", Direction: " + str(direction))
+	self.position += Vector2.from_angle(direction - PI/2) * speed
+	self.rotation = direction

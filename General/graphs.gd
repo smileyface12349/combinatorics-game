@@ -175,7 +175,7 @@ class GraphDrawing extends Graph:
 		
 	# Gets the full list of edges
 	# This will return each edge twice, one for each direction.
-	func get_edge_list() -> Array[Edge]:
+	func get_directed_edge_list() -> Array[Edge]:
 		var edge_list: Array[Edge]
 		
 		for vertex: int in self.vertex_neighbours.keys():
@@ -261,6 +261,7 @@ class GraphDrawing extends Graph:
 		return vertices
 		
 	# Gets the intersection point between two edges by solving parametric equations
+	# AI DECLARATION: ChatGPT was used in writing this function
 	static func get_intersection_point(e1: Edge, e2: Edge) -> Vector2:
 		var x1: float = e1.t.p.x
 		var y1: float = e1.t.p.y
@@ -652,11 +653,13 @@ class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 					self.has_won = true
 		
 	func right_mouse_clicked() -> void:
+		# Delete vertex if clicked on
 		var vertex_to_delete: int = self.get_vertex_at_mouse()
 		if vertex_to_delete != -1:
 			self.delete_vertex(vertex_to_delete)
+			return
 			
-		# TODO: Delete edge if clicked on
+		# Delete edge if clicked on
 		var edge_to_delete: Edge = self.get_edge_at_mouse()
 		if edge_to_delete != null:
 			self.delete_edge(edge_to_delete)
