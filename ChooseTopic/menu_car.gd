@@ -6,6 +6,11 @@ const reverse_delay: float = 0.2
 const reverse_amount: float = 0.8
 const turn_amount: float = 3
 
+const BOUNDARY_TOP: int = -750
+const BOUNDARY_BOTTOM: int = 1750
+const BOUNDARY_LEFT: int = -750
+const BOUNDARY_RIGHT: int = 2000
+
 # Max speed is now controlled by air resistance alone
 #const max_forwards_speed: float = 5
 #const max_reverse_speed: float = 1
@@ -18,12 +23,17 @@ var direction: float
 var reverse_delay_elapsed: float
 var is_reversing: bool
 
+var on_space: Callable
+var current_level: String
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	speed = 0
 	direction = 0
 	reverse_delay_elapsed = 0
 	is_reversing = false
+	get_node("Area2D").connect("area_entered", body_entered)
+	get_node("Area2D").connect("area_exited", body_exited)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -77,7 +87,7 @@ func _process(delta: float) -> void:
 	elif speed < 0:
 		speed += air_resistance * delta * pow(speed, 2)
 		
-	# Fixed damping (especially useful for slower speeds)
+	# Fixed damping (most noticeable at slower speeds)
 	if speed > 0:
 		speed -= damping * delta
 		if speed < 0:
@@ -87,6 +97,33 @@ func _process(delta: float) -> void:
 		if speed > 0:
 			speed = 0
 		
-	print("Speed: " + str(speed) + ", Direction: " + str(direction))
+	#print("Speed: " + str(speed) + ", Direction: " + str(direction))
 	self.position += Vector2.from_angle(direction - PI/2) * speed
 	self.rotation = direction
+	
+	# Stay within bounds
+	if self.position.x > BOUNDARY_RIGHT:
+		self.position.x = BOUNDARY_RIGHT
+	if self.position.x < BOUNDARY_LEFT:
+		self.position.x = BOUNDARY_LEFT
+	if self.position.y > BOUNDARY_BOTTOM:
+		self.position.y = BOUNDARY_BOTTOM
+	if self.position.y < BOUNDARY_TOP:
+		self.position.y = BOUNDARY_TOP
+
+	# Go to level that we're driving over
+	if Input.is_action_just_pressed("ui_accept"):
+		if on_space != null:
+			on_space.call()
+
+func body_entered(other: Area2D) -> void:
+	print("Body entered")
+	if other.has_method("go"):
+		on_space = other.go
+		current_level = other.topic_name
+
+func body_exited(other: Area2D) -> void:
+	print("body exited")
+	# TODO: Fix this and then display current_level as text (might want to remove current_level variable and just update text onscreen instead)
+	on_space = null
+	current_level = null
