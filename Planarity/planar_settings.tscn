@@ -1,0 +1,105 @@
+[gd_scene load_steps=11 format=3 uid="uid://bw5nw7s0uevf7"]
+
+[ext_resource type="Theme" uid="uid://crnnsrj7q2hwh" path="res://General/Background.tres" id="1_t604e"]
+[ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="2_8ii1i"]
+[ext_resource type="Theme" uid="uid://c8skqvn51f2mv" path="res://Menu/subtitle.tres" id="3_3ebjb"]
+[ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_spin_button.gd" id="4_54ugn"]
+[ext_resource type="Theme" uid="uid://dlcxcyr3vrmuw" path="res://Menu/SpinButton.tres" id="5_n38al"]
+[ext_resource type="Texture2D" uid="uid://0b3v0imcjtk3" path="res://addons/spin_button/example/assets/icons/buttons/navs/arrow_right_x32.png" id="7_hkp87"]
+[ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_slider_button.gd" id="8_dsqc8"]
+[ext_resource type="Texture2D" uid="uid://ocyfhsatf1sx" path="res://addons/spin_button/example/assets/icons/buttons/navs/arrow_left_x32.png" id="8_hg4ud"]
+[ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="9_6x0t8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwxsr"]
+bg_color = Color(0.810168, 0.825132, 0.783068, 1)
+
+[node name="PlanarSettings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1930.0
+offset_bottom = 1095.0
+theme = ExtResource("1_t604e")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dwxsr")
+
+[node name="Title" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_top = 67.0
+offset_right = 1922.0
+offset_bottom = 371.0
+theme = ExtResource("2_8ii1i")
+bbcode_enabled = true
+text = "[center]Planar Graphs"
+
+[node name="Subtitle" type="RichTextLabel" parent="Title"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 172.0
+offset_right = 1923.0
+offset_bottom = 286.0
+theme = ExtResource("3_3ebjb")
+bbcode_enabled = true
+text = "[center]Practice Mode"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 460.0
+offset_top = 408.0
+offset_right = 1460.0
+offset_bottom = 1058.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(1000, 500)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ProblemTypes" type="Button" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("5_n38al")
+script = ExtResource("4_54ugn")
+items = Array[String](["Planar Graphs", "Non-Planar Graphs", "Planar and Non-Planar Graphs"])
+selected = 2
+item_count = 3
+loop = true
+next_icon = ExtResource("7_hkp87")
+prev_icon = ExtResource("8_hg4ud")
+title = "Problem Types"
+
+[node name="GraphGeneration" type="Button" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("5_n38al")
+script = ExtResource("4_54ugn")
+items = Array[String](["Random Graphs", "Extra Hard Mode"])
+selected = 0
+item_count = 2
+loop = true
+next_icon = ExtResource("7_hkp87")
+prev_icon = ExtResource("8_hg4ud")
+title = "Graph Generation"
+
+[node name="NumNodes" type="Button" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("5_n38al")
+script = ExtResource("8_dsqc8")
+min_value = 6.0
+max_value = 15.0
+value = 8.0
+value_label_visibility = 1
+value_label_placement = 0
+value_separation = 25
+title = "Number of Nodes"
+
+[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("9_6x0t8")
+text = "Go"

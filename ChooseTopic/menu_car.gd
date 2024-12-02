@@ -11,6 +11,8 @@ const BOUNDARY_BOTTOM: int = 1750
 const BOUNDARY_LEFT: int = -750
 const BOUNDARY_RIGHT: int = 2000
 
+@export var dialog_text: RichTextLabel
+
 # Max speed is now controlled by air resistance alone
 #const max_forwards_speed: float = 5
 #const max_reverse_speed: float = 1
@@ -23,8 +25,21 @@ var direction: float
 var reverse_delay_elapsed: float
 var is_reversing: bool
 
-var on_space: Callable
-var current_level: String
+class TopicHover:
+	var go: Callable
+	var text: String
+	
+	static func new_no_topic() -> TopicHover:
+		return TopicHover.new(Callable(), "")
+	
+	func _init(go: Callable, text: String) -> void:
+		self.go = go
+		self.text = text
+		
+	func is_topic() -> bool:
+		return self.text != ""
+
+var current: TopicHover = TopicHover.new_no_topic()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -32,6 +47,7 @@ func _ready() -> void:
 	direction = 0
 	reverse_delay_elapsed = 0
 	is_reversing = false
+	dialog_text.text = ""  # text sometimes put in for testing
 	get_node("Area2D").connect("area_entered", body_entered)
 	get_node("Area2D").connect("area_exited", body_exited)
 
@@ -113,17 +129,17 @@ func _process(delta: float) -> void:
 
 	# Go to level that we're driving over
 	if Input.is_action_just_pressed("ui_accept"):
-		if on_space != null:
-			on_space.call()
+		if current.is_topic():
+			current.go.call()
 
 func body_entered(other: Area2D) -> void:
 	print("Body entered")
 	if other.has_method("go"):
-		on_space = other.go
-		current_level = other.topic_name
+		current = TopicHover.new(other.go, other.topic_name)
+		dialog_text.text = "[center]Press SPACE or ENTER to go to " + current.text
 
 func body_exited(other: Area2D) -> void:
 	print("body exited")
 	# TODO: Fix this and then display current_level as text (might want to remove current_level variable and just update text onscreen instead)
-	on_space = null
-	current_level = null
+	current = TopicHover.new_no_topic()
+	dialog_text.text = ""
