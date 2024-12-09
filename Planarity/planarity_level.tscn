@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://pttw3w884dtk"]
+[gd_scene load_steps=10 format=3 uid="uid://pttw3w884dtk"]
 
 [ext_resource type="Script" path="res://Planarity/planarity_level.gd" id="1_bvqhp"]
 [ext_resource type="PackedScene" uid="uid://b56b0ua4mtymv" path="res://Planarity/non_planar_table.tscn" id="2_3gqbe"]
 [ext_resource type="Script" path="res://Planarity/planar_graph.gd" id="2_ca3q1"]
+[ext_resource type="Texture2D" uid="uid://bd7o84al3f5qd" path="res://Planarity/flip-chart.png" id="2_mipig"]
 [ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="3_uqq12"]
 [ext_resource type="FontFile" uid="uid://c13m3wup8q1k5" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Black.ttf" id="3_xbkjo"]
 [ext_resource type="Script" path="res://Planarity/non_planar_graph.gd" id="4_4fd3f"]
@@ -29,6 +30,11 @@ nonPlanarWinButton = NodePath("Panel/NonPlanarWinButton")
 offset_right = 1923.0
 offset_bottom = 1081.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_yjt5m")
+
+[node name="Flip-chart" type="Sprite2D" parent="Panel"]
+position = Vector2(470.5, 722)
+scale = Vector2(3.59507, 2.86389)
+texture = ExtResource("2_mipig")
 
 [node name="NonPlanarHeading" type="RichTextLabel" parent="Panel"]
 layout_mode = 0

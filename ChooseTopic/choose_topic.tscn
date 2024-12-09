@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=4 uid="uid://po8854lqyopy"]
+[gd_scene load_steps=110 format=4 uid="uid://po8854lqyopy"]
 
 [ext_resource type="Script" path="res://ChooseTopic/menu_car.gd" id="1_g4u3r"]
 [ext_resource type="Texture2D" uid="uid://cxqwpsa552str" path="res://ChooseTopic/car_blue_5.png" id="1_vj784"]
@@ -53,6 +53,7 @@
 [ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_bijections.gd" id="50_y777p"]
 [ext_resource type="Texture2D" uid="uid://bl3svhndewr8f" path="res://ChooseTopic/Topics/bijections.png" id="51_4dbal"]
 [ext_resource type="Texture2D" uid="uid://dpfpfb21geqs6" path="res://ChooseTopic/Topics/catalan.png" id="52_atbe2"]
+[ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_main_menu.gd" id="53_giwm6"]
 [ext_resource type="Texture2D" uid="uid://p6josc6wp02v" path="res://ChooseTopic/Topics/counting.png" id="53_o1ka7"]
 [ext_resource type="Texture2D" uid="uid://cckwxtwogw6d5" path="res://ChooseTopic/Topics/planar.png" id="54_c3jkn"]
 [ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_planar.gd" id="55_c65t8"]
@@ -337,6 +338,9 @@ sources/22 = SubResource("TileSetAtlasSource_q7adj")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cm8pi"]
 size = Vector2(239, 200)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ge5t"]
+size = Vector2(177, 97)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2i0ya"]
 size = Vector2(196, 189)
 
@@ -434,6 +438,13 @@ theme_override_colors/default_color = Color(1, 0.153902, 0.10011, 0.847059)
 theme_override_font_sizes/normal_font_size = 64
 text = "Back"
 
+[node name="Area2D" type="Area2D" parent="Topics/Back"]
+script = ExtResource("53_giwm6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Topics/Back/Area2D"]
+position = Vector2(73.5, 48.5)
+shape = SubResource("RectangleShape2D_0ge5t")
+
 [node name="Colouring" type="Sprite2D" parent="Topics"]
 position = Vector2(1479, 867)
 texture = ExtResource("55_g2itw")
@@ -473,4 +484,4 @@ offset_right = 1920.0
 offset_bottom = 1075.0
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
-text = "[center]Test testey test"
+text = "[center]Press SPACE or ENTER to go to Test"
