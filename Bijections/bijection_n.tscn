@@ -1,0 +1,115 @@
+[gd_scene load_steps=5 format=3 uid="uid://bt2oy24n476i1"]
+
+[ext_resource type="Script" path="res://Bijections/bijection_n.gd" id="1_qfaor"]
+[ext_resource type="Script" path="res://Bijections/match.gd" id="2_g1vot"]
+[ext_resource type="FontFile" uid="uid://c13m3wup8q1k5" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Black.ttf" id="3_1hhi8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7welf"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("matchElements", "leftTitle", "leftDescription", "rightTitle", "rightDescription", "problemSizeIndicator", "panel")]
+position = Vector2(1017, 493)
+script = ExtResource("1_qfaor")
+matchElements = NodePath("Panel/MatchElements")
+leftTitle = NodePath("Panel/LeftTitle")
+leftDescription = NodePath("Panel/LeftDescription")
+rightTitle = NodePath("Panel/RightTitle")
+rightDescription = NodePath("Panel/RightDescription")
+problemSizeIndicator = NodePath("Panel/ProblemSizeIndicator")
+panel = NodePath("Panel")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -709.0
+offset_top = -442.0
+offset_right = 691.0
+offset_bottom = 855.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7welf")
+
+[node name="Title" type="RichTextLabel" parent="Panel"]
+layout_mode = 2
+offset_left = 382.0
+offset_top = 62.0
+offset_right = 1046.0
+offset_bottom = 156.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]Match Them Up!"
+
+[node name="Subtitle" type="RichTextLabel" parent="Panel"]
+visible = false
+layout_mode = 0
+offset_left = 451.0
+offset_top = 132.0
+offset_right = 966.0
+offset_bottom = 178.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center]Find a bijection to show that these two are the same size.
+You should use the same approach for all n.[/center]"
+
+[node name="MatchElements" type="Control" parent="Panel" node_paths=PackedStringArray("problemSizeIndicator")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+anchors_preset = 0
+offset_left = 133.0
+offset_top = 307.0
+offset_right = 1267.0
+offset_bottom = 1265.0
+script = ExtResource("2_g1vot")
+font = ExtResource("3_1hhi8")
+problemSizeIndicator = NodePath("../ProblemSizeIndicator")
+
+[node name="RightTitle" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 220.0
+offset_right = 1400.0
+offset_bottom = 324.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]Binary Strings"
+
+[node name="RightDescription" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 310.0
+offset_right = 1400.0
+offset_bottom = 362.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center]Binary strings of length n"
+
+[node name="LeftTitle" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_top = 220.0
+offset_right = 700.0
+offset_bottom = 336.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]Subsets"
+
+[node name="LeftDescription" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_top = 310.0
+offset_right = 700.0
+offset_bottom = 363.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center]Subsets of {1, 2, ..., n}"
+
+[node name="ProblemSizeIndicator" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 38.0
+offset_right = 294.0
+offset_bottom = 173.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 96
+text = "n = 0"

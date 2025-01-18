@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://c4xc07s1njmlp"]
+[gd_scene load_steps=3 format=3 uid="uid://c4xc07s1njmlp"]
 
 [ext_resource type="Script" path="res://Bijections/bijection_level.gd" id="1_lc3rp"]
+[ext_resource type="Script" path="res://General/free_camera.gd" id="2_jvgqo"]
 
 [node name="BijectionLevel" type="Node2D"]
 script = ExtResource("1_lc3rp")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(962, 542)
+script = ExtResource("2_jvgqo")
