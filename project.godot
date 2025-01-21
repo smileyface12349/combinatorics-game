@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+PlanarSettings="*res://Planarity/level_settings.gd"
 Graphs="*res://General/graphs.gd"
 
 [debug]

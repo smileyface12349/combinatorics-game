@@ -61,12 +61,12 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="ProblemTypes" type="Button" parent="ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme = ExtResource("5_n38al")
 script = ExtResource("4_54ugn")
-items = Array[String](["Planar Graphs", "Non-Planar Graphs", "Planar and Non-Planar Graphs"])
-selected = 2
+items = Array[String](["Planar and Non-Planar Graphs", "Planar Graphs", "Non-Planar Graphs"])
+selected = 0
 item_count = 3
 loop = true
 next_icon = ExtResource("7_hkp87")
@@ -74,7 +74,7 @@ prev_icon = ExtResource("8_hg4ud")
 title = "Problem Types"
 
 [node name="GraphGeneration" type="Button" parent="ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme = ExtResource("5_n38al")
 script = ExtResource("4_54ugn")
@@ -87,12 +87,12 @@ prev_icon = ExtResource("8_hg4ud")
 title = "Graph Generation"
 
 [node name="NumNodes" type="Button" parent="ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 theme = ExtResource("5_n38al")
 script = ExtResource("8_dsqc8")
 min_value = 6.0
-max_value = 15.0
+max_value = 12.0
 value = 8.0
 value_label_visibility = 1
 value_label_placement = 0
@@ -103,10 +103,13 @@ title = "Number of Nodes"
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer" node_paths=PackedStringArray("numNodes", "graphGeneration", "problemType")]
 custom_minimum_size = Vector2(60, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("9_6x0t8")
 text = "Go"
 script = ExtResource("10_vgotp")
+numNodes = NodePath("../NumNodes")
+graphGeneration = NodePath("../GraphGeneration")
+problemType = NodePath("../ProblemTypes")

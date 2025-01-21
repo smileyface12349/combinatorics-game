@@ -24,6 +24,7 @@ const shrink_button_every: float = 0.05
 var time_since_last_shrink: float = 0
 const shrink_per_second: float = 1.5
 
+
 func _ready() -> void:
 	new_graph()
 	resetDrawingButton.pressed.connect(reset_planar_drawing)
@@ -64,7 +65,30 @@ func new_graph() -> void:
 	planarWinButton.visible = false
 	nonPlanarWinButton.visible = false
 	
-	graph = Graphs.Graph.get_random_connected(8, 0.35)
+	# Generate the graph according to the settings
+	if PlanarSettings.problem_types == 1:
+		# Planar graphs only
+		if PlanarSettings.graph_generation == 1:
+			graph = Graphs.Graph.get_random_nearly_non_planar(PlanarSettings.num_nodes)
+		else:
+			graph = Graphs.Graph.get_random_planar(PlanarSettings.num_nodes, 0.35)
+	elif PlanarSettings.problem_types == 2:
+		# Non-planar graphs only
+		if PlanarSettings.graph_generation == 1:
+			graph = Graphs.Graph.get_random_nearly_planar(PlanarSettings.num_nodes)
+		else:
+			graph = Graphs.Graph.get_random_non_planar(PlanarSettings.num_nodes, 0.35)
+	else:
+		# Planar and non-planar graphs
+		if PlanarSettings.graph_generation == 1:
+			if randf() < 0.5:
+				graph = Graphs.Graph.get_random_nearly_planar(PlanarSettings.num_nodes)
+			else:
+				graph = Graphs.Graph.get_random_nearly_non_planar(PlanarSettings.num_nodes)
+		else:
+			# Note: Default Settings
+			graph = Graphs.Graph.get_random_connected(PlanarSettings.num_nodes, 0.35)
+
 	planarGraph = graph.get_drawing_best(true).get_rearrangeable(true)
 	planarGraph.on_win = on_planar_win
 	planar.set_graph(planarGraph)

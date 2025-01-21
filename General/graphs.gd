@@ -23,7 +23,10 @@ class Graph:
 		self.vertex_neighbours = vertex_neighbours
 		
 	# Fills in every edge not present with the given probability
-	func complete_random(edge_chance: float = 0.5) -> Graph:
+	# Optionally, you may specify an additional requirement that must be satisfied to add an edge
+	# You will be given the graph with the edge already added, and if you return false then the 
+	# edge will be removed again
+	func complete_random(edge_chance: float = 0.5, condition: Callable = Callable()) -> Graph:
 		# Populate them
 		for vertex: int in self.vertex_neighbours.keys():
 			for vertex2: int in self.vertex_neighbours.keys():
@@ -32,6 +35,9 @@ class Graph:
 				if randf() <= edge_chance:
 					self.vertex_neighbours[vertex].append(vertex2)
 					self.vertex_neighbours[vertex2].append(vertex)
+					if not condition.call(self):
+						self.vertex_neighbours[vertex].remove(vertex2)
+						self.vertex_neighbours[vertex2].remove(vertex)
 					
 		# Return this graph in case it's needed in that way
 		return self
@@ -69,6 +75,33 @@ class Graph:
 		var graph: Graph = Graph.get_random_mst(n_vertices)
 		graph.complete_random(edge_chance)
 		return graph
+		
+	# Generates a random connected planar graph, by generating a connected graph and then removing
+	# edges at random until it is planar
+	static func get_random_planar(n_vertices: int, edge_chance: float = 0.4) -> Graph:
+		var graph: Graph = Graph.get_random_mst(n_vertices)
+		graph.complete_random(edge_chance, func(test_graph: Graph) -> bool: return test_graph.is_planar())
+		return graph
+		
+	static func get_random_non_planar(n_vertices: int, edge_chance: float = 0.4) -> Graph:
+		var graph: Graph = get_random_connected(n_vertices)
+		while graph.is_planar():
+			# TODO: add a random edge to the graph
+			pass
+		return graph
+		
+	# Returns a non-planar graph G with the property that: for every edge E in G, removing E from G
+	# would make G planar.
+	static func get_random_nearly_planar(n_vertices: int) -> Graph:
+		var graph: Graph = get_random_connected(n_vertices)
+		# TODO
+		return graph
+		
+	# Returns a planar graph G with the property that: for every edge E not in G, adding E to G
+	# would make G non-planar.
+	static func get_random_nearly_non_planar(n_vertices: int) -> Graph:
+		# TODO
+		return get_random_connected(n_vertices)
 		
 	# Determines what edge chance you need to obtain this average degree
 	static func get_edge_chance(n_vertices: int, average_degree: int) -> float:
