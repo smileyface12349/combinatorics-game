@@ -39,16 +39,15 @@ bbcode_enabled = true
 text = "[center]Match Them Up!"
 
 [node name="Subtitle" type="RichTextLabel" parent="Panel"]
-visible = false
 layout_mode = 0
-offset_left = 451.0
-offset_top = 132.0
-offset_right = 966.0
-offset_bottom = 178.0
+offset_left = 441.0
+offset_top = 145.0
+offset_right = 983.0
+offset_bottom = 191.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
-text = "[center]Find a bijection to show that these two are the same size.
-You should use the same approach for all n.[/center]"
+text = "[center]Your bijection will be checked automatically when completed for all values of n. You may use a powerup to check this value of n early.
+[/center]"
 
 [node name="MatchElements" type="Control" parent="Panel" node_paths=PackedStringArray("problemSizeIndicator")]
 custom_minimum_size = Vector2(100, 100)

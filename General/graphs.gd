@@ -26,7 +26,7 @@ class Graph:
 	# Optionally, you may specify an additional requirement that must be satisfied to add an edge
 	# You will be given the graph with the edge already added, and if you return false then the 
 	# edge will be removed again
-	func complete_random(edge_chance: float = 0.5, condition: Callable = Callable()) -> Graph:
+	func complete_random(edge_chance: float = 0.5, condition: Callable = func(g: Graph) -> bool: return true) -> Graph:
 		# Populate them
 		for vertex: int in self.vertex_neighbours.keys():
 			for vertex2: int in self.vertex_neighbours.keys():

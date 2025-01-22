@@ -7,6 +7,7 @@ const min_zoom: Vector2 = Vector2(0.3, 0.3)
 const max_zoom: Vector2 = Vector2(2, 2)
 const min_pos: Vector2 = Vector2(0, 0)
 const max_pos: Vector2 = Vector2(5000, 1500)
+const keyboard_move_amount: Vector2 = Vector2(1500, 250)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -38,6 +39,22 @@ func _input(event: InputEvent) -> void:
 		if self.zoom < min_zoom:
 			self.zoom = min_zoom
 		self.position += mouse_before_zoom - get_global_mouse_position()
+		
+	# Keyboard control
+	if Input.is_action_just_pressed("ui_left"):
+		self.position.x -= keyboard_move_amount.x
+	if Input.is_action_just_pressed("ui_up"):
+		# Zoom in around centre of screen
+		self.zoom *= 1.3
+		if self.zoom > max_zoom:
+			self.zoom = max_zoom
+	if Input.is_action_just_pressed("ui_right"):
+		self.position.x += keyboard_move_amount.x
+	if Input.is_action_just_pressed("ui_down"):
+		# Zoom out around centre of screen
+		self.zoom *= 0.8
+		if self.zoom < min_zoom:
+			self.zoom = min_zoom
 		
 		
 func _process(_delta: float) -> void:

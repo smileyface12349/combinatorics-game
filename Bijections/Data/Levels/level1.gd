@@ -116,5 +116,7 @@ func _init() -> void:
 					BijectionElement.new("1111", false, 16)
 				]
 			),
-	})
+		},
+		"There's one value in the binary string for each element potentially in the subset. These each have two choices (0 or 1) - what could this represent for the corresponding element potentially in the subset?"
+	)
 	

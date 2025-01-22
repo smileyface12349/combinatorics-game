@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl6gtxejohb4o"]
+
+[ext_resource type="Script" path="res://Bijections/level_select.gd" id="1_k8vhn"]
+
+[node name="BijectionLevelSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_k8vhn")
+
+[node name="Title" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 611.0
+offset_top = 41.0
+offset_right = 750.0
+offset_bottom = 81.0
+text = "Prototype UI!"
+
+[node name="Description" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 321.0
+offset_top = 98.0
+offset_right = 962.0
+offset_bottom = 658.0
+text = "Press buttons to navigate to levels (this will be improved in future):
+
+0 - Tutorial Level
+1 - Subsets and Binary Strings
+2 - Stars and Bars
+3 - Subsets with specific sizes
+4 - Self-conjugate Integer Partitions
+5 - Partitions into Distinct vs Odd Parts
+6 - Above but more complicated
+7 - Partitions of different numbers
+8 - Vertex colourings and edge colourings (?)
+
+ESC - Back to main menu"

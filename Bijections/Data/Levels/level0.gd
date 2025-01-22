@@ -70,5 +70,6 @@ func _init() -> void:
 					BijectionElement.new("222", false, 8),
 				]
 			)
-		}
+		},
+		"Try substituting A with 1 and B with 2"
 	)
