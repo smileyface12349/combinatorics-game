@@ -4,16 +4,18 @@ class_name Bijection
 var from: Array[BijectionElement]
 var to: Array[BijectionElement]
 var problem_size: int
+var quiz: bool = false
 
-func _init(problem_size: int, from: Array[BijectionElement], to: Array[BijectionElement]) -> void:
+func _init(problem_size: int, from: Array[BijectionElement], to: Array[BijectionElement], quiz: bool = false) -> void:
 	self.from = from
 	self.to = to
 	self.problem_size = problem_size
+	self.quiz = quiz
 	
 func all_elements() -> Array[BijectionElement]:
 	return self.from + self.to
 	
-func get_elements(left: bool) -> Array[BijectionElement]:
+func get_elements_on_side(left: bool) -> Array[BijectionElement]:
 	if left:
 		return self.from
 	else:

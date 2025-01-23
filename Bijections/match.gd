@@ -11,7 +11,6 @@ func set_bijection(new_bijection: Bijection) -> void:
 
 const line_width: int = 8
 const circle_radius: float = 10
-const font_size: float = 48
 
 var done: bool = false
 
@@ -22,6 +21,7 @@ var mouse_position_drawn: Vector2 = Vector2(0, 0)
 
 
 var active_element: BijectionElement = null
+var active_element_side: bool = true
 
 func _input(event: InputEvent) -> void:
 	# Left mouse button pressed
@@ -29,21 +29,23 @@ func _input(event: InputEvent) -> void:
 		# If there aren't any selected yet...
 		if active_element == null:
 			# See if we've clicked on any elements
-			for element: BijectionElement in bijection.all_elements():
-				if element.is_inside(get_local_mouse_position()):
-					# If so, draw a line starting at this element
-					active_element = element
-					# Check if we need to remove any old lines
-					for e: BijectionElement in bijection.from:
-						if e == active_element || e.match == active_element:
-							e.match = null
-					# If they've won already, invalidate this as it's been modified
-					done = false
-					break
+			for side: bool in [true, false]:
+				for element: BijectionElement in bijection.get_elements_on_side(side):
+					if element.is_inside(get_local_mouse_position()):
+						# If so, draw a line starting at this element
+						active_element = element
+						active_element_side = side
+						# Check if we need to remove any old lines
+						for e: BijectionElement in bijection.from:
+							if e == active_element || e.match == active_element:
+								e.match = null
+						# If they've won already, invalidate this as it's been modified
+						done = false
+						break
 		# If we've already selected an element...
 		else:
 			# See if we've clicked on any elements on the other side
-			for element: BijectionElement in bijection.get_elements(!active_element.left):
+			for element: BijectionElement in bijection.get_elements_on_side(!active_element_side):
 				if element.is_inside(get_local_mouse_position()):
 					# If so, match these up. Only store matchings from left to right
 					if element.left:
@@ -78,6 +80,8 @@ func _process(_delta: float) -> void:
 
 func _draw() -> void:
 		
+	# TODO: Make a node for each BijectionElement. This is better than trying to draw everything here!
+		
 	# Define function to draw an element after its position has been assigned
 	var draw_element: Callable = func (element: BijectionElement, hover: bool = false) -> void:
 		# Draw background for button
@@ -85,7 +89,7 @@ func _draw() -> void:
 		# Draw outline for button
 		draw_rect(Rect2(element.pos, element.size), Color.BLUE if hover else Color.BLACK, false)
 		# Position of text is the bottom-left corner
-		draw_string(font, element.pos + Vector2(16, element.size.y * 0.6), element.text, HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, Color(0, 0, 0))
+		element.draw(draw_string)
 		# Draw dot later so it's in front of the lines
 		
 	# Draw the elements
@@ -100,12 +104,13 @@ func _draw() -> void:
 	# Draw matchings that have already been done
 	for element: BijectionElement in bijection.from:
 		if element.match != null:
-			draw_line(element.get_line_pos(), element.match.get_line_pos(), Color.GREEN if done else Color.RED, line_width)
+			draw_line(element.get_line_pos(true), element.match.get_line_pos(false), Color.GREEN if done else Color.RED, line_width)
 			
 	# Draw active matching (if applicable)
 	if active_element != null:
-		draw_line(active_element.get_line_pos(), mouse_position_drawn, Color.BLUE, line_width)
+		draw_line(active_element.get_line_pos(active_element_side), mouse_position_drawn, Color.BLUE, line_width)
 		
 	# Draw dots (so they are in front of the lines)
-	for element: BijectionElement in bijection.all_elements():
-		draw_circle(element.pos + Vector2(element.size.x if element.left else 0, element.size.y/2), circle_radius, Color.BLACK)
+	for side: bool in [true, false]:
+		for element: BijectionElement in bijection.get_elements_on_side(side):
+			draw_circle(element.pos + Vector2(element.size.x if side else 0, element.size.y/2), circle_radius, Color.BLACK)
