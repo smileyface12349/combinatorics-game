@@ -17,6 +17,8 @@ func _input(event: InputEvent) -> void:
 		BijectionSettings.current_level = BijectionLevel1.new()
 	elif Input.is_action_just_pressed("num_2"):
 		BijectionSettings.current_level = BijectionLevel2.new()
+	elif Input.is_action_just_pressed("num_4"):
+		BijectionSettings.current_level = BijectionLevel4.new()
 	
 	# If they chose a level
 	if BijectionSettings.current_level != null:

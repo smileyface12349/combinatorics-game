@@ -48,7 +48,7 @@ func _input(event: InputEvent) -> void:
 			for element: BijectionElement in bijection.get_elements_on_side(!active_element_side):
 				if element.is_inside(get_local_mouse_position()):
 					# If so, match these up. Only store matchings from left to right
-					if element.left:
+					if !active_element_side:
 						element.match = active_element
 					else:
 						# Check if we need to remove an old matching
