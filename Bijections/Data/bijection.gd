@@ -25,22 +25,22 @@ func get_elements_on_side(left: bool) -> Array[BijectionElement]:
 ##  - Computes the position for each element
 ##  - Populates element.pos with the position
 ##  - Calls draw_element for each element
-func draw_elements(draw_element: Callable, spacing: int = 16, 
-		top_spacing: int = 64, width_half: int = 700,
-		mouse_position: Vector2 = Vector2(0, 0)) -> void:
-	# Draw LHS
-	var y: int = top_spacing
-	for element: BijectionElement in self.from:
-		element.pos = Vector2((width_half - element.size.x) / 2 - element.size.x/2, y)
-		draw_element.call(element, element.is_inside(mouse_position))
-		y += element.size.y + spacing
-		
-	# Draw RHS
-	y = top_spacing
-	for element: BijectionElement in self.to:
-		element.pos = Vector2((width_half - element.size.x) / 2 + width_half - element.size.x/2, y)
-		draw_element.call(element, element.is_inside(mouse_position))
-		y += element.size.y + spacing
+#func draw_elements(draw_element: Callable, spacing: int = 16, 
+		#top_spacing: int = 64, width_half: int = 700,
+		#mouse_position: Vector2 = Vector2(0, 0)) -> void:
+	## Draw LHS
+	#var y: int = top_spacing
+	#for element: BijectionElement in self.from:
+		#element.pos = Vector2((width_half - element.size.x) / 2 - element.size.x/2, y)
+		#draw_element.call(element, element.is_inside(mouse_position))
+		#y += element.size.y + spacing
+		#
+	## Draw RHS
+	#y = top_spacing
+	#for element: BijectionElement in self.to:
+		#element.pos = Vector2((width_half - element.size.x) / 2 + width_half - element.size.x/2, y)
+		#draw_element.call(element, element.is_inside(mouse_position))
+		#y += element.size.y + spacing
 		
 ## Checks if the current matching is correct
 func check() -> bool:

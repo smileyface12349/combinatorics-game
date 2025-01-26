@@ -60,7 +60,7 @@ func _init() -> void:
 			),
 			5: Bijection.new(
 				5,
-				# TODO: Don't fully understand the bijection eyt
+				# TODO: Don't fully understand the bijection yet
 				# Distinct parts
 				[
 					IntegerPartitionElement.new([0, 0, 0, 0, 1], 1), # 5
