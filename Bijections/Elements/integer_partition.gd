@@ -7,14 +7,21 @@ var parts: Array[int]
 func _init(parts: Array[int], id: int) -> void:
 	# Obtain a string representation to use when diagrams are disabled
 	var text_pieces: Array[String]
-	self.for_each_part(func add_text(num: int, count: int) -> void:
-		if count == 1:
-			text_pieces.append(str(num))
+	#self.for_each_part(func add_text(num: int, count: int) -> void:
+		#if count == 1:
+			#text_pieces.append(str(num))
+		#else:
+			#text_pieces.append(str(count) + "(" + str(num) + ")")
+	#)
+	for part: Array in self.get_parts():
+		# part = [number, count]
+		if part[1] == 1:
+			text_pieces.append(str(part[0]))
 		else:
-			text_pieces.append(str(count) + "(" + str(num) + ")")
-	)
+			text_pieces.append(str(part[1]) + "(" + str(part[0]) + ")")
 		
 	var text: String = '+'.join(text_pieces)
+	print("Storing text: " + text)
 	super(text, id)
 	self.parts = parts
 
@@ -41,10 +48,23 @@ func count_parts() -> int:
 	
 ## Iterates through every part with a non-zero number of occurrences in descending order, and calls
 ## the function. For example, 1+2(5) would call with (5, 2) then call with (1, 1)
+## TODO: THIS HAS A BUG
 func for_each_part(action: Callable) -> void:
-	for number: int in range(len(parts), 0, -1):
+	for number: int in range(len(self.parts), 0, -1):
+		print("Number: " + str(number))
 		if self.parts[number-1] != 0:
+			print("Parts: " + str(self.parts[number-1]))
 			action.call(number, self.parts[number-1])
+			
+## Gets all of the parts in descending order in the form [[number, count]]. For example, 1+2(5)
+## would return [(5, 2), (1, 1)]
+func get_parts() -> Array[Array]:
+	var parts: Array[Array] = []
+	for number: int in range(len(self.parts), 0, -1):
+		if self.parts[number-1] != 0:
+			parts.append([number, self.parts[number-1]])
+	print("Parts: " + str(parts))
+	return parts
 	
 ## As above, but with an ascending order
 func for_each_part_ascending(action: Callable) -> void:
@@ -59,7 +79,7 @@ const vertical_padding: int = 16
 const max_square_size: int = 24
 var y: int = 0 # used internally in draw_contents
 
-func draw_contents() -> void:
+func draw_contents_diagrams() -> void:
 	# Work out how much space we have to work with
 	var available_space: Vector2 = size - Vector2(horizontal_padding * 2, vertical_padding * 2)
 	

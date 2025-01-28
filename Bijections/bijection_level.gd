@@ -1,7 +1,9 @@
 extends Node
 
 const bijection_width: int = 1500
-var bijection_n: PackedScene = preload("res://Bijections/bijection_n.tscn")
+var bijection_n_scene: PackedScene = preload("res://Bijections/bijection_n.tscn")
+var show_diagrams: bool = true
+var bijection_problems: Array[BijectionLevelNode] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,11 +18,28 @@ func create_level(level: BijectionLevel) -> void:
 
 ## Create the elements to represent a bijection of particular size n
 func create_bijection_n(bijection: Bijection, level: BijectionLevel, position: Vector2) -> void:
-	var instance: BijectionLevelNode = bijection_n.instantiate()
+	var instance: BijectionLevelNode = bijection_n_scene.instantiate()
 	instance.set_bijection(bijection)
-	instance.set_level(level)
+	instance.set_level(
+		level,
+		# Function that is called when the show diagrams button is toggled
+		# Lambda so we can tell it which problem toggled it, so we don't tell a problem that caused
+		# the signal to toggle itself
+		func set_show_diagrams(show_diagrams: bool) -> void:
+			set_show_diagrams(show_diagrams, len(bijection_problems))
+	)
 	instance.position = position
 	add_child(instance)
+	bijection_problems.append(instance)
+
+func set_show_diagrams(show_diagrams: bool, origin_problem: int) -> void:
+	print_debug("Problem " + str(origin_problem) + " has just set show_diagrams to " + str(show_diagrams))
+	# Update it for us
+	self.show_diagrams = show_diagrams
+	# Tell all of the problems about the change so they can update their own state
+	for i: int in range(len(bijection_problems)):
+		if i != origin_problem:
+			bijection_problems[i].set_show_diagrams(show_diagrams)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

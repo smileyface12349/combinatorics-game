@@ -11,12 +11,12 @@ func set_bijection(new_bijection: Bijection) -> void:
 const line_width: int = 8
 
 var done: bool = false
+var show_diagrams: bool = true
 
 var mouse_position_drawn: Vector2 = Vector2(0, 0)
 
 @export var font: Font
 @export var problemSizeIndicator: RichTextLabel
-
 
 var active_element: BijectionElement = null
 var active_element_side: bool = true
@@ -112,6 +112,12 @@ func _ready() -> void:
 		element.side = false
 		self.add_child(element)
 		y += element.size.y + spacing
+		
+func set_show_diagrams(show_diagrams: bool) -> void:
+	self.show_diagrams = show_diagrams
+	# TODO: Redraw the nodes with the new sizes
+	for element: BijectionElement in bijection.all_elements():
+		element.set_show_diagrams(show_diagrams)
 
 func _draw() -> void:
 		

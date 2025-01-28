@@ -7,7 +7,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7welf"]
 bg_color = Color(1, 1, 1, 1)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("matchElements", "leftTitle", "leftDescription", "rightTitle", "rightDescription", "problemSizeIndicator", "panel")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("matchElements", "leftTitle", "leftDescription", "rightTitle", "rightDescription", "problemSizeIndicator", "panel", "showDiagramsCheckbox")]
 position = Vector2(1017, 493)
 script = ExtResource("1_qfaor")
 matchElements = NodePath("Panel/MatchElements")
@@ -17,6 +17,7 @@ rightTitle = NodePath("Panel/RightTitle")
 rightDescription = NodePath("Panel/RightDescription")
 problemSizeIndicator = NodePath("Panel/ProblemSizeIndicator")
 panel = NodePath("Panel")
+showDiagramsCheckbox = NodePath("Panel/ShowDiagrams")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -112,3 +113,25 @@ offset_bottom = 173.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 96
 text = "n = 00"
+
+[node name="ShowDiagrams" type="CheckButton" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -199.0
+offset_top = 27.0
+offset_right = -31.0
+offset_bottom = 58.0
+grow_horizontal = 0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+button_pressed = true
+keep_pressed_outside = true
+text = "Show Diagrams"

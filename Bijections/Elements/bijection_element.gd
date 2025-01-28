@@ -17,6 +17,7 @@ var id: int
 var match: BijectionElement = null
 var hover: bool = false
 var side: bool # done when adding to scene, not during setup
+var show_diagrams: bool = true
 # var size: Vector2 = Vector2(300, 100)
 
 const font_size: float = 48
@@ -28,6 +29,9 @@ func _init(text: String, id: int) -> void:
 	self.connect("mouse_entered", func () -> void: hover = true; queue_redraw())
 	self.connect("mouse_exited", func () -> void: hover = false; queue_redraw())
 	
+func set_show_diagrams(show_diagrams: bool) -> void:
+	self.show_diagrams = show_diagrams
+	queue_redraw()
 	
 func is_inside(pos: Vector2) -> bool:
 	return pos.x >= position.x && pos.y >= position.y \
@@ -44,10 +48,15 @@ func get_line_pos() -> Vector2:
 func check(test: String) -> bool:
 	return self.text == test
 	
-## Draw contents of bijection element. By default, this is a string.
-## All elements have a string representation. Some subclasses have pictoral representations.
-func draw_contents() -> void:
+## Draw contents of bijection element, showing the string representation. This may be overridden,
+## but probably doesn't need to be as all classes should have a string representation.
+func draw_contents_text() -> void:
+	print("Drawing text: " + self.text)
 	draw_string(font, Vector2(16, size.y * 0.6), self.text, HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, Color(0, 0, 0))
+
+## All elements have a string representation. Some subclasses have pictoral representations.
+func draw_contents_diagrams() -> void:
+	draw_contents_text() # Overridden in subclasses
 
 func _ready() -> void:
 	# Add dot as a separate element, so it can draw in front of the lines
@@ -62,5 +71,8 @@ func _draw() -> void:
 	# Draw outline for button
 	draw_rect(Rect2(Vector2(0, 0), size), Color.BLUE if hover else Color.BLACK, false)
 	# Draw contents (text or a diagram)
-	draw_contents()
+	if show_diagrams:
+		draw_contents_diagrams()
+	else:
+		draw_contents_text()
 	
