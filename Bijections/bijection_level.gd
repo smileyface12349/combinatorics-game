@@ -2,7 +2,7 @@ extends Node
 
 const bijection_width: int = 1500
 var bijection_n_scene: PackedScene = preload("res://Bijections/bijection_n.tscn")
-var show_diagrams: bool = true
+var show_diagrams: bool = false
 var bijection_problems: Array[BijectionLevelNode] = []
 
 # Called when the node enters the scene tree for the first time.

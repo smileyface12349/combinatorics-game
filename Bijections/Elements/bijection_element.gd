@@ -17,8 +17,9 @@ var id: int
 var match: BijectionElement = null
 var hover: bool = false
 var side: bool # done when adding to scene, not during setup
-var show_diagrams: bool = true
-# var size: Vector2 = Vector2(300, 100)
+var show_diagrams: bool = false
+
+var dot: BijectionElementDot
 
 const font_size: float = 48
 var font: Font = load("res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Black.ttf")
@@ -29,9 +30,15 @@ func _init(text: String, id: int) -> void:
 	self.connect("mouse_entered", func () -> void: hover = true; queue_redraw())
 	self.connect("mouse_exited", func () -> void: hover = false; queue_redraw())
 	
+# Please call this function after changing the size of the node
+# It is safe to call even if the size hasn't actually changed
+func on_resize() -> void:
+	dot.position = Vector2(size.x if side else 0, size.y/2)
+	
 func set_show_diagrams(show_diagrams: bool) -> void:
 	self.show_diagrams = show_diagrams
 	queue_redraw()
+	on_resize()
 	
 func is_inside(pos: Vector2) -> bool:
 	return pos.x >= position.x && pos.y >= position.y \
@@ -60,7 +67,7 @@ func draw_contents_diagrams() -> void:
 
 func _ready() -> void:
 	# Add dot as a separate element, so it can draw in front of the lines
-	var dot: BijectionElementDot = BijectionElementDot.new()
+	dot = BijectionElementDot.new()
 	dot.position = Vector2(size.x if side else 0, size.y/2)
 	dot.z_index = 1
 	add_child(dot)

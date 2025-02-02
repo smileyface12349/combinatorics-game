@@ -129,7 +129,7 @@ func _init() -> void:
 					IntegerPartitionElement.new([1, 0, 1, 0, 0, 0, 0, 0, 1], 4), # 9+3+1
 				],
 				[
-					IntegerPartitionElement.new([7, 0, 0, 0, 0, 0, 0, 1], 1), # 8+7(1)
+					IntegerPartitionElement.new([6, 1, 0, 0, 0, 0, 0, 1], 1), # 8+2+6(1)
 					IntegerPartitionElement.new([4, 1, 1, 0, 0, 0, 1], 2), # 7+3+2+4(1)
 					IntegerPartitionElement.new([2, 2, 0, 1, 0, 1], 3), # 6+4+2(2)+2(1)
 					IntegerPartitionElement.new([2, 0, 2, 0, 1], 4), # 5+2(3)+2(1)

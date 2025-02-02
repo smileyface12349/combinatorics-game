@@ -4,32 +4,20 @@ class_name IntegerPartitionElement
 var parts: Array[int]
 
 ## parts: [number of 1s, number of 2s, number of 3s, ...]
+## Constraint: Must not contain trailing zeroes
 func _init(parts: Array[int], id: int) -> void:
+	self.parts = parts
 	# Obtain a string representation to use when diagrams are disabled
 	var text_pieces: Array[String]
-	#self.for_each_part(func add_text(num: int, count: int) -> void:
-		#if count == 1:
-			#text_pieces.append(str(num))
-		#else:
-			#text_pieces.append(str(count) + "(" + str(num) + ")")
-	#)
-	for part: Array in self.get_parts():
-		# part = [number, count]
-		if part[1] == 1:
-			text_pieces.append(str(part[0]))
+	self.for_each_part(func add_text(num: int, count: int) -> void:
+		if count == 1:
+			text_pieces.append(str(num))
 		else:
-			text_pieces.append(str(part[1]) + "(" + str(part[0]) + ")")
+			text_pieces.append(str(count) + "(" + str(num) + ")")
+	)
 		
 	var text: String = '+'.join(text_pieces)
-	print("Storing text: " + text)
 	super(text, id)
-	self.parts = parts
-
-# TODO: Draw Young diagrams
-# - Calculate how much vertical and horizontal space we need
-# - Given how much space we've got, work out how big the cubes can be
-# - Using the size of the cubes, get the position of each cube
-# - Go over these cubes and draw them
 
 ## Gets the largest part. For example, 1+2(5) would return 5.
 ## WARNING: This assumes the list has no trailing zeroes.
@@ -48,22 +36,18 @@ func count_parts() -> int:
 	
 ## Iterates through every part with a non-zero number of occurrences in descending order, and calls
 ## the function. For example, 1+2(5) would call with (5, 2) then call with (1, 1)
-## TODO: THIS HAS A BUG
 func for_each_part(action: Callable) -> void:
 	for number: int in range(len(self.parts), 0, -1):
-		print("Number: " + str(number))
 		if self.parts[number-1] != 0:
-			print("Parts: " + str(self.parts[number-1]))
 			action.call(number, self.parts[number-1])
 			
 ## Gets all of the parts in descending order in the form [[number, count]]. For example, 1+2(5)
-## would return [(5, 2), (1, 1)]
+## would return [(5, 2), (1, 1)]. Generally, it is best practice to use for_each_part() instead.
 func get_parts() -> Array[Array]:
 	var parts: Array[Array] = []
 	for number: int in range(len(self.parts), 0, -1):
 		if self.parts[number-1] != 0:
 			parts.append([number, self.parts[number-1]])
-	print("Parts: " + str(parts))
 	return parts
 	
 ## As above, but with an ascending order
@@ -74,11 +58,18 @@ func for_each_part_ascending(action: Callable) -> void:
 		if occurrences != 0:
 			action.call(number, occurrences)
 
+# Constants used in drawing Young diagrams
 const horizontal_padding: int = 32
 const vertical_padding: int = 16
-const max_square_size: int = 24
+const max_square_size: int = 32
+const border_width: int = 2
 var y: int = 0 # used internally in draw_contents
 
+# Draw Young diagrams
+# - Calculate how much vertical and horizontal space we need
+# - Given how much space we've got, work out how big the cubes can be
+# - Using the size of the cubes, get the position of each cube
+# - Go over these cubes and draw them
 func draw_contents_diagrams() -> void:
 	# Work out how much space we have to work with
 	var available_space: Vector2 = size - Vector2(horizontal_padding * 2, vertical_padding * 2)
@@ -102,8 +93,16 @@ func draw_contents_diagrams() -> void:
 			# Within this row, add squares until reaching the value of the number
 			for i: int in range(num):
 				# Draw black outline, then put a white square on the top
-				draw_rect(Rect2(Vector2(x, y), Vector2(square_size, square_size)), Color.BLACK)
-				draw_rect(Rect2(Vector2(x+1, y+1), Vector2(square_size-2, square_size-2)), Color.WHITE)
+				#draw_rect(Rect2(Vector2(x, y), Vector2(square_size, square_size)), Color.BLACK)
+				#draw_rect(Rect2(
+					#Vector2(x+border_width, y+border_width), # position
+					#Vector2(square_size-border_width*2, square_size-border_width*2) # size
+				#), Color.WHITE)
+				# Draw four lines around the perimeter
+				draw_line(Vector2(x, y), Vector2(x+square_size, y), Color.BLACK, border_width)
+				draw_line(Vector2(x+square_size, y), Vector2(x+square_size, y+square_size), Color.BLACK, border_width)
+				draw_line(Vector2(x+square_size, y+square_size), Vector2(x, y+square_size), Color.BLACK, border_width)
+				draw_line(Vector2(x, y+square_size), Vector2(x, y), Color.BLACK, border_width)
 				x += square_size
 			self.y += square_size
 			x = horizontal_padding

@@ -11,7 +11,7 @@ func set_bijection(new_bijection: Bijection) -> void:
 const line_width: int = 8
 
 var done: bool = false
-var show_diagrams: bool = true
+var show_diagrams: bool = false
 
 var mouse_position_drawn: Vector2 = Vector2(0, 0)
 
@@ -90,6 +90,8 @@ func _process(_delta: float) -> void:
 const top_spacing: int = 128
 const width_half: int = 700
 const spacing: int = 32
+const default_element_size: Vector2 = Vector2(300, 100)
+const default_diagram_size: Vector2 = Vector2(300, 200)
 
 func _ready() -> void:
 	# Add nodes for each BijectionElement.
@@ -98,7 +100,7 @@ func _ready() -> void:
 	# Draw LHS
 	var y: int = top_spacing
 	for element: BijectionElement in bijection.from:
-		element.size = Vector2(300, 100)
+		element.size = default_element_size
 		element.position = Vector2((width_half - element.size.x) / 2 - element.size.x/2, y)
 		element.side = true
 		self.add_child(element)
@@ -107,15 +109,44 @@ func _ready() -> void:
 	# Draw RHS
 	y = top_spacing
 	for element: BijectionElement in bijection.to:
-		element.size = Vector2(300, 100)
+		element.size = default_element_size
 		element.position = Vector2((width_half - element.size.x) / 2 + width_half - element.size.x/2, y)
 		element.side = false
 		self.add_child(element)
 		y += element.size.y + spacing
 		
+## Changes the size of the elements.
+## Does not ask them to redraw themselves. Please make sure this is done as the contents can often
+## be rendered differently depending on the size.
+func resize_elements(element_size: Vector2 = default_element_size) -> void:
+	# Draw LHS
+	var y: int = top_spacing
+	for element: BijectionElement in bijection.from:
+		element.size = element_size
+		element.position = Vector2((width_half - element.size.x) / 2 - element.size.x/2, y)
+		y += element.size.y + spacing
+		
+	# Draw RHS
+	y = top_spacing
+	for element: BijectionElement in bijection.to:
+		element.size = element_size
+		element.position = Vector2((width_half - element.size.x) / 2 + width_half - element.size.x/2, y)
+		y += element.size.y + spacing
+		
+	# Redraw the red lines
+	queue_redraw()
+		
 func set_show_diagrams(show_diagrams: bool) -> void:
+	# Store the new value
 	self.show_diagrams = show_diagrams
-	# TODO: Redraw the nodes with the new sizes
+	
+	# Change size and positions
+	if show_diagrams:
+		self.resize_elements(default_diagram_size)
+	else:
+		self.resize_elements()
+	
+	# Ask each element to redraw itself
 	for element: BijectionElement in bijection.all_elements():
 		element.set_show_diagrams(show_diagrams)
 
