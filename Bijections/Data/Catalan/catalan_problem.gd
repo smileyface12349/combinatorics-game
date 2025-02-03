@@ -6,10 +6,12 @@ var description: String
 var title: String
 var id: int
 var proofs: Dictionary # {id: proof}
+var definitions: Array[BijectionDefinition]
 
-func _init(title: String, description: String, sizes: Dictionary, id: int, proofs: Dictionary = {}) -> void:
-	self.sizes = sizes
+func _init(title: String, description: String, id: int, sizes: Dictionary, proofs: Dictionary = {}, definitions: Array[BijectionDefinition] = []) -> void:
 	self.title = title
 	self.description = description
 	self.id = id
+	self.sizes = sizes
 	self.proofs = proofs
+	self.definitions = definitions

@@ -20,6 +20,10 @@ func _input(event: InputEvent) -> void:
 	elif Input.is_action_just_pressed("num_4"):
 		BijectionSettings.current_level = BijectionLevel4.new()
 	
+	# Test level
+	elif Input.is_action_just_pressed("ui_accept"):
+		BijectionSettings.current_level = BijectionLevelTest.new()
+	
 	# If they chose a level
 	if BijectionSettings.current_level != null:
 		get_tree().change_scene_to_file("res://Bijections/bijection_level.tscn")
