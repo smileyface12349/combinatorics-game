@@ -117,6 +117,7 @@ func _init() -> void:
 				]
 			),
 		},
+		[],
 		"There's one value in the binary string for each element potentially in the subset. These each have two choices (0 or 1) - what could this represent for the corresponding element potentially in the subset?"
 	)
 	

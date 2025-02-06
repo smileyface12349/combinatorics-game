@@ -64,9 +64,9 @@ problemSizeIndicator = NodePath("../ProblemSizeIndicator")
 
 [node name="RightTitle" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
-offset_left = 700.0
+offset_left = 725.0
 offset_top = 220.0
-offset_right = 1400.0
+offset_right = 1375.0
 offset_bottom = 324.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 64
@@ -75,9 +75,9 @@ text = "[center]Binary Strings"
 
 [node name="RightDescription" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
-offset_left = 700.0
+offset_left = 725.0
 offset_top = 310.0
-offset_right = 1400.0
+offset_right = 1375.0
 offset_bottom = 390.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 24
@@ -86,8 +86,9 @@ text = "[center]Binary strings of length n"
 
 [node name="LeftTitle" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
+offset_left = 25.0
 offset_top = 220.0
-offset_right = 700.0
+offset_right = 675.0
 offset_bottom = 336.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 64
@@ -96,8 +97,9 @@ text = "[center]Subsets"
 
 [node name="LeftDescription" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
+offset_left = 25.0
 offset_top = 310.0
-offset_right = 700.0
+offset_right = 675.0
 offset_bottom = 390.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 24

@@ -33,7 +33,6 @@ func create_bijection_n(bijection: Bijection, level: BijectionLevel, position: V
 	bijection_problems.append(instance)
 
 func set_show_diagrams(show_diagrams: bool, origin_problem: int) -> void:
-	print_debug("Problem " + str(origin_problem) + " has just set show_diagrams to " + str(show_diagrams))
 	# Update it for us
 	self.show_diagrams = show_diagrams
 	# Tell all of the problems about the change so they can update their own state

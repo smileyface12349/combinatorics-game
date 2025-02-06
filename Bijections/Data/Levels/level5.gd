@@ -74,5 +74,8 @@ func _init() -> void:
 					IntegerPartitionElement.new([], 3), # 5(1)
 				],
 			),
-		}
+		},
+		[
+			DefinitionPartition.new()
+		]
 	)

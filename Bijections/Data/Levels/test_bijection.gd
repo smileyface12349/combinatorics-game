@@ -34,6 +34,7 @@ func _init() -> void:
 				]
 			),
 		},
+		[],
 		"You're stupid",
 		BijectionProof.new("Proof by Assumption: Assume that it is a bijection. Therefore it is a bijection. QED.")
 	)

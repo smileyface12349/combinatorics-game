@@ -87,5 +87,6 @@ func _init() -> void:
 				],
 			),
 		},
+		[],
 		"Think of the binary string as 3 buckets, with the 1s simply being dividers between these buckets"
 	)
