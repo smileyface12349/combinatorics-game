@@ -703,7 +703,7 @@ class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 	# Handle edge contractions when left mouse released
 	func left_mouse_released() -> void:
 		var other_vertex: int = self.get_other_vertex_at_mouse(self.selected_vertex)
-		if other_vertex != -1:
+		if other_vertex != -1 and self.selected_vertex != -1:
 			# Contract selected vertex and the other vertex
 			self.contract_vertices(other_vertex, self.selected_vertex)
 		super()
