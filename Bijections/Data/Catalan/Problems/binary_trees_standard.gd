@@ -13,31 +13,32 @@ func _init() -> void:
 			BinaryTreeElement.new([0, 0], 1)
 		],
 		[
-			BijectionElement.new("(())", 1),
-			BijectionElement.new("()()", 2)
+			BinaryTreeElement.new([[0, 0], 0], 1),
+			BinaryTreeElement.new([0, [0, 0]], 1),
 		],
 		[
-			BijectionElement.new("((()))", 1),
-			BijectionElement.new("(()())", 2),
-			BijectionElement.new("(())()", 3),
-			BijectionElement.new("()(())", 4),
-			BijectionElement.new("()()()", 5)
+			BinaryTreeElement.new([[[0, 0], 0], 0], 1),
+			BinaryTreeElement.new([[0, [0, 0]], 0], 2),
+			BinaryTreeElement.new([[0, 0], [0, 0]], 3),
+			BinaryTreeElement.new([0, [[0, 0], 0]], 4),
+			BinaryTreeElement.new([0, [0, [0, 0]]], 5),
 		],
 		[
-			BijectionElement.new("(((())))", 1),
-			BijectionElement.new("((()()))", 2),
-			BijectionElement.new("((())())", 3),
-			BijectionElement.new("(()(()))", 4),
-			BijectionElement.new("((()))()", 5),
-			BijectionElement.new("()((()))", 6),
-			BijectionElement.new("(()()())", 7),
-			BijectionElement.new("(()())()", 8),
-			BijectionElement.new("()(()())", 9),
-			BijectionElement.new("(())(())", 10),
-			BijectionElement.new("(())()()", 11),
-			BijectionElement.new("()(())()", 12),
-			BijectionElement.new("()()(())", 13),
-			BijectionElement.new("()()()()", 14),
+			# TODO: NOT CHECKED
+			BinaryTreeElement.new([[[[0, 0], 0], 0], 0], 1),
+			BinaryTreeElement.new([[[0, [0, 0]], 0], 0], 2),
+			BinaryTreeElement.new([[[0, 0], [0, 0]], 0], 3),
+			BinaryTreeElement.new([[0, [[0, 0], 0]], 0], 4),
+			BinaryTreeElement.new([[[0, 0], 0], [0, 0]], 5),
+			BinaryTreeElement.new([0, [[[0, 0], 0], 0]], 6),
+			BinaryTreeElement.new([[0, [0, 0]], [0, 0]], 7),
+			BinaryTreeElement.new([[[0, 0], 0], [0, 0]], 8),
+			BinaryTreeElement.new([0, [[0, [0, 0]], 0]], 9),
+			BinaryTreeElement.new([[[0, 0], 0], [[0, 0], 0]], 10),
+			BinaryTreeElement.new([[[0, 0], 0], [0, [0, 0]]], 11),
+			BinaryTreeElement.new([[0, 0], [[0, 0], 0]], 12),
+			BinaryTreeElement.new([[0, 0], [0, [0, 0]]], 13),
+			BinaryTreeElement.new([0, [0, [0, [0, 0]]]], 14),
 		],
 		{
 			0: BijectionProof.new(
