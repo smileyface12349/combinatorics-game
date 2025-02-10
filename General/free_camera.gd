@@ -43,18 +43,22 @@ func _input(event: InputEvent) -> void:
 	# Keyboard control
 	if Input.is_action_just_pressed("ui_left"):
 		self.position.x -= keyboard_move_amount.x
-	if Input.is_action_just_pressed("ui_up"):
-		# Zoom in around centre of screen
-		self.zoom *= 1.3
-		if self.zoom > max_zoom:
-			self.zoom = max_zoom
 	if Input.is_action_just_pressed("ui_right"):
 		self.position.x += keyboard_move_amount.x
+	if Input.is_action_just_pressed("ui_up"):
+		self.position.y -= keyboard_move_amount.y
 	if Input.is_action_just_pressed("ui_down"):
+		self.position.y += keyboard_move_amount.y
+	if Input.is_action_just_pressed("zoom_out_key"):
 		# Zoom out around centre of screen
 		self.zoom *= 0.8
 		if self.zoom < min_zoom:
 			self.zoom = min_zoom
+	if Input.is_action_just_pressed("zoom_in_key"):
+		# Zoom in around centre of screen
+		self.zoom *= 1.3
+		if self.zoom > max_zoom:
+			self.zoom = max_zoom
 		
 		
 func _process(_delta: float) -> void:

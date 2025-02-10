@@ -6,7 +6,7 @@ extends BijectionLevel
 
 func _init() -> void:
 	super(
-		"A Very Very Long Title",
+		"A Very Long Title",
 		"ééééééééééé",
 		"A really really complicated description of something that actually isn't that complicated",
 		":-)",
@@ -19,7 +19,7 @@ func _init() -> void:
 				],
 				# Right elements 
 				[
-					BijectionElement.new("", 1),
+					BinaryTreeElement.new([0, 0], 1),
 				]
 			),
 			1: Bijection.new(
@@ -30,7 +30,7 @@ func _init() -> void:
 				],
 				# Right elements 
 				[
-					BijectionElement.new("()", 1),
+					BinaryTreeElement.new([[0, 0], [0, 0]], 1),
 				]
 			),
 		},

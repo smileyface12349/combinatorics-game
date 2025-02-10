@@ -26,6 +26,11 @@ func _init(steps: Array[int], id: int) -> void:
 	# Initialise super
 	super(text, id)
 
+# No text representation for this
+func draw_contents_text() -> void:
+	draw_contents_diagrams()
+
+# Get the height of the highest peak
 func get_max_height() -> int:
 	var height: int = 0
 	var max_height: int = 0
@@ -35,13 +40,14 @@ func get_max_height() -> int:
 			max_height = height
 	return max_height
 	
+# Get the number of steps
 func get_width() -> int:
 	return len(self.steps)
 
 # Constants used in drawing Young diagrams
 const horizontal_padding: int = 32
 const vertical_padding: int = 32
-const max_square_size: int = 32
+const max_square_size: int = 48
 const line_width: int = 2
 const dot_radius: int = 5
 
@@ -54,8 +60,8 @@ func draw_contents_diagrams() -> void:
 	var available_space: Vector2 = size - Vector2(horizontal_padding * 2, vertical_padding * 2)
 	
 	# Work out the length and width of the squares if we want to fill this space
-	var max_square_width: int = available_space.x / get_max_height()
-	var max_square_height: int = available_space.y / get_width()
+	var max_square_width: int = available_space.x / get_width()
+	var max_square_height: int = available_space.y / get_max_height()
 	
 	# We want to keep the squares square, but this can be changed to allow for rectangles
 	var square_size: int = min(max_square_width, max_square_height)

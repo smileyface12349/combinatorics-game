@@ -1,16 +1,16 @@
 extends CatalanProblem
-class_name CatalanParentheses
+class_name CatalanBinaryTrees
 
 func _init() -> void:
 	super(
-		"Parentheses",
-		"Sequences of n opening and n closing parentheses which are balanced",
-		0,
+		"Binary Trees",
+		"Binary Trees with n nodes",
+		1,
 		[
-			BijectionElement.new("", 1)
+			BinaryTreeElement.new([], 1)
 		],
 		[
-			BijectionElement.new("()", 1)
+			BinaryTreeElement.new([0, 0], 1)
 		],
 		[
 			BijectionElement.new("(())", 1),
@@ -40,10 +40,10 @@ func _init() -> void:
 			BijectionElement.new("()()()()", 14),
 		],
 		{
-			1: BijectionProof.new(
+			0: BijectionProof.new(
 				"Bijection: Map ( to an up walk and ) to a down walk.\n\nProof: Trivial",
 				0
 			)
 		},
-		[DefinitionBalancedParentheses.new()]
+		[DefinitionBinaryTree.new()]
 	)
