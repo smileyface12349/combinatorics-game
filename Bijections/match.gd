@@ -11,6 +11,7 @@ func set_bijection(new_bijection: Bijection) -> void:
 const line_width: int = 8
 
 var done: bool = false
+var incorrect: bool = false # if all the edges are complete but it isn't correct
 var show_diagrams: bool = false
 
 var mouse_position_drawn: Vector2 = Vector2(0, 0)
@@ -24,6 +25,10 @@ var active_element_side: bool = true
 var active_line: Line2D
 
 func _input(event: InputEvent) -> void:
+	# Once it's done, make it read only
+	if done:
+		return
+		
 	# Left mouse button pressed
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		# If there aren't any selected yet...
@@ -43,8 +48,9 @@ func _input(event: InputEvent) -> void:
 						for e: BijectionElement in bijection.from:
 							if e == active_element || e.match == active_element:
 								e.match = null
-						# If they've won already, invalidate this as it's been modified
-						done = false
+								callback_on_match.call()
+						# Remove the red as it's not complete any more
+						incorrect = false
 						break
 		# If we've already selected an element...
 		else:
@@ -62,7 +68,7 @@ func _input(event: InputEvent) -> void:
 						# Add the new matching
 						active_element.match = element
 					active_element = null
-					check_bijection()
+					callback_on_match.call()
 					break
 			# If we missed, just clear the active element anyway
 			active_element = null
@@ -70,12 +76,28 @@ func _input(event: InputEvent) -> void:
 		# Whatever happened, it's time for a redraw
 		queue_redraw()
 
-func check_bijection() -> void:
+# Marks as done (as long as it is indeed done)
+func mark_as_done() -> void:
 	if bijection.check():
 		done = true
 		queue_redraw()
-		await get_tree().create_timer(1.0).timeout
-		# TODO: Move camera?
+		
+# Makes the lines red
+func show_incorrect(incorrect: bool = true) -> void:
+	self.incorrect = incorrect
+		
+# Checks if it's correct
+func check() -> bool:
+	return bijection.check()
+	
+# Checks if everything has been matched up
+func is_complete() -> bool:
+	return bijection.is_complete()
+		
+# Callback when something is matched up
+var callback_on_match: Callable
+func set_callback_on_match(callback: Callable) -> void:
+	self.callback_on_match = callback
 
 func _process(_delta: float) -> void:
 	var mouse_position: Vector2 = get_local_mouse_position()
@@ -176,7 +198,14 @@ func _draw() -> void:
 	# Draw matchings that have already been done
 	for element: BijectionElement in bijection.from:
 		if element.match != null:
-			draw_line(element.get_line_pos(), element.match.get_line_pos(), Color.GREEN if done else Color.RED, line_width)
+			var colour: Color
+			if done:
+				colour = Color.GREEN
+			elif incorrect:
+				colour = Color.RED
+			else:
+				colour = Color.BLUE
+			draw_line(element.get_line_pos(), element.match.get_line_pos(), colour, line_width)
 			
 	# Draw active matching (if applicable)
 	#if active_element != null:

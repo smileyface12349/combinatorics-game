@@ -48,6 +48,13 @@ func check() -> bool:
 		if element.match == null || element.match.id != element.id:
 			return false
 	return true
+	
+## Checks if everything has been matched up
+func is_complete() -> bool:
+	for element: BijectionElement in self.from:
+		if element.match == null:
+			return false
+	return true
 
 ## Shuffles the elements (this is really important to do before displaying!)
 func shuffle_order() -> void:

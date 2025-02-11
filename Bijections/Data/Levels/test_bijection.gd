@@ -27,10 +27,12 @@ func _init() -> void:
 				# Left elements
 				[
 					DyckPathElement.new([1, -1], 1), 
+					BijectionElement.new("Orange", 2),
 				],
 				# Right elements 
 				[
 					BinaryTreeElement.new([[0, 0], [0, 0]], 1),
+					BijectionElement.new("Apple", 2)
 				]
 			),
 		},

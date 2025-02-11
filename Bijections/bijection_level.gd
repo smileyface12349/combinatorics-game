@@ -5,6 +5,7 @@ var bijection_n_scene: PackedScene = preload("res://Bijections/bijection_n.tscn"
 var bijection_overview_scene: PackedScene = preload("res://Bijections/Overview/bijection_overview_screen.tscn")
 var show_diagrams: bool = false
 var bijection_problems: Array[BijectionLevelNode] = []
+var bijection_overview: BijectionOverviewNode
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,9 +14,10 @@ func _ready() -> void:
 ## Creates the elements to represent the level
 func create_level(level: BijectionLevel) -> void:
 	# Add hints & definitions section
-	var instance: BijectionOverviewNode = bijection_overview_scene.instantiate()
-	instance.position = Vector2(-500, 500)
-	add_child(instance)
+	bijection_overview = bijection_overview_scene.instantiate()
+	bijection_overview.position = Vector2(-500, 500)
+	bijection_overview.set_definitions(level.definitions)
+	add_child(bijection_overview)
 
 	# Add the bijections
 	var position: Vector2 = Vector2(1000, 500)
@@ -36,6 +38,7 @@ func create_bijection_n(bijection: Bijection, level: BijectionLevel, position: V
 			set_show_diagrams(show_diagrams, len(bijection_problems))
 	)
 	instance.position = position
+	instance.set_callback_on_match(check_all)
 	add_child(instance)
 	bijection_problems.append(instance)
 
@@ -50,6 +53,38 @@ func set_show_diagrams(show_diagrams: bool, origin_problem: int) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+	
+# Called every time it updates. Checks if everything is correct and updates accordingly.
+func check_all() -> void:
+	# Check if they are all complete
+	var complete: bool = true
+	for problem_n: BijectionLevelNode in bijection_problems:
+		if not problem_n.is_complete():
+			complete = false
+			break
+			
+	# If not, there's no point going any further
+	if not complete:
+		for problem_n: BijectionLevelNode in bijection_problems:
+			problem_n.show_incorrect(false)
+		return
+	
+	# Check if they are all correct
+	var correct: bool = true
+	for problem_n: BijectionLevelNode in bijection_problems:
+		if not problem_n.check():
+			correct = false
+			break
+	
+	# All correct - tell them to update their appearance accordingly
+	if correct:
+		for problem_n: BijectionLevelNode in bijection_problems:
+			problem_n.mark_as_done()
+			
+	# At least one is wrong - make sure they are all red
+	else:
+		for problem_n: BijectionLevelNode in bijection_problems:
+			problem_n.show_incorrect()
 
 # Navigation back
 func _input(event: InputEvent) -> void:

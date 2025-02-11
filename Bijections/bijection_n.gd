@@ -13,6 +13,7 @@ class_name BijectionLevelNode
 var showDiagrams: bool = true
 var update_show_diagrams: Callable
 var bijection: Bijection
+var callback_on_match: Callable
 
 const vertical_spacing_between_elements: int = 32
 const panel_size_excluding_elements: int = 550
@@ -52,11 +53,30 @@ func set_show_diagrams(value: bool) -> void:
 	showDiagramsCheckbox.button_pressed = value
 	set_panel_size()
 	
+func set_callback_on_match(callback: Callable) -> void:
+	matchElements.callback_on_match = callback
+	
 ## When we toggle it, tell the other checkboxes to update and pass it through
 func checkbox_toggled(toggled_on: bool) -> void:
 	matchElements.set_show_diagrams(toggled_on)
 	update_show_diagrams.call(toggled_on)
 	set_panel_size()
+	
+## Checks if it's fully correct. Requires everything to be matched up.
+func check() -> bool:
+	return matchElements.check()
+	
+## Checks if everything has been matched up.
+func is_complete() -> bool:
+	return matchElements.is_complete()
+	
+## Updates the appearance to show it as done (after double checking that it is actually done)
+func mark_as_done() -> void:
+	matchElements.mark_as_done()
+	
+## Updates the appearance to suggest it's incorrect
+func show_incorrect(incorrect: bool = true) -> void:
+	matchElements.show_incorrect(incorrect)
 	
 func _ready() -> void:
 	showDiagramsCheckbox.connect("toggled", checkbox_toggled)
