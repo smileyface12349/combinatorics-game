@@ -1,11 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bt2oy24n476i1"]
+[gd_scene load_steps=7 format=3 uid="uid://bt2oy24n476i1"]
 
 [ext_resource type="Script" path="res://Bijections/bijection_n.gd" id="1_qfaor"]
 [ext_resource type="Script" path="res://Bijections/match.gd" id="2_g1vot"]
 [ext_resource type="FontFile" uid="uid://c13m3wup8q1k5" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Black.ttf" id="3_1hhi8"]
+[ext_resource type="Theme" uid="uid://c33ih5c1w6hv4" path="res://Bijections/hint_button_theme.tres" id="4_oxog3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7welf"]
 bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ilu37"]
+bg_color = Color(0.405313, 0.685431, 0.26072, 1)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("matchElements", "leftTitle", "leftDescription", "rightTitle", "rightDescription", "problemSizeIndicator", "panel", "showDiagramsCheckbox")]
 position = Vector2(1017, 493)
@@ -18,8 +22,6 @@ rightDescription = NodePath("Panel/RightDescription")
 problemSizeIndicator = NodePath("Panel/ProblemSizeIndicator")
 panel = NodePath("Panel")
 showDiagramsCheckbox = NodePath("Panel/ShowDiagrams")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = -709.0
@@ -41,13 +43,13 @@ text = "[center]Match Them Up!"
 
 [node name="Subtitle" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
-offset_left = 441.0
+offset_left = 459.0
 offset_top = 145.0
-offset_right = 983.0
+offset_right = 968.0
 offset_bottom = 191.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
-text = "[center]Your bijection will be checked automatically when completed for all values of n. You may use a powerup to check this value of n early.
+text = "[center]Your bijection will be checked automatically when completed for all values of n. Please use the same approach for all of them.
 [/center]"
 
 [node name="MatchElements" type="Control" parent="Panel" node_paths=PackedStringArray("problemSizeIndicator")]
@@ -136,3 +138,42 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
 keep_pressed_outside = true
 text = "Enlarge and Prefer Diagrams"
+
+[node name="BottomAnchor" type="Control" parent="Panel"]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -700.0
+offset_top = -122.0
+offset_right = -660.0
+offset_bottom = -82.0
+
+[node name="JumpToHintsButton" type="Button" parent="Panel/BottomAnchor"]
+visible = false
+offset_left = 532.0
+offset_top = 58.0
+offset_right = 852.0
+offset_bottom = 103.0
+theme = ExtResource("4_oxog3")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ilu37")
+text = "Hints & Definitions"
+
+[node name="CheckButton" type="Button" parent="Panel/BottomAnchor"]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 39.0
+offset_right = 531.0
+offset_bottom = 88.0
+theme = ExtResource("4_oxog3")
+text = "How many are correct? (1 🧠)"
+
+[node name="SuperCheckButton" type="Button" parent="Panel/BottomAnchor"]
+layout_mode = 0
+offset_left = 828.0
+offset_top = 40.0
+offset_right = 1321.0
+offset_bottom = 91.0
+theme = ExtResource("4_oxog3")
+text = "Which ones are correct? (2 🧠)"

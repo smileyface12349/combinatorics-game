@@ -1,0 +1,100 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnxtsll3lc18w"]
+
+[ext_resource type="Script" path="res://Bijections/match.gd" id="1_7la86"]
+[ext_resource type="Script" path="res://Bijections/Overview/bijection_overview.gd" id="1_p524g"]
+[ext_resource type="FontFile" uid="uid://c13m3wup8q1k5" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Black.ttf" id="2_hjw11"]
+[ext_resource type="Theme" uid="uid://c33ih5c1w6hv4" path="res://Bijections/hint_button_theme.tres" id="3_we76v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mbf0"]
+bg_color = Color(0.646029, 0.646029, 0.646029, 1)
+
+[node name="BijectionOverviewScreen" type="Node2D"]
+script = ExtResource("1_p524g")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -709.0
+offset_top = -442.0
+offset_right = 691.0
+offset_bottom = 855.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7mbf0")
+
+[node name="Title" type="RichTextLabel" parent="Panel"]
+layout_mode = 2
+offset_left = 382.0
+offset_top = 62.0
+offset_right = 1046.0
+offset_bottom = 156.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]Hints and Definitions"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+offset_left = 541.0
+offset_top = 169.0
+offset_right = 890.0
+offset_bottom = 292.0
+theme_override_font_sizes/normal_font_size = 48
+text = "
+🧠🧠🧠🧠🧠"
+
+[node name="Subtitle" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 455.0
+offset_top = 163.0
+offset_right = 964.0
+offset_bottom = 209.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center]If you're stuck, here's the place to be!
+[/center]"
+
+[node name="MatchElements" type="Control" parent="Panel" node_paths=PackedStringArray("problemSizeIndicator")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+anchors_preset = 0
+offset_left = 133.0
+offset_top = 307.0
+offset_right = 1267.0
+offset_bottom = 1265.0
+script = ExtResource("1_7la86")
+font = ExtResource("2_hjw11")
+problemSizeIndicator = NodePath("")
+
+[node name="BottomAnchor" type="Control" parent="Panel"]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -700.0
+offset_top = -122.0
+offset_right = -660.0
+offset_bottom = -82.0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 456.0
+offset_right = 1340.0
+offset_bottom = 1170.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 43
+bbcode_enabled = true
+text = "[b]Relevant Definitions[/b]
+
+This level does not have any particular definitions that you need to know.
+
+[b]Hints[/b]
+
+No hints used. Spend 🧠 and what you learn will appear here.
+"
+
+[node name="HintButton" type="Button" parent="."]
+offset_left = -185.0
+offset_top = -125.0
+offset_right = 187.0
+offset_bottom = -80.0
+theme = ExtResource("3_we76v")
+text = "Show Level Hint (1 🧠)"

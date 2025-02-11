@@ -2,6 +2,7 @@ extends Node
 
 const bijection_width: int = 1500
 var bijection_n_scene: PackedScene = preload("res://Bijections/bijection_n.tscn")
+var bijection_overview_scene: PackedScene = preload("res://Bijections/Overview/bijection_overview_screen.tscn")
 var show_diagrams: bool = false
 var bijection_problems: Array[BijectionLevelNode] = []
 
@@ -11,6 +12,12 @@ func _ready() -> void:
 	
 ## Creates the elements to represent the level
 func create_level(level: BijectionLevel) -> void:
+	# Add hints & definitions section
+	var instance: BijectionOverviewNode = bijection_overview_scene.instantiate()
+	instance.position = Vector2(-500, 500)
+	add_child(instance)
+
+	# Add the bijections
 	var position: Vector2 = Vector2(1000, 500)
 	for problem_size: int in level.bijections:
 		create_bijection_n(level.bijections[problem_size], level, position)
