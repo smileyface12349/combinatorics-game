@@ -1,15 +1,15 @@
 extends Node
 
-const acceleration: float = 3
-const braking: float = 3
+const acceleration: float = 750
+const braking: float = 300
 const reverse_delay: float = 0.2
-const reverse_amount: float = 0.8
+const reverse_amount: float = 300
 const turn_amount: float = 3
 
-const BOUNDARY_TOP: int = -750
-const BOUNDARY_BOTTOM: int = 1750
-const BOUNDARY_LEFT: int = -750
-const BOUNDARY_RIGHT: int = 2000
+const BOUNDARY_TOP: int = -1300
+const BOUNDARY_BOTTOM: int = 1200
+const BOUNDARY_LEFT: int = -2000
+const BOUNDARY_RIGHT: int = 2500
 
 @export var dialog_text: RichTextLabel
 
@@ -17,8 +17,8 @@ const BOUNDARY_RIGHT: int = 2000
 #const max_forwards_speed: float = 5
 #const max_reverse_speed: float = 1
 
-const air_resistance: float = 0.2 # multiplied by velocity squared, per second
-const damping: float = 0.4 # does not scale with velocity, per second
+const air_resistance: float = 0.01 # multiplied by velocity squared, per second
+const damping: float = 15.0 # does not scale with velocity, per second
 
 var speed: float
 var direction: float
@@ -44,7 +44,7 @@ var current: TopicHover = TopicHover.new_no_topic()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	speed = 0
-	direction = 0
+	direction = PI
 	reverse_delay_elapsed = 0
 	is_reversing = false
 	dialog_text.text = ""  # text sometimes put in for testing
@@ -96,14 +96,18 @@ func _process(delta: float) -> void:
 		direction -= turn_amount * delta
 	if Input.is_action_pressed("driving_right"):
 		direction += turn_amount * delta
+
+	print("Speed before air resistance: " + str(speed))
 		
 	# Air resistance (always against direction of travel, bigger for faster speeds)
 	if speed > 0:
 		speed -= air_resistance * delta * pow(speed, 2)
 	elif speed < 0:
 		speed += air_resistance * delta * pow(speed, 2)
+
+	print("Speed after air resistance: " + str(speed))
 		
-	# Fixed damping (most noticeable at slower speeds)
+	# Fixed damping (stops the car from rolling for too long at slower speeds, so that it comes to a complete stop instead)
 	if speed > 0:
 		speed -= damping * delta
 		if speed < 0:
@@ -112,9 +116,11 @@ func _process(delta: float) -> void:
 		speed += damping * delta
 		if speed > 0:
 			speed = 0
+
+	print("Speed after damping: " + str(speed))
 		
 	#print("Speed: " + str(speed) + ", Direction: " + str(direction))
-	self.position += Vector2.from_angle(direction - PI/2) * speed
+	self.position += Vector2.from_angle(direction - PI/2) * speed * delta
 	self.rotation = direction
 	
 	# Stay within bounds
