@@ -73,6 +73,8 @@ offset_left = -700.0
 offset_top = -122.0
 offset_right = -660.0
 offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="Text" type="RichTextLabel" parent="Panel"]
 layout_mode = 0

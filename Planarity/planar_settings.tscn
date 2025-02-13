@@ -1,9 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://bw5nw7s0uevf7"]
+[gd_scene load_steps=15 format=3 uid="uid://bw5nw7s0uevf7"]
 
 [ext_resource type="Theme" uid="uid://crnnsrj7q2hwh" path="res://General/Background.tres" id="1_t604e"]
 [ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="2_8ii1i"]
 [ext_resource type="Theme" uid="uid://c8skqvn51f2mv" path="res://Menu/subtitle.tres" id="3_3ebjb"]
+[ext_resource type="FontFile" uid="uid://bywovpuc4ufa5" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Medium.ttf" id="3_n30wm"]
 [ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_spin_button.gd" id="4_54ugn"]
+[ext_resource type="FontFile" uid="uid://cks6ewm6f4f8a" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-MediumIt.ttf" id="4_dvuk5"]
+[ext_resource type="FontFile" uid="uid://b6q7hj0kflkpj" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Bold.ttf" id="4_pewdh"]
 [ext_resource type="Theme" uid="uid://dlcxcyr3vrmuw" path="res://Menu/SpinButton.tres" id="5_n38al"]
 [ext_resource type="Texture2D" uid="uid://0b3v0imcjtk3" path="res://addons/spin_button/example/assets/icons/buttons/navs/arrow_right_x32.png" id="7_hkp87"]
 [ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_slider_button.gd" id="8_dsqc8"]
@@ -29,6 +32,38 @@ offset_bottom = 1095.0
 theme = ExtResource("1_t604e")
 theme_override_styles/panel = SubResource("StyleBoxFlat_dwxsr")
 
+[node name="Terminology" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 604.0
+offset_right = 1918.0
+offset_bottom = 699.0
+theme = ExtResource("3_3ebjb")
+bbcode_enabled = true
+text = "[center]Terminology"
+
+[node name="TerminologyText" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 712.0
+offset_right = 1837.0
+offset_bottom = 1068.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_n30wm")
+theme_override_fonts/italics_font = ExtResource("4_dvuk5")
+theme_override_fonts/bold_font = ExtResource("4_pewdh")
+theme_override_font_sizes/italics_font_size = 28
+theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/bold_font_size = 28
+bbcode_enabled = true
+text = "[b]Definition[/b]: A [color=red]drawing[/color] of a graph is [color=red]planar[/color] if none of the edges cross over each other.
+[b]Definition[/b]: A [color=red]graph[/color] is [color=red]planar[/color] if there exists some drawing of it which is planar.
+[b]Theorem[/b] ([color=red]Kuratowski-Wagner[/color]): A graph is non-planar if and only if it has K_5 or K_3,3 as a minor.
+[b]Definition[/b] ([color=red]K_5[/color]): |V| = 5. For all u, v ∈ V we have {u, v} ∈ E.
+[b]Definition[/b] ([color=red]K_3,3[/color]): |A| = |B| = 3. V = A ∪ B. |V| = 6. For all a ∈ A and b ∈ B we have {a, b} ∈ E.
+[b]Definition[/b]: A graph H is a [color=red]minor[/color] of a graph G if H can be obtained from G using a series of vertex deletions, edge deletions and vertex contractions.
+[b]Definition[/b]: A [color=red]vertex contraction[/color] between v_1 and v_2 combines these two vertices into a new vertex v_3 such that N(v_3) = N(v_1) ∪ N(v_2). [i](This is easiest to understand through experimentation).[/i]"
+
 [node name="Title" type="RichTextLabel" parent="."]
 layout_mode = 0
 offset_top = 67.0
@@ -40,10 +75,10 @@ text = "[center]Planar Graphs"
 
 [node name="Subtitle" type="RichTextLabel" parent="Title"]
 layout_mode = 0
-offset_left = 3.0
-offset_top = 172.0
-offset_right = 1923.0
-offset_bottom = 286.0
+offset_left = 1.0
+offset_top = 144.0
+offset_right = 1921.0
+offset_bottom = 258.0
 theme = ExtResource("3_3ebjb")
 bbcode_enabled = true
 text = "[center]Practice Mode"
@@ -51,9 +86,9 @@ text = "[center]Practice Mode"
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
 offset_left = 460.0
-offset_top = 408.0
+offset_top = 342.0
 offset_right = 1460.0
-offset_bottom = 1058.0
+offset_bottom = 992.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 custom_minimum_size = Vector2(1000, 500)
@@ -100,7 +135,7 @@ value_separation = 25
 title = "Number of Nodes"
 
 [node name="Control" type="Control" parent="ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="Button" type="Button" parent="ScrollContainer/VBoxContainer" node_paths=PackedStringArray("numNodes", "graphGeneration", "problemType")]

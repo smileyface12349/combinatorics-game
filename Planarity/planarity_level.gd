@@ -71,13 +71,13 @@ func new_graph() -> void:
 		if PlanarSettings.graph_generation == 1:
 			graph = Graphs.Graph.get_random_nearly_non_planar(PlanarSettings.num_nodes)
 		else:
-			graph = Graphs.Graph.get_random_planar(PlanarSettings.num_nodes, 0.35)
+			graph = Graphs.Graph.get_random_planar(PlanarSettings.num_nodes, 0.33)
 	elif PlanarSettings.problem_types == 2:
 		# Non-planar graphs only
 		if PlanarSettings.graph_generation == 1:
 			graph = Graphs.Graph.get_random_nearly_planar(PlanarSettings.num_nodes)
 		else:
-			graph = Graphs.Graph.get_random_non_planar(PlanarSettings.num_nodes, 0.35)
+			graph = Graphs.Graph.get_random_non_planar(PlanarSettings.num_nodes, 0.33)
 	else:
 		# Planar and non-planar graphs
 		if PlanarSettings.graph_generation == 1:
@@ -87,7 +87,7 @@ func new_graph() -> void:
 				graph = Graphs.Graph.get_random_nearly_non_planar(PlanarSettings.num_nodes)
 		else:
 			# Note: Default Settings
-			graph = Graphs.Graph.get_random_connected(PlanarSettings.num_nodes, 0.35)
+			graph = Graphs.Graph.get_random_connected(PlanarSettings.num_nodes, 0.33)
 
 	planarGraph = graph.get_drawing_best(true).get_rearrangeable(true)
 	planarGraph.on_win = on_planar_win
