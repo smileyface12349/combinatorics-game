@@ -6,9 +6,9 @@ var root: Array # Each node is an array of length 2. Each value should be either
 
 func _init(root: Array, id: int) -> void:
 	self.root = root
-	
+
 	# Initialise super
-	super("N/A", id)
+	super(get_string(root), id)
 
 # No text representation for this
 func draw_contents_text() -> void:
@@ -51,6 +51,21 @@ func get_width(root: Array, x: int, min_x: int, max_x: int) -> Array[int]:
 	# Return the min/max from all of these
 	return [min(left_results[0], right_results[0]), max(left_results[1], right_results[1])]
 
+# Get a string representation of a subtree
+func get_string(node: Array) -> String:
+	if node == []:
+		return "Empty Tree"
+	
+	var text: String = "{"
+	if typeof(node[0]) == TYPE_ARRAY:
+		text += "L: " + get_string(node[0])
+	if typeof(node[1]) == TYPE_ARRAY:
+		text += "R: " + get_string(node[1])
+	if text == "{":
+		text += "leaf"
+	text += "}"
+
+	return text
 
 
 # # Traverses the tree and gets a suitable position for the nodes and edges, adding them to the list. Works recursively.

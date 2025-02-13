@@ -5,7 +5,7 @@ var last_mouse_position: Vector2
 
 const min_zoom: Vector2 = Vector2(0.3, 0.3)
 const max_zoom: Vector2 = Vector2(2, 2)
-const min_pos: Vector2 = Vector2(0, 0)
+const min_pos: Vector2 = Vector2(-1000, 0)
 const max_pos: Vector2 = Vector2(30000, 2000)
 const keyboard_move_amount: Vector2 = Vector2(1500, 250)
 

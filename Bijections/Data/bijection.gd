@@ -56,6 +56,14 @@ func is_complete() -> bool:
 			return false
 	return true
 
+## Determines how many of them are matched up correctly
+func get_number_correct() -> int:
+	var correct: int = 0
+	for element: BijectionElement in self.from:
+		if element.match != null && element.match.id == element.id:
+			correct += 1
+	return correct
+
 ## Shuffles the elements (this is really important to do before displaying!)
 func shuffle_order() -> void:
 	self.from.shuffle()

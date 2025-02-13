@@ -24,6 +24,10 @@ var active_element_side: bool = true
 
 var active_line: Line2D
 
+# Manually overrides how edges should be displayed. This is based on the ID of the left element.
+var display_correct: Array[int] = []
+var display_incorrect: Array[int] = []
+
 func _input(event: InputEvent) -> void:
 	# Once it's done, make it read only
 	if done:
@@ -48,6 +52,10 @@ func _input(event: InputEvent) -> void:
 						for e: BijectionElement in bijection.from:
 							if e == active_element || e.match == active_element:
 								e.match = null
+								if e.id in display_correct:
+									display_correct.erase(e.id)
+								if e.id in display_incorrect:
+									display_incorrect.erase(e.id)
 								callback_on_match.call()
 						# Remove the red as it's not complete any more
 						incorrect = false
@@ -59,12 +67,22 @@ func _input(event: InputEvent) -> void:
 				if element.is_inside(get_local_mouse_position()):
 					# If so, match these up. Only store matchings from left to right
 					if !active_element_side:
+						# Remove any display from the old element
+						if element.id in display_correct:
+							display_correct.erase(element.id)
+						if element.id in display_incorrect:
+							display_incorrect.erase(element.id)
+						# Overwrite it
 						element.match = active_element
 					else:
 						# Check if we need to remove an old matching
 						for e: BijectionElement in bijection.from:
 							if e.match == element:
 								e.match = null
+								if e.id in display_correct:
+									display_correct.erase(e.id)
+								if e.id in display_incorrect:
+									display_incorrect.erase(e.id)
 						# Add the new matching
 						active_element.match = element
 					active_element = null
@@ -93,6 +111,19 @@ func check() -> bool:
 # Checks if everything has been matched up
 func is_complete() -> bool:
 	return bijection.is_complete()
+
+# Determines how many are matched up correclty
+func get_number_correct() -> int:
+	return bijection.get_number_correct()
+
+# Checks which are correct and displays this to the user. Does not return anything.
+func check_individually() -> void:
+	for e: BijectionElement in bijection.from:
+		if e.match != null && e.id == e.match.id:
+			display_correct.append(e.id)
+		else:
+			display_incorrect.append(e.id)
+	queue_redraw()
 		
 # Callback when something is matched up
 var callback_on_match: Callable
@@ -199,9 +230,9 @@ func _draw() -> void:
 	for element: BijectionElement in bijection.from:
 		if element.match != null:
 			var colour: Color
-			if done:
+			if done || element.id in display_correct:
 				colour = Color.GREEN
-			elif incorrect:
+			elif incorrect || element.id in display_incorrect:
 				colour = Color.RED
 			else:
 				colour = Color.BLUE

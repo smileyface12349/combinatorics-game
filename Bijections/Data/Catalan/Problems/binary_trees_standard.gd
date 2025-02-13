@@ -14,7 +14,7 @@ func _init() -> void:
 		],
 		[
 			BinaryTreeElement.new([[0, 0], 0], 1),
-			BinaryTreeElement.new([0, [0, 0]], 1),
+			BinaryTreeElement.new([0, [0, 0]], 2),
 		],
 		[
 			BinaryTreeElement.new([[[0, 0], 0], 0], 1),

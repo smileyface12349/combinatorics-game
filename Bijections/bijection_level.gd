@@ -6,6 +6,9 @@ var bijection_overview_scene: PackedScene = preload("res://Bijections/Overview/b
 var show_diagrams: bool = false
 var bijection_problems: Array[BijectionLevelNode] = []
 var bijection_overview: BijectionOverviewNode
+var hints: Array[String] = []
+var hints_available: int = 5
+var level_hint: String = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,6 +20,10 @@ func create_level(level: BijectionLevel) -> void:
 	bijection_overview = bijection_overview_scene.instantiate()
 	bijection_overview.position = Vector2(-500, 500)
 	bijection_overview.set_definitions(level.definitions)
+	level_hint = level.hint
+	if level_hint == "":
+		bijection_overview.hide_hint_button()
+	bijection_overview.request_level_hint = request_level_hint
 	add_child(bijection_overview)
 
 	# Add the bijections
@@ -39,8 +46,33 @@ func create_bijection_n(bijection: Bijection, level: BijectionLevel, position: V
 	)
 	instance.position = position
 	instance.set_callback_on_match(check_all)
+	instance.set_add_hint(add_hint)
+	instance.available_hints = hints_available
 	add_child(instance)
 	bijection_problems.append(instance)
+
+# Call this from anywhere to spend a new hint. Include a string representation of the information learned by the user for the log.
+func add_hint(hints_spent: int, hint: String) -> void:
+	# Display the hint
+	hints.append(hint)
+	bijection_overview.set_hints(hints)
+
+	# Reduce the number of hints available
+	hints_available -= hints_spent
+
+	# Ensure the user can't use too many hints
+	for node: BijectionLevelNode in bijection_problems:
+		node.set_hints_available(hints_available)
+
+	# Update visual display of available hints
+	bijection_overview.set_available_hints(hints_available)
+
+# Shows the level hint
+func request_level_hint() -> void:
+	if hints_available >= 1:
+		add_hint(1, "[u]Hint[/u]: " + level_hint)
+		bijection_overview.hide_hint_button()
+
 
 func set_show_diagrams(show_diagrams: bool, origin_problem: int) -> void:
 	# Update it for us

@@ -6,7 +6,7 @@ var steps: Array[int] # 1 = up step, -1 = down step
 func _init(steps: Array[int], id: int) -> void:
 	self.steps = steps
 	
-	# Obtain a string representation to use when diagrams are disabled
+	# Obtain a string representation (not currently used when diagrams are disabled)
 	var text: String = ""
 	for step: int in steps:
 		if step == 1:
