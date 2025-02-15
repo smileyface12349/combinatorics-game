@@ -96,16 +96,12 @@ func _process(delta: float) -> void:
 		direction -= turn_amount * delta
 	if Input.is_action_pressed("driving_right"):
 		direction += turn_amount * delta
-
-	print("Speed before air resistance: " + str(speed))
 		
 	# Air resistance (always against direction of travel, bigger for faster speeds)
 	if speed > 0:
 		speed -= air_resistance * delta * pow(speed, 2)
 	elif speed < 0:
 		speed += air_resistance * delta * pow(speed, 2)
-
-	print("Speed after air resistance: " + str(speed))
 		
 	# Fixed damping (stops the car from rolling for too long at slower speeds, so that it comes to a complete stop instead)
 	if speed > 0:
@@ -116,8 +112,6 @@ func _process(delta: float) -> void:
 		speed += damping * delta
 		if speed > 0:
 			speed = 0
-
-	print("Speed after damping: " + str(speed))
 		
 	#print("Speed: " + str(speed) + ", Direction: " + str(direction))
 	self.position += Vector2.from_angle(direction - PI/2) * speed * delta

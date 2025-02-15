@@ -71,4 +71,3 @@ func set_available_hints(available_hints: int)  -> void:
 # Hides the level hint button. Should be done when the hint is used, or there isn't a hint for this level
 func hide_hint_button() -> void:
 	levelHintButton.hide()
-

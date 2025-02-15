@@ -1,4 +1,4 @@
-[gd_scene load_steps=107 format=4 uid="uid://po8854lqyopy"]
+[gd_scene load_steps=109 format=4 uid="uid://po8854lqyopy"]
 
 [ext_resource type="Script" path="res://ChooseTopic/choose_topic.gd" id="1_55lkm"]
 [ext_resource type="Script" path="res://ChooseTopic/menu_car.gd" id="1_g4u3r"]
@@ -54,6 +54,7 @@
 [ext_resource type="Texture2D" uid="uid://b0l064frcqfip" path="res://ChooseTopic/MedievalAssets/Environment/medievalEnvironment_03.png" id="49_8ao1r"]
 [ext_resource type="Texture2D" uid="uid://c57ukjnsgs1uh" path="res://ChooseTopic/MedievalAssets/Environment/medievalEnvironment_05.png" id="50_hugd2"]
 [ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_bijections.gd" id="50_y777p"]
+[ext_resource type="Script" path="res://ChooseTopic/Exercises/exercise_collider.gd" id="51_hod0l"]
 [ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_planar.gd" id="55_c65t8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c6q06"]
@@ -341,6 +342,9 @@ size = Vector2(306.667, 413.333)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2i0ya"]
 size = Vector2(290, 423.333)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8m72i"]
+size = Vector2(83.3333, 82.5)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_naxte"]
 size = Vector2(69, 121)
 
@@ -386,6 +390,18 @@ script = ExtResource("55_c65t8")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Combinatorics-town-v2/Area2DPlanarGraphs"]
 position = Vector2(-1040.5, -514.5)
 shape = SubResource("RectangleShape2D_2i0ya")
+
+[node name="BonusExercise1" type="Area2D" parent="Combinatorics-town-v2" node_paths=PackedStringArray("exerciseLayer")]
+script = ExtResource("51_hod0l")
+id = 1
+title = "Arrangements"
+description = "How many ways are there to order 6 people in a line?"
+answer = 720
+exerciseLayer = NodePath("../../ExerciseLayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Combinatorics-town-v2/BonusExercise1"]
+position = Vector2(210, -147.5)
+shape = SubResource("RectangleShape2D_8m72i")
 
 [node name="Environment" type="Node2D" parent="."]
 visible = false
@@ -464,3 +480,5 @@ offset_bottom = 1075.0
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "[center]Press SPACE or ENTER to go to Test"
+
+[node name="ExerciseLayer" type="CanvasLayer" parent="."]
