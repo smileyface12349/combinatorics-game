@@ -1,0 +1,101 @@
+[gd_scene load_steps=7 format=3 uid="uid://bw8t4xfhb7sdw"]
+
+[ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="1_hm5ww"]
+[ext_resource type="Script" path="res://ChooseTopic/Exercises/exercise_controller.gd" id="1_yhnvq"]
+[ext_resource type="Theme" uid="uid://nm3tnjbbbaxg" path="res://Menu/heading.tres" id="2_dr7hu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iyoja"]
+bg_color = Color(0.834614, 0.834614, 0.834614, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cla71"]
+bg_color = Color(0.340628, 0.58935, 0.186822, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wxtl"]
+bg_color = Color(0.924884, 0.439397, 0.17864, 1)
+
+[node name="ExerciseScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yhnvq")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1924.0
+offset_bottom = 1085.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_iyoja")
+
+[node name="Title" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 76.0
+offset_right = 1919.0
+offset_bottom = 221.0
+theme = ExtResource("1_hm5ww")
+bbcode_enabled = true
+text = "[center]Exercise N"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 300.0
+offset_right = 1795.0
+offset_bottom = 1036.0
+
+[node name="Description" type="RichTextLabel" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_dr7hu")
+bbcode_enabled = true
+text = "How many ways are there to arrange n people in a line? How many ways are there to arrange n people in a line? How many ways are there to arrange n people in a line?"
+
+[node name="Definitions" type="RichTextLabel" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_dr7hu")
+theme_override_font_sizes/normal_font_size = 32
+text = "Term A - Definition A
+Term B - Definition B
+Term C - Definition C"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextEdit" type="TextEdit" parent="Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(210, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Your Answer"
+
+[node name="CheckButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_cla71")
+text = "Check!"
+
+[node name="Spacer" type="Control" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Feedback" type="RichTextLabel" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center][color=red]That's not quite right. Keep trying!"
+
+[node name="MenuButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 32.0
+offset_right = 280.0
+offset_bottom = 74.0
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_7wxtl")
+text = "Back to Main Menu"

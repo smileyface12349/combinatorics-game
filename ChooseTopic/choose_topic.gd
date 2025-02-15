@@ -10,7 +10,7 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().change_scene_to_file("res://Menu/menu.tscn")
 	
-	# Buttons to change level (in case the user doesn't want, or can't, drive around)
+	# Buttons to change level (in case the user doesn't want to, or can't, drive around)
 	if Input.is_action_just_pressed("num_0"):
 		# 0 = bijections
 		get_tree().change_scene_to_file("res://Bijections/bijection_level_select.tscn")
