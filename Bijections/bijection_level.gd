@@ -121,5 +121,9 @@ func check_all() -> void:
 # Navigation back
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
-		BijectionSettings.current_level = null
-		get_tree().change_scene_to_file("res://Bijections/bijection_level_select.tscn")
+		if BijectionSettings.current_level.is_catalan:
+			BijectionSettings.current_level = null
+			get_tree().change_scene_to_file("res://Bijections/Catalan/catalan_menu.tscn")
+		else:
+			BijectionSettings.current_level = null
+			get_tree().change_scene_to_file("res://Bijections/bijection_level_select.tscn")

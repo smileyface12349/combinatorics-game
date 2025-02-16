@@ -6,6 +6,9 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _input(event: InputEvent) -> void:
+	if GeneralSettings.is_popup_open:
+		return
+		
 	# ESC to go back to menu
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().change_scene_to_file("res://Menu/menu.tscn")
@@ -24,6 +27,7 @@ func _input(event: InputEvent) -> void:
 	# If they chose a level
 	if BijectionSettings.current_level != null:
 		get_tree().change_scene_to_file("res://Bijections/bijection_level.tscn")
+	# TODO: Why is this here?
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

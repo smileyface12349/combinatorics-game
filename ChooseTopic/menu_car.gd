@@ -1,9 +1,9 @@
 extends Node
 
-const acceleration: float = 750
-const braking: float = 300
+const acceleration: float = 250
+const braking: float = 200
 const reverse_delay: float = 0.2
-const reverse_amount: float = 300
+const reverse_amount: float = 100
 const turn_amount: float = 3
 
 const BOUNDARY_TOP: int = -1300
@@ -17,8 +17,8 @@ const BOUNDARY_RIGHT: int = 2500
 #const max_forwards_speed: float = 5
 #const max_reverse_speed: float = 1
 
-const air_resistance: float = 0.01 # multiplied by velocity squared, per second
-const damping: float = 15.0 # does not scale with velocity, per second
+const air_resistance: float = 0.002 # multiplied by velocity squared, per second
+const damping: float = 20.0 # does not scale with velocity, per second
 
 var speed: float
 var direction: float
@@ -53,6 +53,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if GeneralSettings.is_popup_open:
+		return
+
 	if Input.is_action_pressed("driving_accelerate"):
 		# Attempting to accelerate
 		if speed > 0:
@@ -91,7 +94,7 @@ func _process(delta: float) -> void:
 		# Attempting to brake
 		else:
 			speed -= braking * delta
-	# TODO: Turn less when moving faster
+	
 	if Input.is_action_pressed("driving_left"):
 		direction -= turn_amount * delta
 	if Input.is_action_pressed("driving_right"):

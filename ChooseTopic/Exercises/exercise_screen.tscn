@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bw8t4xfhb7sdw"]
+[gd_scene load_steps=7 format=3 uid="uid://bw8t4xfhb7sdw"]
 
 [ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="1_hm5ww"]
 [ext_resource type="Script" path="res://ChooseTopic/Exercises/exercise_controller.gd" id="1_yhnvq"]
 [ext_resource type="Theme" uid="uid://nm3tnjbbbaxg" path="res://Menu/heading.tres" id="2_dr7hu"]
-[ext_resource type="Theme" uid="uid://c8skqvn51f2mv" path="res://Menu/subtitle.tres" id="4_lpfj8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iyoja"]
 bg_color = Color(0.834614, 0.834614, 0.834614, 1)
@@ -63,16 +62,18 @@ bbcode_enabled = true
 text = "How many ways are there to put 4 balls into 5 boxes?"
 
 [node name="DefintionsHeading" type="RichTextLabel" parent="Panel/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
-theme = ExtResource("4_lpfj8")
+theme = ExtResource("2_dr7hu")
 text = "Definitions:"
 
 [node name="Definitions" type="RichTextLabel" parent="Panel/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("2_dr7hu")
-theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/normal_font_size = 24
 text = "Triangle - A shape with 3 sides
 Square - A shape with 4 sides"
 
@@ -108,9 +109,9 @@ text = "[center][color=red]That's not quite right. Keep trying!"
 [node name="MenuButton" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 0
-offset_left = 41.0
+offset_left = 1455.0
 offset_top = 40.0
-offset_right = 121.0
+offset_right = 1535.0
 offset_bottom = 128.0
 theme_override_font_sizes/font_size = 64
 theme_override_styles/normal = SubResource("StyleBoxFlat_7wxtl")

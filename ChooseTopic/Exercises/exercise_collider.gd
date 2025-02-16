@@ -3,13 +3,7 @@ class_name ExerciseCollider
 
 var topic_name: String = "Bonus Exercise"
 
-@export var id: int # A numeric ID to identify each problem. These are done consecutively starting at 1, with easier problems being first.
-@export var title: String # A title. The problem description must make sense without the title.
-@export var description: String # The full description of the problem.
-@export var definitions: Array[String] # Any relevant definitions that the player might not know.
-@export var answer: int # The correct answer to the problem
-
-@export var exerciseLayer: CanvasLayer
+@export var parent: Exercise
 
 var exercise_screen: PackedScene = preload("res://ChooseTopic/Exercises/exercise_screen.tscn")
 
@@ -23,7 +17,9 @@ var exercise_screen: PackedScene = preload("res://ChooseTopic/Exercises/exercise
 
 func go() -> void:
 	var instance: ExerciseController = exercise_screen.instantiate()
-	instance.set_exercise(self, func() -> void:
+	instance.set_exercise(parent, func() -> void:
 		instance.queue_free()
+		GeneralSettings.is_popup_open = false
 	)
-	exerciseLayer.add_child(instance)
+	GeneralSettings.is_popup_open = true
+	parent.exerciseLayer.add_child(instance)

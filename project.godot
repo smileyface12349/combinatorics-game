@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 PlanarSettings="*res://Planarity/level_settings.gd"
 Graphs="*res://General/graphs.gd"
 BijectionSettings="*res://Bijections/bijections_user_data.gd"
+GeneralSettings="*res://General/general_settings.gd"
 
 [debug]
 

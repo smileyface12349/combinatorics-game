@@ -8,8 +8,9 @@ var right_title: String
 var definitions: Array[BijectionDefinition]
 var hint: String
 var proof: BijectionProof
+var is_catalan: bool = false
 
-func _init(left_title: String, right_title: String, left_description: String, right_description: String, bijections: Dictionary, definitions: Array[BijectionDefinition] = [], hint: String = "", proof: BijectionProof = BijectionProof.new()) -> void:
+func _init(left_title: String, right_title: String, left_description: String, right_description: String, bijections: Dictionary, definitions: Array[BijectionDefinition] = [], hint: String = "", proof: BijectionProof = BijectionProof.new(), is_catalan: bool = false) -> void:
 	self.left_title = left_title
 	self.left_text = left_description
 	self.right_title = right_title
@@ -18,6 +19,7 @@ func _init(left_title: String, right_title: String, left_description: String, ri
 	self.definitions = definitions
 	self.hint = hint
 	self.proof = proof
+	self.is_catalan = is_catalan
 
 static func from_catalan_problems(problem1: CatalanProblem, problem2: CatalanProblem) -> BijectionLevel:
 	var bijections: Dictionary = {}
@@ -26,4 +28,4 @@ static func from_catalan_problems(problem1: CatalanProblem, problem2: CatalanPro
 		var to: Array[BijectionElement] = problem2.get_sizes_dict()[size] as Array[BijectionElement]
 		bijections[size] = Bijection.new(size, from, to)
 	# TODO: Add hints and proofs
-	return BijectionLevel.new(problem1.title, problem2.title, problem1.description, problem2.description, bijections, problem1.definitions + problem2.definitions)
+	return BijectionLevel.new(problem1.title, problem2.title, problem1.description, problem2.description, bijections, problem1.definitions + problem2.definitions, "", BijectionProof.new(), true)

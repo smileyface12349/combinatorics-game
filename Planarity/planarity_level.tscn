@@ -143,10 +143,10 @@ text = "Improve Node Spacing"
 
 [node name="NonPlanarTable" parent="Panel" instance=ExtResource("2_3gqbe")]
 layout_mode = 1
-offset_left = 1241.0
-offset_top = 937.0
-offset_right = -362.0
-offset_bottom = -23.0
+offset_left = 1227.0
+offset_top = 925.0
+offset_right = -376.0
+offset_bottom = -35.0
 
 [node name="NonPlanarWinButton" type="Button" parent="Panel"]
 visible = false

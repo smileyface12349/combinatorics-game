@@ -19,17 +19,6 @@ func _input(event: InputEvent) -> void:
 		BijectionSettings.current_level = BijectionLevel2.new()
 	elif Input.is_action_just_pressed("num_4"):
 		BijectionSettings.current_level = BijectionLevel4.new()
-		
-	# Catalan number zone (temporary)
-	elif Input.is_action_just_pressed("num_9"):
-		# Choose two random problems
-		var problem1: CatalanProblem = CatalanProblems.new().PROBLEMS.pick_random()
-		var problem2: CatalanProblem = CatalanProblems.new().PROBLEMS.pick_random()
-		# Make sure they're not the same problem - that would be boring wouldn't it!
-		while problem1.description == problem2.description:
-			problem2 = CatalanProblems.new().PROBLEMS.pick_random()
-		# Combine these into one level and assign it
-		BijectionSettings.current_level = BijectionLevel.from_catalan_problems(problem1, problem2)
 	
 	# Test level
 	elif Input.is_action_just_pressed("ui_accept"):
