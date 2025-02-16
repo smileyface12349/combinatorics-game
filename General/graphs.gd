@@ -671,7 +671,8 @@ class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 		if num_vertices == 6 and num_edges == 9:
 			# Choose a vertex arbitrarily to deduce the second set
 			var vertex1: int = self.vertex_neighbours.keys()[0]
-			var set2: Array[int] = self.vertex_neighbours[vertex1]
+			var set2: Array[int]
+			set2.assign(self.vertex_neighbours[vertex1]) # an ugly solution to Godot being incompetent with array types
 			if set2.size() == 3:
 				# check that every vertex in set 2 points to a vertex in set 1 (i.e. check for bipartite)
 				var win: bool = true
@@ -734,7 +735,10 @@ class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 				else:
 					state = RearrangeableVertexState.Hover
 			else:
-				state = RearrangeableVertexState.Default
+				if vertex_neighbours[vertex].size() >= 4:
+					state = RearrangeableVertexState.Highlight # highlight high degree vertices
+				else:
+					state = RearrangeableVertexState.Default
 			draw_vertex.call(self.get_draw_pos(vertex, size), vertex, state)
 		
 				
@@ -785,5 +789,6 @@ enum RearrangeableVertexState {
 	Default,
 	Hover,
 	Selected,
-	Contract
+	Contract,
+	Highlight, # a minor highlight, used for high degree vertices
 }

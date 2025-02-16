@@ -52,6 +52,8 @@ func _draw() -> void:
 			colour = Color.BLUE
 		elif state == Graphs.RearrangeableVertexState.Contract:
 			colour = Color.ORANGE
+		elif state == Graphs.RearrangeableVertexState.Highlight:
+			colour = Color.YELLOW
 		else:
 			colour = Color.WHITE
 		draw_circle(position, 10, colour, true)

@@ -39,8 +39,8 @@ text = "Edges"
 
 [node name="Col2" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 95.0
-offset_right = 135.0
+offset_left = 80.0
+offset_right = 120.0
 offset_bottom = 40.0
 
 [node name="Custom" type="RichTextLabel" parent="Col2"]
@@ -48,7 +48,7 @@ layout_mode = 0
 offset_right = 98.0
 offset_bottom = 40.0
 theme = ExtResource("2_tajbw")
-text = "Your Graph"
+text = "Graph"
 
 [node name="CustomNodes" type="RichTextLabel" parent="Col2"]
 layout_mode = 0
@@ -69,8 +69,8 @@ text = "###"
 [node name="Col3" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 217.0
-offset_right = 257.0
+offset_left = 166.0
+offset_right = 206.0
 offset_bottom = 40.0
 
 [node name="K5" type="RichTextLabel" parent="Col3"]
@@ -100,8 +100,8 @@ text = "10"
 [node name="Col4" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 284.0
-offset_right = 324.0
+offset_left = 233.0
+offset_right = 273.0
 offset_bottom = 40.0
 
 [node name="K3" type="RichTextLabel" parent="Col4"]

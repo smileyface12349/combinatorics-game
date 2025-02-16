@@ -6,10 +6,15 @@ const reverse_delay: float = 0.2
 const reverse_amount: float = 100
 const turn_amount: float = 3
 
-const BOUNDARY_TOP: int = -1300
-const BOUNDARY_BOTTOM: int = 1200
-const BOUNDARY_LEFT: int = -2000
-const BOUNDARY_RIGHT: int = 2500
+# const BOUNDARY_TOP: int = -1300
+# const BOUNDARY_BOTTOM: int = 1200
+# const BOUNDARY_LEFT: int = -2000
+# const BOUNDARY_RIGHT: int = 2500
+
+@export var boundary_top: int
+@export var boundary_bottom: int
+@export var boundary_left: int
+@export var boundary_right: int
 
 @export var dialog_text: RichTextLabel
 
@@ -121,14 +126,14 @@ func _process(delta: float) -> void:
 	self.rotation = direction
 	
 	# Stay within bounds
-	if self.position.x > BOUNDARY_RIGHT:
-		self.position.x = BOUNDARY_RIGHT
-	if self.position.x < BOUNDARY_LEFT:
-		self.position.x = BOUNDARY_LEFT
-	if self.position.y > BOUNDARY_BOTTOM:
-		self.position.y = BOUNDARY_BOTTOM
-	if self.position.y < BOUNDARY_TOP:
-		self.position.y = BOUNDARY_TOP
+	if self.position.x > boundary_right:
+		self.position.x = boundary_right
+	if self.position.x < boundary_left:
+		self.position.x = boundary_left
+	if self.position.y > boundary_bottom:
+		self.position.y = boundary_bottom
+	if self.position.y < boundary_top:
+		self.position.y = boundary_top
 
 	# Go to level that we're driving over
 	if Input.is_action_just_pressed("ui_accept"):
@@ -143,6 +148,5 @@ func body_entered(other: Area2D) -> void:
 
 func body_exited(other: Area2D) -> void:
 	print("body exited")
-	# TODO: Fix this and then display current_level as text (might want to remove current_level variable and just update text onscreen instead)
 	current = TopicHover.new_no_topic()
 	dialog_text.text = ""

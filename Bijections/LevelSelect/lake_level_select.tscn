@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxh7qibimhynl"]
+
+[ext_resource type="Script" path="res://Bijections/LevelSelect/bijections_level_select.gd" id="1_2b5w8"]
+[ext_resource type="Texture2D" uid="uid://cj5a4drjv88op" path="res://Bijections/LevelSelect/lake-bijection.png" id="2_0mue6"]
+[ext_resource type="PackedScene" uid="uid://c18im8qe1f51" path="res://Bijections/LevelSelect/lilypad_level.tscn" id="3_p3rta"]
+[ext_resource type="Texture2D" uid="uid://cnvx6oenm2rn5" path="res://Bijections/LevelSelect/boat-attempt.png" id="4_4lsj5"]
+[ext_resource type="Script" path="res://ChooseTopic/menu_car.gd" id="5_up81k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vt6wq"]
+size = Vector2(240, 316.667)
+
+[node name="LakeLevelSelect" type="Node2D"]
+script = ExtResource("1_2b5w8")
+
+[node name="Lake-bijection" type="Sprite2D" parent="."]
+position = Vector2(1533, 611)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_0mue6")
+
+[node name="LilypadLevel2" parent="." instance=ExtResource("3_p3rta")]
+position = Vector2(1328, 317)
+id = 2
+
+[node name="LilypadLevel1" parent="." instance=ExtResource("3_p3rta")]
+position = Vector2(1220, 756)
+id = 1
+
+[node name="LilypadLevel0" parent="." instance=ExtResource("3_p3rta")]
+position = Vector2(847, 538)
+
+[node name="LilypadLevel3" parent="." instance=ExtResource("3_p3rta")]
+position = Vector2(1677, 642)
+id = 3
+
+[node name="LilypadLevel4" parent="." instance=ExtResource("3_p3rta")]
+position = Vector2(2360, 490)
+id = 4
+
+[node name="LilypadLevel5" parent="." instance=ExtResource("3_p3rta")]
+position = Vector2(2447, 200)
+id = 5
+
+[node name="Boat-attempt" type="Sprite2D" parent="." node_paths=PackedStringArray("dialog_text")]
+position = Vector2(1051, 514)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_4lsj5")
+script = ExtResource("5_up81k")
+boundary_top = 70
+boundary_bottom = 1150
+boundary_left = 650
+boundary_right = 2490
+dialog_text = NodePath("../CanvasLayer/DialogText")
+
+[node name="Area2D" type="Area2D" parent="Boat-attempt"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boat-attempt/Area2D"]
+position = Vector2(-6.66675, 5)
+shape = SubResource("RectangleShape2D_vt6wq")
+
+[node name="Camera2D" type="Camera2D" parent="Boat-attempt"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DialogText" type="RichTextLabel" parent="CanvasLayer"]
+offset_top = 817.0
+offset_right = 1920.0
+offset_bottom = 1075.0
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[center]Press SPACE or ENTER to go to Test"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bw5nw7s0uevf7"]
+[gd_scene load_steps=16 format=3 uid="uid://bw5nw7s0uevf7"]
 
 [ext_resource type="Theme" uid="uid://crnnsrj7q2hwh" path="res://General/Background.tres" id="1_t604e"]
 [ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="2_8ii1i"]
@@ -9,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://b6q7hj0kflkpj" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Bold.ttf" id="4_pewdh"]
 [ext_resource type="Theme" uid="uid://dlcxcyr3vrmuw" path="res://Menu/SpinButton.tres" id="5_n38al"]
 [ext_resource type="Texture2D" uid="uid://0b3v0imcjtk3" path="res://addons/spin_button/example/assets/icons/buttons/navs/arrow_right_x32.png" id="7_hkp87"]
+[ext_resource type="Theme" uid="uid://nm3tnjbbbaxg" path="res://Menu/heading.tres" id="7_unj3n"]
 [ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_slider_button.gd" id="8_dsqc8"]
 [ext_resource type="Texture2D" uid="uid://ocyfhsatf1sx" path="res://addons/spin_button/example/assets/icons/buttons/navs/arrow_left_x32.png" id="8_hg4ud"]
 [ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="9_6x0t8"]
@@ -35,26 +36,26 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_dwxsr")
 [node name="Terminology" type="RichTextLabel" parent="."]
 layout_mode = 0
 offset_left = -2.0
-offset_top = 604.0
+offset_top = 649.0
 offset_right = 1918.0
-offset_bottom = 699.0
+offset_bottom = 744.0
 theme = ExtResource("3_3ebjb")
 bbcode_enabled = true
 text = "[center]Terminology"
 
 [node name="TerminologyText" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 85.0
-offset_top = 712.0
-offset_right = 1837.0
-offset_bottom = 1068.0
+offset_left = 436.0
+offset_top = 773.0
+offset_right = 1512.0
+offset_bottom = 1001.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("3_n30wm")
 theme_override_fonts/italics_font = ExtResource("4_dvuk5")
 theme_override_fonts/bold_font = ExtResource("4_pewdh")
-theme_override_font_sizes/italics_font_size = 28
-theme_override_font_sizes/normal_font_size = 28
-theme_override_font_sizes/bold_font_size = 28
+theme_override_font_sizes/italics_font_size = 18
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 18
 bbcode_enabled = true
 text = "[b]Definition[/b]: A [color=red]drawing[/color] of a graph is [color=red]planar[/color] if none of the edges cross over each other.
 [b]Definition[/b]: A [color=red]graph[/color] is [color=red]planar[/color] if there exists some drawing of it which is planar.
@@ -76,19 +77,19 @@ text = "[center]Planar Graphs"
 [node name="Subtitle" type="RichTextLabel" parent="Title"]
 layout_mode = 0
 offset_left = 1.0
-offset_top = 144.0
+offset_top = 176.0
 offset_right = 1921.0
-offset_bottom = 258.0
-theme = ExtResource("3_3ebjb")
+offset_bottom = 253.0
+theme = ExtResource("7_unj3n")
 bbcode_enabled = true
-text = "[center]Practice Mode"
+text = "[center]Warning: Problem Type and Graph Generation have no effect"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
-offset_left = 460.0
-offset_top = 342.0
-offset_right = 1460.0
-offset_bottom = 992.0
+offset_left = 457.0
+offset_top = 366.0
+offset_right = 1457.0
+offset_bottom = 1016.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 custom_minimum_size = Vector2(1000, 500)
@@ -134,15 +135,16 @@ value_label_placement = 0
 value_separation = 25
 title = "Number of Nodes"
 
-[node name="Control" type="Control" parent="ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
+[node name="Spacer" type="Control" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="Button" type="Button" parent="ScrollContainer/VBoxContainer" node_paths=PackedStringArray("numNodes", "graphGeneration", "problemType")]
-custom_minimum_size = Vector2(60, 50)
+custom_minimum_size = Vector2(75, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("9_6x0t8")
+theme_override_font_sizes/font_size = 42
 text = "Go"
 script = ExtResource("10_vgotp")
 numNodes = NodePath("../NumNodes")

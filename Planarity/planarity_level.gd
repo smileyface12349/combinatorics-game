@@ -14,6 +14,7 @@ var nonPlanarGraph: Graphs.MinorRearrangeableGraphDrawing
 @export var nonPlanarTable: NonPlanarTable
 @export var planarWinButton: Button
 @export var nonPlanarWinButton: Button
+@export var skipButton: Button
 
 var improve_button_held: bool = false
 const improve_button_every: float = 0.02
@@ -36,6 +37,7 @@ func _ready() -> void:
 	shrinkDrawingButton.button_up.connect(stop_shrinking)
 	planarWinButton.pressed.connect(new_graph)
 	nonPlanarWinButton.pressed.connect(new_graph)
+	skipButton.pressed.connect(new_graph)
 	
 func _process(delta: float) -> void:
 	if improve_button_held:
@@ -55,6 +57,11 @@ func _process(delta: float) -> void:
 	# TODO: Optimise this (don't need to do this every frame!)
 	nonPlanarTable.update(nonPlanar.graph.get_edge_count(), nonPlanar.graph.get_vertex_count())
 	
+func _input(event: InputEvent) -> void:
+	# ESC to go back to menu
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().change_scene_to_file("res://Menu/menu.tscn")
+
 func on_planar_win() -> void:
 	planarWinButton.visible = true
 	

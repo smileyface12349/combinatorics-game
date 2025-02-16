@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://pttw3w884dtk"]
+[gd_scene load_steps=11 format=3 uid="uid://pttw3w884dtk"]
 
 [ext_resource type="Script" path="res://Planarity/planarity_level.gd" id="1_bvqhp"]
 [ext_resource type="PackedScene" uid="uid://b56b0ua4mtymv" path="res://Planarity/non_planar_table.tscn" id="2_3gqbe"]
@@ -13,7 +13,10 @@ bg_color = Color(0.870361, 0.873477, 0.832803, 1)
 
 [sub_resource type="Theme" id="Theme_uh2o2"]
 
-[node name="PlanarityLevel" type="Node2D" node_paths=PackedStringArray("planar", "nonPlanar", "resetDrawingButton", "improveDrawingButton", "centerDrawingButton", "resetNonPlanarButton", "shrinkDrawingButton", "nonPlanarTable", "planarWinButton", "nonPlanarWinButton")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u72h0"]
+bg_color = Color(0.86, 0.69746, 0.1634, 1)
+
+[node name="PlanarityLevel" type="Node2D" node_paths=PackedStringArray("planar", "nonPlanar", "resetDrawingButton", "improveDrawingButton", "centerDrawingButton", "resetNonPlanarButton", "shrinkDrawingButton", "nonPlanarTable", "planarWinButton", "nonPlanarWinButton", "skipButton")]
 script = ExtResource("1_bvqhp")
 planar = NodePath("PlanarGraph")
 nonPlanar = NodePath("NonPlanarGraph")
@@ -25,6 +28,7 @@ shrinkDrawingButton = NodePath("Panel/PlanarHeading/PlanarInstructions/ShrinkDra
 nonPlanarTable = NodePath("Panel/NonPlanarTable")
 planarWinButton = NodePath("Panel/PlanarWinButton")
 nonPlanarWinButton = NodePath("Panel/NonPlanarWinButton")
+skipButton = NodePath("Panel/SkipButton")
 
 [node name="Panel" type="Panel" parent="."]
 offset_right = 1923.0
@@ -33,6 +37,11 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_yjt5m")
 
 [node name="Flip-chart" type="Sprite2D" parent="Panel"]
 position = Vector2(470.5, 722)
+scale = Vector2(3.59507, 2.86389)
+texture = ExtResource("2_mipig")
+
+[node name="Flip-chart2" type="Sprite2D" parent="Panel"]
+position = Vector2(1343, 720)
 scale = Vector2(3.59507, 2.86389)
 texture = ExtResource("2_mipig")
 
@@ -55,7 +64,7 @@ offset_right = 730.0
 offset_bottom = 191.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
-text = "[center]Think it's non-planar? Use the Kuratowski-Wagner theorem to prove it."
+text = "[center]Think it's non-planar? Use the Kuratowski-Wagner theorem to prove it!"
 
 [node name="NonPlanarInstructions" type="RichTextLabel" parent="Panel/NonPlanarHeading"]
 layout_mode = 0
@@ -95,7 +104,7 @@ offset_right = 700.0
 offset_bottom = 132.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
-text = "[center]Think it's planar? Rearrange it to find a planar drawing."
+text = "[center]Think it's planar? Rearrange it to find a planar drawing!"
 
 [node name="PlanarInstructions" type="RichTextLabel" parent="Panel/PlanarHeading"]
 layout_mode = 0
@@ -141,12 +150,22 @@ offset_right = 626.0
 offset_bottom = 33.0
 text = "Improve Node Spacing"
 
+[node name="HighDegreeVertices" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 1692.0
+offset_top = 826.0
+offset_right = 1868.0
+offset_bottom = 859.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center]Yellow = degree ≥4"
+
 [node name="NonPlanarTable" parent="Panel" instance=ExtResource("2_3gqbe")]
 layout_mode = 1
-offset_left = 1227.0
-offset_top = 925.0
-offset_right = -376.0
-offset_bottom = -35.0
+offset_left = 1624.0
+offset_top = 950.0
+offset_right = 23.0
+offset_bottom = -10.0
 
 [node name="NonPlanarWinButton" type="Button" parent="Panel"]
 visible = false
@@ -167,6 +186,16 @@ offset_right = 756.0
 offset_bottom = 1007.0
 theme = ExtResource("3_uqq12")
 text = "You win! Click for a new graph"
+
+[node name="SkipButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 788.0
+offset_top = 990.0
+offset_right = 1032.0
+offset_bottom = 1038.0
+theme = ExtResource("3_uqq12")
+theme_override_styles/normal = SubResource("StyleBoxFlat_u72h0")
+text = "Skip this graph"
 
 [node name="PlanarGraph" type="Node2D" parent="."]
 position = Vector2(170, 300)

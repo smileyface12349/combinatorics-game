@@ -502,6 +502,10 @@ texture = ExtResource("50_hugd2")
 position = Vector2(111, -522)
 rotation = -3.1295
 script = ExtResource("1_g4u3r")
+boundary_top = -1300
+boundary_bottom = 1200
+boundary_left = -2000
+boundary_right = 2500
 dialog_text = NodePath("../Dialog/DialogText")
 
 [node name="Sprite2D" type="Sprite2D" parent="Car"]
