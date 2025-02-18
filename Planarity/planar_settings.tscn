@@ -1,8 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://bw5nw7s0uevf7"]
+[gd_scene load_steps=15 format=3 uid="uid://bw5nw7s0uevf7"]
 
 [ext_resource type="Theme" uid="uid://crnnsrj7q2hwh" path="res://General/Background.tres" id="1_t604e"]
 [ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="2_8ii1i"]
-[ext_resource type="Theme" uid="uid://c8skqvn51f2mv" path="res://Menu/subtitle.tres" id="3_3ebjb"]
 [ext_resource type="FontFile" uid="uid://bywovpuc4ufa5" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Medium.ttf" id="3_n30wm"]
 [ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_spin_button.gd" id="4_54ugn"]
 [ext_resource type="FontFile" uid="uid://cks6ewm6f4f8a" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-MediumIt.ttf" id="4_dvuk5"]
@@ -35,11 +34,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_dwxsr")
 
 [node name="Terminology" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = -2.0
-offset_top = 649.0
-offset_right = 1918.0
-offset_bottom = 744.0
-theme = ExtResource("3_3ebjb")
+offset_top = 666.0
+offset_right = 1920.0
+offset_bottom = 734.0
+theme = ExtResource("7_unj3n")
 bbcode_enabled = true
 text = "[center]Terminology"
 
@@ -77,19 +75,19 @@ text = "[center]Planar Graphs"
 [node name="Subtitle" type="RichTextLabel" parent="Title"]
 layout_mode = 0
 offset_left = 1.0
-offset_top = 176.0
+offset_top = 195.0
 offset_right = 1921.0
-offset_bottom = 253.0
+offset_bottom = 272.0
 theme = ExtResource("7_unj3n")
 bbcode_enabled = true
-text = "[center]Warning: Problem Type and Graph Generation have no effect"
+text = "[center]Is it planar or non-planar?"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
 offset_left = 457.0
-offset_top = 366.0
+offset_top = 402.0
 offset_right = 1457.0
-offset_bottom = 1016.0
+offset_bottom = 1052.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 custom_minimum_size = Vector2(1000, 500)
@@ -97,6 +95,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="ProblemTypes" type="Button" parent="ScrollContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme = ExtResource("5_n38al")
@@ -110,6 +109,7 @@ prev_icon = ExtResource("8_hg4ud")
 title = "Problem Types"
 
 [node name="GraphGeneration" type="Button" parent="ScrollContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme = ExtResource("5_n38al")
@@ -123,7 +123,7 @@ prev_icon = ExtResource("8_hg4ud")
 title = "Graph Generation"
 
 [node name="NumNodes" type="Button" parent="ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 31)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme = ExtResource("5_n38al")
 script = ExtResource("8_dsqc8")

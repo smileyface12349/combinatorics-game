@@ -48,7 +48,7 @@
 [ext_resource type="Texture2D" uid="uid://bkewdlbjy83tk" path="res://ChooseTopic/MedievalAssets/Buildings/medievalStructure_08.png" id="43_gka0g"]
 [ext_resource type="Texture2D" uid="uid://dkxv5xku3v4i4" path="res://ChooseTopic/MedievalAssets/Buildings/medievalStructure_09.png" id="44_hdyxx"]
 [ext_resource type="Texture2D" uid="uid://dlpcv7r6ixqjr" path="res://ChooseTopic/MedievalAssets/Buildings/medievalStructure_10.png" id="45_adjbr"]
-[ext_resource type="Texture2D" uid="uid://b85vtx3bf44v5" path="res://ChooseTopic/combinatorics-town-v2.png" id="47_l8d7o"]
+[ext_resource type="Texture2D" uid="uid://bktitope4m0ls" path="res://ChooseTopic/combinatorics-town-v3.png" id="47_1182r"]
 [ext_resource type="Texture2D" uid="uid://che7f8ewkbgok" path="res://ChooseTopic/MedievalAssets/Environment/medievalEnvironment_01.png" id="48_2c665"]
 [ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_main_menu.gd" id="48_2xo8k"]
 [ext_resource type="Texture2D" uid="uid://b0l064frcqfip" path="res://ChooseTopic/MedievalAssets/Environment/medievalEnvironment_03.png" id="49_8ao1r"]
@@ -335,16 +335,16 @@ sources/21 = SubResource("TileSetAtlasSource_bxjw8")
 sources/22 = SubResource("TileSetAtlasSource_q7adj")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y5ivf"]
-size = Vector2(292.5, 305.833)
+size = Vector2(501.25, 511.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cm8pi"]
-size = Vector2(236.667, 314.167)
+size = Vector2(714.999, 785.417)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2i0ya"]
-size = Vector2(229.167, 295)
+size = Vector2(465, 595)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpv3t"]
-size = Vector2(273, 316)
+size = Vector2(576.5, 554)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_naxte"]
 size = Vector2(69, 121)
@@ -365,15 +365,15 @@ tile_set = SubResource("TileSet_il1oi")
 
 [node name="Combinatorics-town-v2" type="Sprite2D" parent="."]
 position = Vector2(122, 8)
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("47_l8d7o")
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("47_1182r")
 
 [node name="Area2DMainMenu" type="Area2D" parent="Combinatorics-town-v2"]
 position = Vector2(382, -8)
 script = ExtResource("48_2xo8k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Combinatorics-town-v2/Area2DMainMenu"]
-position = Vector2(-403.25, -681.583)
+position = Vector2(-464.292, -1316.38)
 shape = SubResource("RectangleShape2D_y5ivf")
 
 [node name="Area2DBijections" type="Area2D" parent="Combinatorics-town-v2"]
@@ -381,7 +381,7 @@ position = Vector2(-122, -8)
 script = ExtResource("50_y777p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Combinatorics-town-v2/Area2DBijections"]
-position = Vector2(1415.33, 310.917)
+position = Vector2(2877.83, 527.375)
 shape = SubResource("RectangleShape2D_cm8pi")
 
 [node name="Area2DPlanarGraphs" type="Area2D" parent="Combinatorics-town-v2"]
@@ -389,7 +389,7 @@ position = Vector2(-122, -8)
 script = ExtResource("55_c65t8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Combinatorics-town-v2/Area2DPlanarGraphs"]
-position = Vector2(-1040.92, -488.667)
+position = Vector2(-2208.83, -989.5)
 shape = SubResource("RectangleShape2D_2i0ya")
 
 [node name="Area2DCatalan" type="Area2D" parent="Combinatorics-town-v2"]
@@ -397,13 +397,12 @@ position = Vector2(832.5, -237.5)
 script = ExtResource("51_ec2hn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Combinatorics-town-v2/Area2DCatalan"]
-position = Vector2(-9.58331, 13.3333)
+position = Vector2(817.292, -198.333)
 scale = Vector2(0.833333, 0.833333)
 shape = SubResource("RectangleShape2D_xpv3t")
 
 [node name="Exercise1" parent="Combinatorics-town-v2" node_paths=PackedStringArray("exerciseLayer") instance=ExtResource("57_6btr7")]
-position = Vector2(330.833, -120.833)
-scale = Vector2(0.833333, 0.833333)
+position = Vector2(601.667, -645)
 id = 1
 title = "Arrangements"
 description = "You have the following tasks to do: Washing Up, Cleaning Teeth, Hoovering, Calling Insurance Company, Buying Train Tickets, Painting the Living Room. Once started, each task must be finished.
@@ -413,24 +412,21 @@ answer = 720
 exerciseLayer = NodePath("../../ExerciseLayer")
 
 [node name="Exercise2" parent="Combinatorics-town-v2" node_paths=PackedStringArray("exerciseLayer") instance=ExtResource("57_6btr7")]
-position = Vector2(-52.5, 245.833)
-scale = Vector2(0.833333, 0.833333)
+position = Vector2(228.333, 658.333)
 id = 2
 description = "You have 10 doughnuts and 4 friends. How many ways are there to distribute your doughnuts between your friends, ensuring that everyone gets at least one?"
 answer = 84
 exerciseLayer = NodePath("../../ExerciseLayer")
 
 [node name="Exercise3" parent="Combinatorics-town-v2" node_paths=PackedStringArray("exerciseLayer") instance=ExtResource("57_6btr7")]
-position = Vector2(-832.5, -287.5)
-scale = Vector2(0.833333, 0.833333)
+position = Vector2(-1566.67, -73.3333)
 id = 3
 description = "How many graphs are there on 5 nodes?"
 answer = 32
 exerciseLayer = NodePath("../../ExerciseLayer")
 
 [node name="Exercise4" parent="Combinatorics-town-v2" node_paths=PackedStringArray("exerciseLayer") instance=ExtResource("57_6btr7")]
-position = Vector2(918.333, 356.667)
-scale = Vector2(0.833333, 0.833333)
+position = Vector2(1748.33, 1063.33)
 id = 4
 description = "A University has 384 students. It offers courses in Maths, Computer Science and Philosophy, as well as joint courses. The University also offers a course called MOPECS in Maths, Ontology, Philosophy, Engineering and Computer Science.
 

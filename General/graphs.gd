@@ -677,9 +677,10 @@ class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 				# check that every vertex in set 2 points to a vertex in set 1 (i.e. check for bipartite)
 				var win: bool = true
 				for vertex: int in set2:
-					for neighbour: int in set2:
-						win = false
-						break
+					for neighbour: int in self.vertex_neighbours[vertex]:
+						if neighbour in set2:
+							win = false
+							break
 					if not win:
 						break
 				if win:
