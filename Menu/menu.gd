@@ -4,6 +4,8 @@ extends Node
 @export var settingsButton: Button
 @export var quitButton: Button
 
+var chooseTopicScene: PackedScene = preload("res://ChooseTopic/choose_topic.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	playButton.pressed.connect(on_play)
@@ -16,7 +18,7 @@ func _process(delta: float) -> void:
 	pass
 
 func on_play() -> void:
-	get_tree().change_scene_to_file("res://ChooseTopic/choose_topic.tscn")
+	get_tree().change_scene_to_packed(chooseTopicScene)
 	
 func on_settings() -> void:
 	pass

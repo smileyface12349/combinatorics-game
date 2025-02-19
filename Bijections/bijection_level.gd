@@ -3,6 +3,7 @@ extends Node
 const bijection_width: int = 1500
 var bijection_n_scene: PackedScene = preload("res://Bijections/bijection_n.tscn")
 var bijection_overview_scene: PackedScene = preload("res://Bijections/Overview/bijection_overview_screen.tscn")
+var bijection_level_select_scene: PackedScene = preload("res://Bijections/LevelSelect/lake_level_select.tscn")
 var show_diagrams: bool = false
 var bijection_problems: Array[BijectionLevelNode] = []
 var bijection_overview: BijectionOverviewNode
@@ -126,4 +127,4 @@ func _input(event: InputEvent) -> void:
 			get_tree().change_scene_to_file("res://Bijections/Catalan/catalan_menu.tscn")
 		else:
 			BijectionSettings.current_level = null
-			get_tree().change_scene_to_file("res://Bijections/LevelSelect/lake_level_select.tscn")
+			get_tree().change_scene_to_packed(bijection_level_select_scene)

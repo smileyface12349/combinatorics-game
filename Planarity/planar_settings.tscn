@@ -123,7 +123,7 @@ prev_icon = ExtResource("8_hg4ud")
 title = "Graph Generation"
 
 [node name="NumNodes" type="Button" parent="ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 theme = ExtResource("5_n38al")
 script = ExtResource("8_dsqc8")

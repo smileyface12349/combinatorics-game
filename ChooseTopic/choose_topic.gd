@@ -1,5 +1,6 @@
 extends Node
 
+var bijectionsScene: PackedScene = preload("res://Bijections/LevelSelect/lake_level_select.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,7 +17,7 @@ func _input(event: InputEvent) -> void:
 	# Buttons to change level (in case the user doesn't want to, or can't, drive around)
 	if Input.is_action_just_pressed("num_0"):
 		# 0 = bijections
-		get_tree().change_scene_to_file("res://Bijections/LevelSelect/lake_level_select.tscn")
+		get_tree().change_scene_to_packed(bijectionsScene)
 	elif Input.is_action_just_pressed("num_1"):
 		# 1 = catalan numbers
 		get_tree().change_scene_to_file("res://Bijections/Catalan/catalan_menu.tscn")
