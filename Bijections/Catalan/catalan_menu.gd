@@ -9,7 +9,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	# ESC to go back to menu
 	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().change_scene_to_file("res://Menu/menu.tscn")
+		get_tree().change_scene_to_file("res://ChooseTopic/choose_topic.tscn")
 
 func generate_problem() -> void:
 	# Choose two random problems

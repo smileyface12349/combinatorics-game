@@ -60,7 +60,7 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	# ESC to go back to menu
 	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().change_scene_to_file("res://Menu/menu.tscn")
+		get_tree().change_scene_to_file("res://Planarity/planar_settings.tscn")
 
 func on_planar_win() -> void:
 	planarWinButton.visible = true
