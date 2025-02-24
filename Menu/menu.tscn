@@ -1,15 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bllv1h8oubf1f"]
+[gd_scene load_steps=9 format=3 uid="uid://bllv1h8oubf1f"]
 
 [ext_resource type="Theme" uid="uid://t8h1n5k2knel" path="res://Menu/title.tres" id="1_7grkn"]
 [ext_resource type="Script" path="res://Menu/menu.gd" id="1_ofeps"]
 [ext_resource type="Theme" uid="uid://ddyo1pef2gxgc" path="res://Menu/MenuButton.tres" id="2_3gthv"]
 [ext_resource type="Theme" uid="uid://bkcn67etskq4p" path="res://Menu/TrafficLight.tres" id="2_105xe"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qqhyn"]
-bg_color = Color(0.868997, 0.855809, 0.770994, 1)
-
-[sub_resource type="Theme" id="Theme_ulrry"]
-Panel/styles/panel = SubResource("StyleBoxFlat_qqhyn")
+[ext_resource type="Theme" uid="uid://bcrjernlte8f8" path="res://Menu/background.tres" id="2_w5u5p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tpsy6"]
 bg_color = Color(0.894885, 0.153261, 0.148599, 1)
@@ -39,7 +34,7 @@ offset_left = -20.0
 offset_top = -23.0
 offset_right = 1947.0
 offset_bottom = 1096.0
-theme = SubResource("Theme_ulrry")
+theme = ExtResource("2_w5u5p")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MenuBackground"]
 layout_mode = 0

@@ -53,6 +53,7 @@ func new_graph() -> void:
 	# Reset anything that needs resetting
 	newGraphButton.visible = false
 	skipGraphButton.visible = true
+	on_colouring_changed()
 
 
 func _ready() -> void:

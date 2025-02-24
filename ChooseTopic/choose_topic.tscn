@@ -1,4 +1,4 @@
-[gd_scene load_steps=112 format=4 uid="uid://po8854lqyopy"]
+[gd_scene load_steps=114 format=4 uid="uid://po8854lqyopy"]
 
 [ext_resource type="Script" path="res://ChooseTopic/choose_topic.gd" id="1_55lkm"]
 [ext_resource type="Script" path="res://ChooseTopic/menu_car.gd" id="1_g4u3r"]
@@ -58,6 +58,7 @@
 [ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_colourings.gd" id="53_aa7ug"]
 [ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_planar.gd" id="55_c65t8"]
 [ext_resource type="PackedScene" uid="uid://2y3mwqr6b2re" path="res://ChooseTopic/Exercises/exercise_in_world.tscn" id="57_6btr7"]
+[ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="59_66fcn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c6q06"]
 texture = ExtResource("1_yccy3")
@@ -353,8 +354,12 @@ size = Vector2(630.25, 725)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_naxte"]
 size = Vector2(69, 121)
 
-[node name="ChooseTopic" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3p1ee"]
+bg_color = Color(0.57, 0.30514, 0.1026, 1)
+
+[node name="ChooseTopic" type="Node2D" node_paths=PackedStringArray("boringMenuButton")]
 script = ExtResource("1_55lkm")
+boringMenuButton = NodePath("HUD/Button")
 
 [node name="GroundTileMap" type="TileMapLayer" parent="."]
 visible = false
@@ -513,7 +518,7 @@ boundary_top = -1300
 boundary_bottom = 1200
 boundary_left = -2000
 boundary_right = 2500
-dialog_text = NodePath("../Dialog/DialogText")
+dialog_text = NodePath("../HUD/DialogText")
 
 [node name="Sprite2D" type="Sprite2D" parent="Car"]
 texture = ExtResource("1_vj784")
@@ -526,14 +531,38 @@ texture = ExtResource("1_vj784")
 position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_naxte")
 
-[node name="Dialog" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="DialogText" type="RichTextLabel" parent="Dialog"]
+[node name="DialogText" type="RichTextLabel" parent="HUD"]
 offset_top = 817.0
 offset_right = 1920.0
 offset_bottom = 1075.0
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "[center]Press SPACE or ENTER to go to Test"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD"]
+offset_left = 1622.0
+offset_top = 61.0
+offset_right = 1876.0
+offset_bottom = 323.0
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "[u]Controls:[/u]
+W - Accelerate
+S - Brake / Reverse
+A - Turn Left
+D - Turn Right
+OR:"
+
+[node name="Button" type="Button" parent="HUD"]
+offset_left = 1690.0
+offset_top = 257.0
+offset_right = 1798.0
+offset_bottom = 296.0
+theme = ExtResource("59_66fcn")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_3p1ee")
+text = "Teleport"
 
 [node name="ExerciseLayer" type="CanvasLayer" parent="."]

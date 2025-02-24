@@ -1,0 +1,198 @@
+[gd_scene load_steps=7 format=3 uid="uid://vr7vbitqwv3"]
+
+[ext_resource type="Script" path="res://ChooseTopic/BoringMenu/boring_menu.gd" id="1_461ef"]
+[ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="1_nb1xa"]
+[ext_resource type="Theme" uid="uid://nm3tnjbbbaxg" path="res://Menu/heading.tres" id="2_ddwr2"]
+[ext_resource type="Theme" uid="uid://b26p2vjohd0vr" path="res://Menu/body.tres" id="3_6qgiy"]
+[ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="3_8v8s1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsduq"]
+bg_color = Color(0.870588, 0.854902, 0.772549, 1)
+
+[node name="BoringMenu" type="Control" node_paths=PackedStringArray("houseButton", "planarButton", "bijectionsButton", "catalanButton", "colouringsButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_461ef")
+houseButton = NodePath("PanelContainer/VFlowContainer/House/GoButton")
+planarButton = NodePath("PanelContainer/VFlowContainer/PlanarGraphs/GoButton")
+bijectionsButton = NodePath("PanelContainer/VFlowContainer/BijectionsTopic/GoButton")
+catalanButton = NodePath("PanelContainer/VFlowContainer/CatalanTopic/GoButton")
+colouringsButton = NodePath("PanelContainer/VFlowContainer/GraphColouring/GoButton")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 1924.0
+offset_bottom = 1098.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lsduq")
+
+[node name="VFlowContainer" type="VBoxContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(1120, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SpacerTop" type="Control" parent="PanelContainer/VFlowContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Title" type="RichTextLabel" parent="PanelContainer/VFlowContainer"]
+custom_minimum_size = Vector2(100, 200)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_nb1xa")
+bbcode_enabled = true
+text = "[center]Teleportation"
+
+[node name="Spacer4" type="Control" parent="PanelContainer/VFlowContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="HouseHeading" type="RichTextLabel" parent="PanelContainer/VFlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme = ExtResource("2_ddwr2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Places of Interest
+"
+
+[node name="House" type="HBoxContainer" parent="PanelContainer/VFlowContainer"]
+layout_mode = 2
+
+[node name="Heading" type="RichTextLabel" parent="PanelContainer/VFlowContainer/House"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme = ExtResource("3_6qgiy")
+text = "Your House"
+
+[node name="Description" type="RichTextLabel" parent="PanelContainer/VFlowContainer/House"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_6qgiy")
+text = "If you want to go back to driving around"
+
+[node name="GoButton" type="Button" parent="PanelContainer/VFlowContainer/House"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme = ExtResource("3_8v8s1")
+text = "Go"
+
+[node name="Spacer3" type="Control" parent="PanelContainer/VFlowContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="TopicsHeading" type="RichTextLabel" parent="PanelContainer/VFlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme = ExtResource("2_ddwr2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Topics"
+
+[node name="BijectionsTopic" type="HBoxContainer" parent="PanelContainer/VFlowContainer"]
+layout_mode = 2
+
+[node name="Heading" type="RichTextLabel" parent="PanelContainer/VFlowContainer/BijectionsTopic"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme = ExtResource("3_6qgiy")
+text = "Bijections"
+
+[node name="Description" type="RichTextLabel" parent="PanelContainer/VFlowContainer/BijectionsTopic"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_6qgiy")
+text = "A set of curated bijection problems"
+
+[node name="GoButton" type="Button" parent="PanelContainer/VFlowContainer/BijectionsTopic"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme = ExtResource("3_8v8s1")
+text = "Go"
+
+[node name="CatalanTopic" type="HBoxContainer" parent="PanelContainer/VFlowContainer"]
+layout_mode = 2
+
+[node name="Heading" type="RichTextLabel" parent="PanelContainer/VFlowContainer/CatalanTopic"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme = ExtResource("3_6qgiy")
+text = "Catalan Number Zone"
+
+[node name="Description" type="RichTextLabel" parent="PanelContainer/VFlowContainer/CatalanTopic"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_6qgiy")
+text = "Procedurally generated bijection problems"
+
+[node name="GoButton" type="Button" parent="PanelContainer/VFlowContainer/CatalanTopic"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme = ExtResource("3_8v8s1")
+text = "Go"
+
+[node name="PlanarGraphs" type="HBoxContainer" parent="PanelContainer/VFlowContainer"]
+layout_mode = 2
+
+[node name="Heading" type="RichTextLabel" parent="PanelContainer/VFlowContainer/PlanarGraphs"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme = ExtResource("3_6qgiy")
+text = "Planar Graphs"
+
+[node name="Description" type="RichTextLabel" parent="PanelContainer/VFlowContainer/PlanarGraphs"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_6qgiy")
+text = "Proving if graphs are planar or non-planar"
+
+[node name="GoButton" type="Button" parent="PanelContainer/VFlowContainer/PlanarGraphs"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme = ExtResource("3_8v8s1")
+text = "Go"
+
+[node name="GraphColouring" type="HBoxContainer" parent="PanelContainer/VFlowContainer"]
+layout_mode = 2
+
+[node name="Heading" type="RichTextLabel" parent="PanelContainer/VFlowContainer/GraphColouring"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme = ExtResource("3_6qgiy")
+text = "Graph Colouring"
+
+[node name="Description" type="RichTextLabel" parent="PanelContainer/VFlowContainer/GraphColouring"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_6qgiy")
+text = "Finding a minimum vertex colouring"
+
+[node name="GoButton" type="Button" parent="PanelContainer/VFlowContainer/GraphColouring"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme = ExtResource("3_8v8s1")
+text = "Go"
+
+[node name="Spacer2" type="Control" parent="PanelContainer/VFlowContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="ExercisesHeading" type="RichTextLabel" parent="PanelContainer/VFlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme = ExtResource("2_ddwr2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Bonus Exercises
+"
+
+[node name="NotYetImplemented" type="RichTextLabel" parent="PanelContainer/VFlowContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("3_6qgiy")
+bbcode_enabled = true
+text = "Bonus Exercises can only be found when driving"
+
+[node name="Spacer" type="Control" parent="PanelContainer/VFlowContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
