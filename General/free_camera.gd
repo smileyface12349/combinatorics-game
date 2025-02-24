@@ -1,4 +1,5 @@
 extends Camera2D
+class_name FreeCamera
 
 var move_camera: bool = false
 var last_mouse_position: Vector2
@@ -19,6 +20,9 @@ const keyboard_zoom_amount: float = 1.5
 func _ready() -> void:
 	target_position = position
 	target_zoom = zoom
+
+	# Start the level with a subtle zooming in animation
+	zoom = Vector2(0.75, 0.75)
 
 
 func _input(event: InputEvent) -> void:

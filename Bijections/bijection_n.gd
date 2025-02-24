@@ -9,18 +9,23 @@ class_name BijectionLevelNode
 @export var problemSizeIndicator: RichTextLabel
 @export var panel: Panel
 @export var showDiagramsCheckbox: CheckButton
+@export var hintsRemainingDisplay: RichTextLabel
 @export var hintText: RichTextLabel
 @export var hintNumberButton: Button
 @export var hintWhichButton: Button
+@export var previousButton: Button
+@export var nextButton: Button
 
 var showDiagrams: bool = true
 var update_show_diagrams: Callable
+var jump_to_previous: Callable
+var jump_to_next: Callable
 var bijection: Bijection
 var add_hint: Callable
 var available_hints: int
 
 const vertical_spacing_between_elements: int = 32
-const panel_size_excluding_elements: int = 550
+const panel_size_excluding_elements: int = 650
 
 # This script exists to pass data straight through from the root node of a bijection to the
 # subcomponents that need it
@@ -67,6 +72,11 @@ func set_callback_on_match(callback: Callable) -> void:
 func set_add_hint(add_hint: Callable) -> void:
 	self.add_hint = add_hint
 
+# Update camera control functions
+func set_camera_controls(jump_to_previous: Callable, jump_to_next: Callable) -> void:
+	self.jump_to_previous = jump_to_previous
+	self.jump_to_next = jump_to_next
+
 ## When we toggle it, tell the other checkboxes to update and pass it through
 func checkbox_toggled(toggled_on: bool) -> void:
 	matchElements.set_show_diagrams(toggled_on)
@@ -92,6 +102,7 @@ func show_incorrect(incorrect: bool = true) -> void:
 # Receiving updates when hints are spent
 func set_hints_available(hints_available: int) -> void:
 	self.available_hints = hints_available
+	hintsRemainingDisplay.text = "[center]Hints: (" + str(available_hints) + " remaining):"
 
 # Hint: How many are correct?
 func use_hint_number() -> void:
@@ -108,22 +119,24 @@ func use_hint_number() -> void:
 
 		if total == 0:
 			# If they haven't actually matched anything, abandon ship and don't spend the user's hints
-			hintText.text = "You haven't matched anything yet!"
+			hintText.text = "[center]You haven't matched anything yet!"
+		elif matchElements.bijection.from.size() <= 1:
+			hintText.text = "[center]Don't waste your hints! You know this one is correct already!"
 		elif hintText.text != "":
-			hintText.text = "Change the matching before getting a new hint"
+			hintText.text = "[center]Change the matching before getting a new hint"
 		else:
 			if num_correct == total:
-				hintText.text = "All correct! You can find this later in Hints & Definitions"
+				hintText.text = "[center]All correct! You can find this later in Hints & Definitions"
 				# display them as correct
 				for e: BijectionElement in matchElements.bijection.from:
 					if e.match != null:
 						matchElements.display_correct.append(e.id)
 				matchElements.queue_redraw()
 			else:
-				hintText.text = str(num_correct) + "/" + str(total) + " correct! You can find this later in Hints & Definitions"
+				hintText.text = "[center]" + str(num_correct) + "/" + str(total) + " correct! You can find this later in Hints & Definitions"
 			add_hint.call(1, extended_text)
 	else:
-		hintText.text = "You've used all of your hints"
+		hintText.text = "[center]You've used all of your hints"
 
 # Hint: Which ones are correct?
 func use_hint_which() -> void:
@@ -147,25 +160,28 @@ func use_hint_which() -> void:
 					extended_text += " ❌"
 		
 		if total == 0:
-			hintText.text = "You haven't matched anything yet!"
+			hintText.text = "[center]You haven't matched anything yet!"
+		elif matchElements.bijection.from.size() <= 1:
+			hintText.text = "[center]Don't waste your hints! You know this one is correct already!"
 		elif hintText.text != "":
-			hintText.text = "Change the matching before getting a new hint"
+			hintText.text = "[center]Change the matching before getting a new hint"
 		else:
 			if correct == total:
-				hintText.text = "All correct! You can find this later in Hints & Definitions"
+				hintText.text = "[center]All correct! You can find this later in Hints & Definitions"
 			else:
 				hintText.text = str(correct) + "/" + str(total) + " correct! You can find this later in Hints & Definitions"
 			add_hint.call(2, extended_text)
 		
 	else:
 		if available_hints == 0:
-			hintText.text = "You've used all of your hints"
+			hintText.text = "[center]You've used all of your hints"
 		else:
-			hintText.text = "You only have " + str(available_hints) + "/2 hints"
-
+			hintText.text = "[center]You only have " + str(available_hints) + "/2 hints"
 
 # Connect up buttons
 func _ready() -> void:
 	showDiagramsCheckbox.connect("toggled", checkbox_toggled)
 	hintNumberButton.connect("pressed", use_hint_number)
 	hintWhichButton.connect("pressed", use_hint_which)
+	previousButton.connect("pressed", jump_to_previous)
+	nextButton.connect("pressed", jump_to_next)

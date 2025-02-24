@@ -13,11 +13,12 @@ texture_region_size = Vector2i(1024, 1024)
 tile_size = Vector2i(1024, 1024)
 sources/0 = SubResource("TileSetAtlasSource_bbgc1")
 
-[node name="BijectionLevel" type="Node2D"]
+[node name="BijectionLevel" type="Node2D" node_paths=PackedStringArray("camera")]
 script = ExtResource("1_lc3rp")
+camera = NodePath("Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(962, 542)
+position = Vector2(1000, 540)
 script = ExtResource("2_jvgqo")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]

@@ -41,8 +41,10 @@ func set_show_diagrams(show_diagrams: bool) -> void:
 	on_resize()
 	
 func is_inside(pos: Vector2) -> bool:
-	return pos.x >= position.x && pos.y >= position.y \
+	var is_inside_box: bool = pos.x >= position.x && pos.y >= position.y \
 	 	&& pos.x <= position.x + size.x && pos.y <= position.y + size.y
+	var is_inside_dot: bool = pos.distance_to(position + dot.position) <= BijectionElementDot.circle_radius
+	return is_inside_box or is_inside_dot
 		
 ## Gets the position to draw the line from (the left/right middle)
 func get_line_pos() -> Vector2:

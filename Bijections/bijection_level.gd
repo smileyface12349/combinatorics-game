@@ -1,6 +1,10 @@
 extends Node
 
+@export var camera: FreeCamera
+
 const bijection_width: int = 1500
+const camera_offset: Vector2 = Vector2(0, 40)
+
 var bijection_n_scene: PackedScene = preload("res://Bijections/bijection_n.tscn")
 var bijection_overview_scene: PackedScene = preload("res://Bijections/Overview/bijection_overview_screen.tscn")
 var bijection_level_select_scene: PackedScene = preload("res://Bijections/LevelSelect/lake_level_select.tscn")
@@ -48,6 +52,14 @@ func create_bijection_n(bijection: Bijection, level: BijectionLevel, position: V
 	instance.position = position
 	instance.set_callback_on_match(check_all)
 	instance.set_add_hint(add_hint)
+	instance.set_camera_controls(
+		func() -> void:
+			camera.target_zoom = Vector2(1, 1)
+			camera.target_position = position - Vector2(bijection_width, 0) + camera_offset,
+		func() -> void:
+			camera.target_zoom = Vector2(1, 1)
+			camera.target_position = position + Vector2(bijection_width, 0) + camera_offset
+	)
 	instance.available_hints = hints_available
 	add_child(instance)
 	bijection_problems.append(instance)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bt2oy24n476i1"]
+[gd_scene load_steps=8 format=3 uid="uid://bt2oy24n476i1"]
 
 [ext_resource type="Script" path="res://Bijections/bijection_n.gd" id="1_qfaor"]
 [ext_resource type="Script" path="res://Bijections/match.gd" id="2_g1vot"]
@@ -11,7 +11,10 @@ bg_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ilu37"]
 bg_color = Color(0.405313, 0.685431, 0.26072, 1)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("matchElements", "leftTitle", "leftDescription", "rightTitle", "rightDescription", "problemSizeIndicator", "panel", "showDiagramsCheckbox", "hintText", "hintNumberButton", "hintWhichButton")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jgljc"]
+bg_color = Color(0.098, 0.689967, 0.7, 1)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("matchElements", "leftTitle", "leftDescription", "rightTitle", "rightDescription", "problemSizeIndicator", "panel", "showDiagramsCheckbox", "hintsRemainingDisplay", "hintText", "hintNumberButton", "hintWhichButton", "previousButton", "nextButton")]
 position = Vector2(1017, 493)
 script = ExtResource("1_qfaor")
 matchElements = NodePath("Panel/MatchElements")
@@ -22,23 +25,26 @@ rightDescription = NodePath("Panel/RightDescription")
 problemSizeIndicator = NodePath("Panel/ProblemSizeIndicator")
 panel = NodePath("Panel")
 showDiagramsCheckbox = NodePath("Panel/ShowDiagrams")
-hintText = NodePath("Panel/HintText")
+hintsRemainingDisplay = NodePath("Panel/BottomAnchor/HintTitle")
+hintText = NodePath("Panel/BottomAnchor/HintText")
 hintNumberButton = NodePath("Panel/BottomAnchor/CheckButton")
 hintWhichButton = NodePath("Panel/BottomAnchor/SuperCheckButton")
+previousButton = NodePath("Panel/BottomAnchor/PreviousButton")
+nextButton = NodePath("Panel/BottomAnchor/NextButton")
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = -709.0
 offset_top = -442.0
 offset_right = 691.0
-offset_bottom = 855.0
+offset_bottom = 510.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7welf")
 
 [node name="Title" type="RichTextLabel" parent="Panel"]
 layout_mode = 2
-offset_left = 382.0
-offset_top = 62.0
-offset_right = 1046.0
-offset_bottom = 156.0
+offset_left = 383.0
+offset_top = 30.0
+offset_right = 1047.0
+offset_bottom = 124.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
@@ -46,13 +52,13 @@ text = "[center]Match Them Up!"
 
 [node name="Subtitle" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
-offset_left = 510.0
-offset_top = 145.0
-offset_right = 928.0
-offset_bottom = 191.0
+offset_left = 332.0
+offset_top = 128.0
+offset_right = 1094.0
+offset_bottom = 174.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
-text = "[center]Your bijection will be checked automatically when completed for all values of n.
+text = "[center]Find a sensible way of matching up these two sequences to show that they are the same size. Your bijection will be checked automatically when completed for all values of n.
 [/center]"
 
 [node name="MatchElements" type="Control" parent="Panel" node_paths=PackedStringArray("problemSizeIndicator")]
@@ -62,7 +68,7 @@ anchors_preset = 0
 offset_left = 133.0
 offset_top = 307.0
 offset_right = 1267.0
-offset_bottom = 1265.0
+offset_bottom = 744.0
 script = ExtResource("2_g1vot")
 font = ExtResource("3_1hhi8")
 problemSizeIndicator = NodePath("../ProblemSizeIndicator")
@@ -113,10 +119,10 @@ text = "[center]Subsets of {1, 2, ..., n}"
 
 [node name="ProblemSizeIndicator" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
-offset_left = 55.0
-offset_top = 38.0
-offset_right = 363.0
-offset_bottom = 173.0
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 332.0
+offset_bottom = 155.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 96
 text = "n = 00"
@@ -149,12 +155,25 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -700.0
-offset_top = -122.0
-offset_right = -660.0
-offset_bottom = -82.0
+offset_left = -699.0
+offset_top = -107.0
+offset_right = -659.0
+offset_bottom = -67.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="HintText" type="RichTextLabel" parent="Panel/BottomAnchor"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -1.0
+offset_top = -91.0
+offset_right = 1359.0
+offset_bottom = -54.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.61, 0.386333, 0, 1)
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
 
 [node name="JumpToHintsButton" type="Button" parent="Panel/BottomAnchor"]
 visible = false
@@ -169,66 +188,79 @@ text = "Hints & Definitions"
 
 [node name="CheckButton" type="Button" parent="Panel/BottomAnchor"]
 layout_mode = 0
-offset_left = 785.0
-offset_top = 39.0
-offset_right = 1005.0
-offset_bottom = 88.0
+offset_left = 446.0
+offset_right = 666.0
+offset_bottom = 49.0
 theme = ExtResource("4_oxog3")
 text = "Check (1 🧠)"
 
 [node name="SuperCheckButton" type="Button" parent="Panel/BottomAnchor"]
 layout_mode = 0
-offset_left = 1040.0
-offset_top = 38.0
-offset_right = 1353.0
-offset_bottom = 89.0
+offset_left = 701.0
+offset_right = 1014.0
+offset_bottom = 51.0
 theme = ExtResource("4_oxog3")
 text = "Super Check (2 🧠)"
 
-[node name="HintText" type="RichTextLabel" parent="Panel"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 38.0
-offset_top = -78.0
-offset_right = -648.0
+[node name="HintTitle" type="RichTextLabel" parent="Panel/BottomAnchor"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -50.0
+offset_right = 1399.0
 offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_colors/default_color = Color(0.000228292, 8.6077e-05, 0, 1)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
+text = "[center]Hints (5 remaining):"
 
-[node name="SuperCheckExplanation" type="RichTextLabel" parent="Panel"]
+[node name="SuperCheckExplanation" type="RichTextLabel" parent="Panel/BottomAnchor"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -289.0
-offset_top = -32.0
-offset_right = -99.0
-offset_bottom = -6.0
+offset_left = 722.0
+offset_top = 12.0
+offset_right = 912.0
+offset_bottom = 38.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "Which ones are correct?"
 
-[node name="CheckExplanation" type="RichTextLabel" parent="Panel"]
+[node name="CheckExplanation" type="RichTextLabel" parent="Panel/BottomAnchor"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -593.0
-offset_top = -32.0
-offset_right = -403.0
-offset_bottom = -6.0
+offset_left = 428.0
+offset_top = 11.0
+offset_right = 618.0
+offset_bottom = 37.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "How many are correct?"
+
+[node name="PreviousButton" type="Button" parent="Panel/BottomAnchor"]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 5.0
+offset_right = 225.0
+offset_bottom = 51.0
+theme = ExtResource("4_oxog3")
+theme_override_styles/normal = SubResource("StyleBoxFlat_jgljc")
+text = "Previous"
+
+[node name="NextButton" type="Button" parent="Panel/BottomAnchor"]
+layout_mode = 0
+offset_left = 1219.0
+offset_top = 1.0
+offset_right = 1316.0
+offset_bottom = 47.0
+theme = ExtResource("4_oxog3")
+theme_override_styles/normal = SubResource("StyleBoxFlat_jgljc")
+text = "Next"
