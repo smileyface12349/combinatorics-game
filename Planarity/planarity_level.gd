@@ -73,28 +73,29 @@ func new_graph() -> void:
 	nonPlanarWinButton.visible = false
 	
 	# Generate the graph according to the settings
-	if PlanarSettings.problem_types == 1:
-		# Planar graphs only
-		if PlanarSettings.graph_generation == 1:
-			graph = Graphs.Graph.get_random_nearly_non_planar(PlanarSettings.num_nodes)
-		else:
-			graph = Graphs.Graph.get_random_planar(PlanarSettings.num_nodes, 0.33)
-	elif PlanarSettings.problem_types == 2:
-		# Non-planar graphs only
-		if PlanarSettings.graph_generation == 1:
-			graph = Graphs.Graph.get_random_nearly_planar(PlanarSettings.num_nodes)
-		else:
-			graph = Graphs.Graph.get_random_non_planar(PlanarSettings.num_nodes, 0.33)
-	else:
-		# Planar and non-planar graphs
-		if PlanarSettings.graph_generation == 1:
-			if randf() < 0.5:
-				graph = Graphs.Graph.get_random_nearly_planar(PlanarSettings.num_nodes)
-			else:
-				graph = Graphs.Graph.get_random_nearly_non_planar(PlanarSettings.num_nodes)
-		else:
-			# Note: Default Settings
-			graph = Graphs.Graph.get_random_connected(PlanarSettings.num_nodes, 0.33)
+	# if PlanarSettings.problem_types == 1:
+	# 	# Planar graphs only
+	# 	if PlanarSettings.graph_generation == 1:
+	# 		graph = Graphs.Graph.get_random_nearly_non_planar(PlanarSettings.num_nodes)
+	# 	else:
+	# 		graph = Graphs.Graph.get_random_planar(PlanarSettings.num_nodes, 0.33)
+	# elif PlanarSettings.problem_types == 2:
+	# 	# Non-planar graphs only
+	# 	if PlanarSettings.graph_generation == 1:
+	# 		graph = Graphs.Graph.get_random_nearly_planar(PlanarSettings.num_nodes)
+	# 	else:
+	# 		graph = Graphs.Graph.get_random_non_planar(PlanarSettings.num_nodes, 0.33)
+	# else:
+	# 	# Planar and non-planar graphs
+	# 	if PlanarSettings.graph_generation == 1:
+	# 		if randf() < 0.5:
+	# 			graph = Graphs.Graph.get_random_nearly_planar(PlanarSettings.num_nodes)
+	# 		else:
+	# 			graph = Graphs.Graph.get_random_nearly_non_planar(PlanarSettings.num_nodes)
+	# 	else:
+	# 		# Note: Default Settings
+	# 		graph = Graphs.Graph.get_random_connected(PlanarSettings.num_nodes, 0.33)
+	graph = Graphs.Graph.get_random_connected(PlanarSettings.num_nodes, PlanarSettings.edge_chance)
 
 	planarGraph = graph.get_drawing_best(true).get_rearrangeable(true)
 	planarGraph.on_win = on_planar_win

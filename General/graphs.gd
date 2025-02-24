@@ -645,6 +645,9 @@ class RearrangeableGraphDrawing extends GraphDrawing:
 			return MinorRearrangeableGraphDrawing.new(self.vertex_neighbours.duplicate(true), self.vertex_positions.duplicate(true), on_win)
 		else:
 			return MinorRearrangeableGraphDrawing.new(self.vertex_neighbours, self.vertex_positions, on_win)
+
+	func get_colourable() -> ColourableGraphDrawing:
+		return ColourableGraphDrawing.new(self.vertex_neighbours, self.vertex_positions)
 	
 class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 	# A rearrangeable graph that also supports vertex and edge deletions using right click, and
@@ -741,6 +744,102 @@ class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 				else:
 					state = RearrangeableVertexState.Default
 			draw_vertex.call(self.get_draw_pos(vertex, size), vertex, state)
+
+class ColourableGraphDrawing extends RearrangeableGraphDrawing:
+	# A rearrangeable graph that also supports vertex colourings using right click
+	var vertex_colours: Dictionary
+	
+	func _init(vertex_neighbours: Dictionary = {}, vertex_positions: Dictionary = {}, on_win: Callable = Callable()) -> void:
+		super(vertex_neighbours, vertex_positions, on_win)
+		self.vertex_colours = {}
+		for vertex: int in self.vertex_neighbours:
+			self.vertex_colours[vertex] = 1
+		
+	# Check how many colours are used
+	func get_colours_used() -> int:
+		var colours_used: Array[int] = []
+		for vertex: int in self.vertex_colours:
+			if self.vertex_colours[vertex] not in colours_used:
+				colours_used.append(self.vertex_colours[vertex])
+		return colours_used.size()
+
+	# Check if the colouring is valid
+	func is_valid_colouring() -> bool:
+		for edge: Edge in self.get_undirected_edge_list():
+			if self.vertex_colours[edge.head.id] == self.vertex_colours[edge.tail.id]:
+				return false
+		return true
+
+	# Find all of the conflicting edges
+	func get_colour_conflicts() -> Array[Edge]:
+		var colour_conflicts: Array[Edge] = []
+		for edge: Edge in self.get_undirected_edge_list():
+			if self.vertex_colours[edge.head.id] == self.vertex_colours[edge.tail.id]:
+				colour_conflicts.append(edge)
+		return colour_conflicts
+
+	# Callback upon producing a valid colouring
+	func check_win() -> void:
+		if is_valid_colouring():
+			self.on_win.call()
+		
+	func right_mouse_clicked() -> void:
+		print("right mouse clicked")
+		# Delete vertex if clicked on
+		var vertex_to_colour: int = self.get_vertex_at_mouse()
+		if vertex_to_colour != -1:
+			# TODO: Bring up a right click menu to choose new colour
+			print("Recolouring")
+			self.vertex_colours[vertex_to_colour] += 1
+			if self.vertex_colours[vertex_to_colour] > 9:
+				self.vertex_colours[vertex_to_colour] = 1
+			
+	func right_mouse_released() -> void:
+		pass # don't actually care right now
+		
+	func draw_rearrangeable(size: Vector2, draw_vertex: Callable, draw_edge: Callable, draw_edge_intersection: Callable) -> void:
+		# Update cached size
+		self.size = size
+
+		# Draw normal edges first
+		for edge: Edge in self.get_undirected_edge_list():
+			draw_edge.call(self.get_draw_pos(edge.head.id, size), self.get_draw_pos(edge.tail.id, size), false)
+
+		# Draw edges that have colour conflicts
+		for edge: Edge in self.get_colour_conflicts():
+			draw_edge.call(self.get_draw_pos(edge.head.id, size), self.get_draw_pos(edge.tail.id, size), true)
+			
+		# Draw vertices second
+		for vertex: int in self.vertex_neighbours.keys():
+			var state: RearrangeableVertexState
+			if self.selected_vertex == vertex:
+				state = RearrangeableVertexState.Selected
+			# elif self.is_hovering_over_vertex(vertex):
+			# 	state = RearrangeableVertexState.Hover
+			else:
+
+				# Colour based on their colour
+				match self.vertex_colours[vertex]:
+					1: state = RearrangeableVertexState.Colour1
+					2: state = RearrangeableVertexState.Colour2
+					3: state = RearrangeableVertexState.Colour3
+					4: state = RearrangeableVertexState.Colour4
+					5: state = RearrangeableVertexState.Colour5
+					6: state = RearrangeableVertexState.Colour6
+					7: state = RearrangeableVertexState.Colour7
+					8: state = RearrangeableVertexState.Colour8
+					9: state = RearrangeableVertexState.Colour9
+					10: state = RearrangeableVertexState.Colour10
+					11: state = RearrangeableVertexState.Colour11
+					12: state = RearrangeableVertexState.Colour12
+					13: state = RearrangeableVertexState.Colour13
+					14: state = RearrangeableVertexState.Colour14
+					15: state = RearrangeableVertexState.Colour15
+					16: state = RearrangeableVertexState.Colour16
+
+					_: state = RearrangeableVertexState.Default
+
+			draw_vertex.call(self.get_draw_pos(vertex, size), self.vertex_colours[vertex], state, self.is_hovering_over_vertex(vertex))
 		
 				
 # An edge in a graph (not used in representing graphs, but can be useful in some situations).
@@ -792,4 +891,20 @@ enum RearrangeableVertexState {
 	Selected,
 	Contract,
 	Highlight, # a minor highlight, used for high degree vertices
+	Colour1,
+	Colour2,
+	Colour3,
+	Colour4,
+	Colour5,
+	Colour6,
+	Colour7,
+	Colour8,
+	Colour9,
+	Colour10,
+	Colour11,
+	Colour12,
+	Colour13,
+	Colour14,
+	Colour15,
+	Colour16,
 }

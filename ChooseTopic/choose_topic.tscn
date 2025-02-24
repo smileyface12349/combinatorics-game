@@ -1,4 +1,4 @@
-[gd_scene load_steps=110 format=4 uid="uid://po8854lqyopy"]
+[gd_scene load_steps=112 format=4 uid="uid://po8854lqyopy"]
 
 [ext_resource type="Script" path="res://ChooseTopic/choose_topic.gd" id="1_55lkm"]
 [ext_resource type="Script" path="res://ChooseTopic/menu_car.gd" id="1_g4u3r"]
@@ -48,13 +48,14 @@
 [ext_resource type="Texture2D" uid="uid://bkewdlbjy83tk" path="res://ChooseTopic/MedievalAssets/Buildings/medievalStructure_08.png" id="43_gka0g"]
 [ext_resource type="Texture2D" uid="uid://dkxv5xku3v4i4" path="res://ChooseTopic/MedievalAssets/Buildings/medievalStructure_09.png" id="44_hdyxx"]
 [ext_resource type="Texture2D" uid="uid://dlpcv7r6ixqjr" path="res://ChooseTopic/MedievalAssets/Buildings/medievalStructure_10.png" id="45_adjbr"]
-[ext_resource type="Texture2D" uid="uid://c1rd0ucqw3fba" path="res://ChooseTopic/combinatorics-town-v4.png" id="47_jamom"]
+[ext_resource type="Texture2D" uid="uid://clhrvud2wk12k" path="res://ChooseTopic/combinatorics-town-v5.png" id="47_wncw7"]
 [ext_resource type="Texture2D" uid="uid://che7f8ewkbgok" path="res://ChooseTopic/MedievalAssets/Environment/medievalEnvironment_01.png" id="48_2c665"]
 [ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_main_menu.gd" id="48_2xo8k"]
 [ext_resource type="Texture2D" uid="uid://b0l064frcqfip" path="res://ChooseTopic/MedievalAssets/Environment/medievalEnvironment_03.png" id="49_8ao1r"]
 [ext_resource type="Texture2D" uid="uid://c57ukjnsgs1uh" path="res://ChooseTopic/MedievalAssets/Environment/medievalEnvironment_05.png" id="50_hugd2"]
 [ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_bijections.gd" id="50_y777p"]
 [ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_catalan.gd" id="51_ec2hn"]
+[ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_colourings.gd" id="53_aa7ug"]
 [ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_planar.gd" id="55_c65t8"]
 [ext_resource type="PackedScene" uid="uid://2y3mwqr6b2re" path="res://ChooseTopic/Exercises/exercise_in_world.tscn" id="57_6btr7"]
 
@@ -343,6 +344,9 @@ size = Vector2(850, 527.709)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2i0ya"]
 size = Vector2(465, 595)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_evgro"]
+size = Vector2(584.167, 670.833)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpv3t"]
 size = Vector2(630.25, 725)
 
@@ -366,7 +370,7 @@ tile_set = SubResource("TileSet_il1oi")
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(122, 8)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("47_jamom")
+texture = ExtResource("47_wncw7")
 
 [node name="Area2DMainMenu" type="Area2D" parent="Background"]
 position = Vector2(382, -8)
@@ -391,6 +395,13 @@ script = ExtResource("55_c65t8")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Area2DPlanarGraphs"]
 position = Vector2(-2208.83, -989.5)
 shape = SubResource("RectangleShape2D_2i0ya")
+
+[node name="Area2DColourings" type="Area2D" parent="Background"]
+script = ExtResource("53_aa7ug")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Area2DColourings"]
+position = Vector2(-1750.42, 330.417)
+shape = SubResource("RectangleShape2D_evgro")
 
 [node name="Area2DCatalan" type="Area2D" parent="Background"]
 position = Vector2(832.5, -237.5)
@@ -419,7 +430,7 @@ answer = 84
 exerciseLayer = NodePath("../../ExerciseLayer")
 
 [node name="Exercise3" parent="Background" node_paths=PackedStringArray("exerciseLayer") instance=ExtResource("57_6btr7")]
-position = Vector2(-1566.67, -73.3333)
+position = Vector2(-2330, -348.333)
 id = 3
 description = "How many graphs are there on 5 nodes?"
 answer = 32

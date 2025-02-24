@@ -13,10 +13,10 @@ func _ready() -> void:
 var last_mouse_position: Vector2
 
 # Generates a random graph. You may want to use this to generate new graphs.
-func generate_random_graph(vertices: int) -> void:
+func generate_random_graph(vertices: int, edge_chance: float = 0.4) -> void:
 	graph = Graphs.Graph \
 	  # .get_random_connected(n_vertices, Graphs.Graph.get_edge_chance_from_mst(n_vertices, average_degree)) \
-		.get_random_connected(vertices, 0.4) \
+		.get_random_connected(vertices, edge_chance) \
 		.get_drawing_best() \
 		.get_rearrangeable()
 	queue_redraw()
@@ -46,16 +46,12 @@ func _draw() -> void:
 		state: Graphs.RearrangeableVertexState = Graphs.RearrangeableVertexState.Default
 	) -> void:
 		var colour: Color
-		if state == Graphs.RearrangeableVertexState.Hover:
-			colour = Color.AQUA
-		elif state == Graphs.RearrangeableVertexState.Selected:
-			colour = Color.BLUE
-		elif state == Graphs.RearrangeableVertexState.Contract:
-			colour = Color.ORANGE
-		elif state == Graphs.RearrangeableVertexState.Highlight:
-			colour = Color.YELLOW
-		else:
-			colour = Color.WHITE
+		match state:
+			Graphs.RearrangeableVertexState.Hover: colour = Color.AQUA
+			Graphs.RearrangeableVertexState.Selected: colour = Color.BLUE
+			Graphs.RearrangeableVertexState.Contract: colour = Color.ORANGE
+			Graphs.RearrangeableVertexState.Highlight: colour = Color.YELLOW
+			_: colour = Color.WHITE
 		draw_circle(position, 10, colour, true)
 		draw_circle(position, 10, Color.BLACK, false)
 		draw_string(font, position + Vector2(-5, 5), str(vertex), HORIZONTAL_ALIGNMENT_LEFT, -1, 16, Color(0, 0, 0))

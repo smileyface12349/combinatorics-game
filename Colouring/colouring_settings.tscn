@@ -1,0 +1,161 @@
+[gd_scene load_steps=15 format=3 uid="uid://eq7m207hslss"]
+
+[ext_resource type="Theme" uid="uid://crnnsrj7q2hwh" path="res://General/Background.tres" id="1_4265g"]
+[ext_resource type="Theme" uid="uid://nm3tnjbbbaxg" path="res://Menu/heading.tres" id="2_50h1c"]
+[ext_resource type="FontFile" uid="uid://bywovpuc4ufa5" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Medium.ttf" id="3_3sqbe"]
+[ext_resource type="FontFile" uid="uid://cks6ewm6f4f8a" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-MediumIt.ttf" id="4_qm7os"]
+[ext_resource type="FontFile" uid="uid://b6q7hj0kflkpj" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Bold.ttf" id="5_bpp74"]
+[ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="6_a8tsn"]
+[ext_resource type="Theme" uid="uid://dlcxcyr3vrmuw" path="res://Menu/SpinButton.tres" id="7_hiaxh"]
+[ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_spin_button.gd" id="8_qykp8"]
+[ext_resource type="Texture2D" uid="uid://0b3v0imcjtk3" path="res://addons/spin_button/example/assets/icons/buttons/navs/arrow_right_x32.png" id="9_dvtkc"]
+[ext_resource type="Texture2D" uid="uid://ocyfhsatf1sx" path="res://addons/spin_button/example/assets/icons/buttons/navs/arrow_left_x32.png" id="10_j3hs1"]
+[ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_slider_button.gd" id="11_8lsap"]
+[ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="12_pm4xm"]
+[ext_resource type="Script" path="res://Colouring/colour_level_settings.gd" id="13_6qmfu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwxsr"]
+bg_color = Color(0.810168, 0.825132, 0.783068, 1)
+
+[node name="ColouringSettings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1930.0
+offset_bottom = 1095.0
+theme = ExtResource("1_4265g")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dwxsr")
+
+[node name="Terminology" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_top = 666.0
+offset_right = 1920.0
+offset_bottom = 734.0
+theme = ExtResource("2_50h1c")
+bbcode_enabled = true
+text = "[center]Terminology"
+
+[node name="TerminologyText" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 436.0
+offset_top = 773.0
+offset_right = 1512.0
+offset_bottom = 1001.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_3sqbe")
+theme_override_fonts/italics_font = ExtResource("4_qm7os")
+theme_override_fonts/bold_font = ExtResource("5_bpp74")
+theme_override_font_sizes/italics_font_size = 18
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 18
+bbcode_enabled = true
+text = "[b]Definition[/b]: A [color=red]graph colouring[/color], sometimes referred to as a [i]proper[/i] graph colouring, is an assignment of colours to vertices c: V -> {1, 2, ..., k} such that for every edge (u, v) in E, c(u) != c(v).
+[i]Note this colouring uses k colours, and may be referred to as a k-colouring.[/i]"
+
+[node name="Title" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_top = 67.0
+offset_right = 1922.0
+offset_bottom = 371.0
+theme = ExtResource("6_a8tsn")
+bbcode_enabled = true
+text = "[center]Graph Colouring"
+
+[node name="Subtitle" type="RichTextLabel" parent="Title"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 195.0
+offset_right = 1921.0
+offset_bottom = 272.0
+theme = ExtResource("2_50h1c")
+bbcode_enabled = true
+text = "[center]Try to colour a graph with as few colours as possible"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 457.0
+offset_top = 402.0
+offset_right = 1457.0
+offset_bottom = 1052.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(1000, 500)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ProblemTypes" type="Button" parent="ScrollContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme = ExtResource("7_hiaxh")
+script = ExtResource("8_qykp8")
+items = Array[String](["Planar and Non-Planar Graphs", "Planar Graphs", "Non-Planar Graphs"])
+selected = 0
+item_count = 3
+loop = true
+next_icon = ExtResource("9_dvtkc")
+prev_icon = ExtResource("10_j3hs1")
+title = "Problem Types"
+
+[node name="GraphGeneration" type="Button" parent="ScrollContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme = ExtResource("7_hiaxh")
+script = ExtResource("8_qykp8")
+items = Array[String](["Random Graphs", "Extra Hard Mode"])
+selected = 0
+item_count = 2
+loop = true
+next_icon = ExtResource("9_dvtkc")
+prev_icon = ExtResource("10_j3hs1")
+title = "Graph Generation"
+
+[node name="NumNodes" type="Button" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+theme = ExtResource("7_hiaxh")
+script = ExtResource("11_8lsap")
+min_value = 6.0
+max_value = 12.0
+value = 8.0
+value_label_visibility = 1
+value_label_placement = 0
+value_separation = 25
+title = "Number of Nodes"
+
+[node name="EdgeDensity" type="Button" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+theme = ExtResource("7_hiaxh")
+script = ExtResource("11_8lsap")
+min_value = 0.1
+max_value = 0.8
+step = 0.05
+value = 0.35
+value_label_visibility = 1
+value_label_placement = 0
+value_separation = 25
+title = "Edge Density
+"
+
+[node name="Spacer" type="Control" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer" node_paths=PackedStringArray("numNodes", "edgeChance")]
+custom_minimum_size = Vector2(75, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("12_pm4xm")
+theme_override_font_sizes/font_size = 42
+text = "Go"
+script = ExtResource("13_6qmfu")
+numNodes = NodePath("../NumNodes")
+edgeChance = NodePath("../EdgeDensity")

@@ -1,0 +1,134 @@
+[gd_scene load_steps=9 format=3 uid="uid://digoswc3vjcon"]
+
+[ext_resource type="Script" path="res://Colouring/colouring_level.gd" id="1_41mup"]
+[ext_resource type="Theme" uid="uid://crnnsrj7q2hwh" path="res://General/Background.tres" id="1_cuwys"]
+[ext_resource type="Script" path="res://Colouring/colouring_graph.gd" id="2_tow41"]
+[ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="3_u48ww"]
+[ext_resource type="FontFile" uid="uid://c13m3wup8q1k5" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Black.ttf" id="4_3e5f3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k041b"]
+bg_color = Color(0.810168, 0.825132, 0.783068, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_unf8a"]
+bg_color = Color(0.629, 0.85, 0.780017, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36b0i"]
+bg_color = Color(0.84, 0.67074, 0.0588, 1)
+
+[node name="ColouringLevel" type="Control" node_paths=PackedStringArray("graphNode", "coloursUsedDisplay", "newGraphButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_41mup")
+graphNode = NodePath("Panel/Graph")
+coloursUsedDisplay = NodePath("Panel/BoundsPanel/ColoursUsed")
+newGraphButton = NodePath("Panel/BoundsPanel/NewGraphButton")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1930.0
+offset_bottom = 1095.0
+theme = ExtResource("1_cuwys")
+theme_override_styles/panel = SubResource("StyleBoxFlat_k041b")
+
+[node name="BoundsPanel" type="Panel" parent="Panel"]
+layout_mode = 0
+offset_right = 607.0
+offset_bottom = 1082.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_unf8a")
+
+[node name="BoundsHeading" type="RichTextLabel" parent="Panel/BoundsPanel"]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 29.0
+offset_right = 579.0
+offset_bottom = 272.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]Bounds"
+
+[node name="BoundsSubheading" type="RichTextLabel" parent="Panel/BoundsPanel/BoundsHeading"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 99.0
+offset_right = 528.0
+offset_bottom = 190.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center]See if you can find a good upper bound and lower bound on the number of colours required for this graph. This will help you know how many colours you're aiming for!"
+
+[node name="NotYetImplemented" type="RichTextLabel" parent="Panel/BoundsPanel"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 265.0
+offset_right = 606.0
+offset_bottom = 340.0
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center][color=red]Not yet implemented"
+
+[node name="Bound" type="RichTextLabel" parent="Panel/BoundsPanel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 698.0
+offset_right = 581.0
+offset_bottom = 817.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[center]2 ≤ χ(G) ≤ 9"
+
+[node name="ColoursUsed" type="RichTextLabel" parent="Panel/BoundsPanel"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 825.0
+offset_right = 575.0
+offset_bottom = 928.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "[center][color=red]Colouring Not Valid"
+
+[node name="NewGraphButton" type="Button" parent="Panel/BoundsPanel"]
+layout_mode = 0
+offset_left = 206.0
+offset_top = 954.0
+offset_right = 407.0
+offset_bottom = 1002.0
+theme = ExtResource("3_u48ww")
+theme_override_styles/normal = SubResource("StyleBoxFlat_36b0i")
+text = "New Graph"
+
+[node name="ColouringHeading" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 605.0
+offset_top = 26.0
+offset_right = 1920.0
+offset_bottom = 269.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]Colouring"
+
+[node name="ColouringSubheading" type="RichTextLabel" parent="Panel/ColouringHeading"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.005
+anchor_right = 1.0
+offset_left = -3.575
+offset_top = 102.0
+offset_bottom = 179.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center]Once you've got some bounds, have a go at finding a colouring that uses as few colours as possible!
+
+Right click on a vertex to change its colour."
+
+[node name="Graph" type="Node2D" parent="Panel"]
+position = Vector2(742, 263)
+script = ExtResource("2_tow41")
+font = ExtResource("4_3e5f3")
