@@ -186,6 +186,60 @@ class Graph:
 		
 		# Add the new neighbours to vertex1
 		self.vertex_neighbours[vertex1].append_array(new_neighbours)
+
+	# Get the maximum degree. Returns 0 on the empty graph.
+	func get_max_degree() -> int:
+		var max_degree: int = 0
+		for vertex: int in self.vertex_neighbours:
+			var degree: int = self.vertex_neighbours[vertex].size()
+			if degree > max_degree:
+				max_degree = degree
+		return max_degree
+
+	# Get the size of the largest clique. Uses a very inefficient algorithm that does the job for small graphs only.
+	func get_max_clique() -> int:
+		var max_clique: int = 0
+
+		# For each subset of vertices...
+		for binary_string: int in range(2 ** self.vertex_neighbours.size()):
+			#print("Checking binary string: " + str(binary_string))
+			# Check if this is a valid clique
+			var clique: bool = true
+			var clique_size: int = 0
+			for i: int in range(self.vertex_neighbours.size()):
+				if (1 << i) & binary_string == 0:
+					# Node not in potential clique - don't consider
+					continue
+				clique_size += 1
+				for j: int in range(self.vertex_neighbours.size()):
+					if i == j:
+						continue
+					if (1 << j) & binary_string == 0:
+						# Node not in potential clique - don't consider
+						continue
+					#print("Checking edge (" + str(i) + ", " + str(j) + ")")
+					# We have two distinct vertices in the potential clique. If there isn't an edge, it isn't a clique
+					assert((self.vertex_neighbours.keys()[j] not in self.vertex_neighbours.values()[i]) == (self.vertex_neighbours.keys()[i] not in self.vertex_neighbours.values()[j]))
+					if self.vertex_neighbours.keys()[j] not in self.vertex_neighbours.values()[i]:
+						clique = false
+						break
+				if not clique:
+					break
+				#print("Potential clique Size: " + str(clique_size))
+				# We found a clique!
+			if clique:
+				print("Found a clique of size " + str(clique_size) + " on the binary string " + str(binary_string))
+				if clique_size > max_clique:
+					max_clique = clique_size
+
+		# Output the size
+		print("Max clique size: " + str(max_clique))
+		return max_clique
+
+
+	# # Checks if the graph has a k-clique as a subgraph
+	# func check_for_clique_of_size(k: int): bool
+	# 	# For each subset of vertices of size k...
 	
 	
 # A graph where each node has a position
@@ -748,6 +802,7 @@ class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 class ColourableGraphDrawing extends RearrangeableGraphDrawing:
 	# A rearrangeable graph that also supports vertex colourings using right click
 	var vertex_colours: Dictionary
+	var colouring_upper_bound: int
 	
 	func _init(vertex_neighbours: Dictionary = {}, vertex_positions: Dictionary = {}, on_win: Callable = Callable()) -> void:
 		super(vertex_neighbours, vertex_positions, on_win)
@@ -782,7 +837,12 @@ class ColourableGraphDrawing extends RearrangeableGraphDrawing:
 	func check_win() -> void:
 		if is_valid_colouring():
 			self.on_win.call()
+
+	# Change how many colours we cycle through based on the upper bound
+	func set_colouring_upper_bound(upper_bound: int) -> void:
+		self.colouring_upper_bound = upper_bound
 		
+	# Cycle colours on right click
 	func right_mouse_clicked() -> void:
 		print("right mouse clicked")
 		# Delete vertex if clicked on
@@ -791,7 +851,7 @@ class ColourableGraphDrawing extends RearrangeableGraphDrawing:
 			# TODO: Bring up a right click menu to choose new colour
 			print("Recolouring")
 			self.vertex_colours[vertex_to_colour] += 1
-			if self.vertex_colours[vertex_to_colour] > 9:
+			if self.vertex_colours[vertex_to_colour] > self.colouring_upper_bound:
 				self.vertex_colours[vertex_to_colour] = 1
 			
 	func right_mouse_released() -> void:

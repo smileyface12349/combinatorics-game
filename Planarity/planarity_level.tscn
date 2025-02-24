@@ -64,7 +64,7 @@ offset_right = 730.0
 offset_bottom = 191.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
-text = "[center]Think it's non-planar? Use the Kuratowski-Wagner theorem to prove it!"
+text = "[center]Think it's non-planar? Obtain K_5 or K_3,3 as a minor (Kuratowski's Theorem)."
 
 [node name="NonPlanarInstructions" type="RichTextLabel" parent="Panel/NonPlanarHeading"]
 layout_mode = 0
@@ -196,6 +196,17 @@ offset_bottom = 1038.0
 theme = ExtResource("3_uqq12")
 theme_override_styles/normal = SubResource("StyleBoxFlat_u72h0")
 text = "Skip this graph"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 766.0
+offset_top = 423.0
+offset_right = 1045.0
+offset_bottom = 565.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]OR"
 
 [node name="PlanarGraph" type="Node2D" parent="."]
 position = Vector2(170, 300)

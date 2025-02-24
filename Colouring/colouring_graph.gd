@@ -18,6 +18,9 @@ func set_graph(new_graph: Graphs.ColourableGraphDrawing) -> void:
 func set_callback(callback: Callable) -> void:
 	self.on_colouring_changed = callback
 
+func set_upper_bound(bound: int) -> void:
+	graph.set_colouring_upper_bound(bound)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var mouse_position: Vector2 = get_viewport().get_mouse_position() - get_global_position()

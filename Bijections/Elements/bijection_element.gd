@@ -43,7 +43,7 @@ func set_show_diagrams(show_diagrams: bool) -> void:
 func is_inside(pos: Vector2) -> bool:
 	var is_inside_box: bool = pos.x >= position.x && pos.y >= position.y \
 	 	&& pos.x <= position.x + size.x && pos.y <= position.y + size.y
-	var is_inside_dot: bool = pos.distance_to(position + dot.position) <= BijectionElementDot.circle_radius
+	var is_inside_dot: bool = pos.distance_to(position + dot.position) <= BijectionElementDot.hitbox_radius
 	return is_inside_box or is_inside_dot
 		
 ## Gets the position to draw the line from (the left/right middle)
@@ -60,12 +60,19 @@ func check(test: String) -> bool:
 ## Draw contents of bijection element, showing the string representation. This may be overridden,
 ## but probably doesn't need to be as all classes should have a string representation.
 func draw_contents_text() -> void:
-	print("Drawing text: " + self.text)
-	draw_string(font, Vector2(16, size.y * 0.6), self.text, HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, Color(0, 0, 0))
+	if self.text == "":
+		# Special text for empty cases
+		draw_empty()
+	else:
+		draw_string(font, Vector2(16, size.y * 0.6), self.text, HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, Color(0, 0, 0))
 
 ## All elements have a string representation. Some subclasses have pictoral representations.
 func draw_contents_diagrams() -> void:
 	draw_contents_text() # Overridden in subclasses
+
+# Draw a special note to say that something is empty, instead of just drawing a blank box
+func draw_empty() -> void:
+	draw_string(font, Vector2(16, size.y * 0.6), "(empty)", HORIZONTAL_ALIGNMENT_CENTER, -1, font_size / 2, Color(0, 0, 0, 0.5))
 
 func _ready() -> void:
 	# Add dot as a separate element, so it can draw in front of the lines

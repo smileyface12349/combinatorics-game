@@ -84,6 +84,7 @@ const dot_radius: int = 5
 func draw_contents_diagrams() -> void:
 	# Special for empty tree
 	if self.root == []:
+		draw_empty()
 		return
 
 	# Get required width

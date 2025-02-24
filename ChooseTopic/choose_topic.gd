@@ -24,6 +24,9 @@ func _input(event: InputEvent) -> void:
 	elif Input.is_action_just_pressed("num_2"):
 		# 2 = planar graphs
 		get_tree().change_scene_to_file("res://Planarity/planar_settings.tscn")
+	elif Input.is_action_just_pressed("num_3"):
+		# 3 = graph colouring
+		get_tree().change_scene_to_file("res://Colouring/colouring_settings.tscn")
 	
 	# If they chose a level
 	if BijectionSettings.current_level != null:
