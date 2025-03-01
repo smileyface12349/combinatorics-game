@@ -60,13 +60,14 @@ func _draw() -> void:
 		match state:
 			Graphs.RearrangeableVertexState.Colour1: colour = Color.DARK_ORCHID
 			Graphs.RearrangeableVertexState.Colour2: colour = Color.CORNFLOWER_BLUE
-			Graphs.RearrangeableVertexState.Colour3: colour = Color.LIGHT_SEA_GREEN
-			Graphs.RearrangeableVertexState.Colour4: colour = Color.MEDIUM_SEA_GREEN
-			Graphs.RearrangeableVertexState.Colour5: colour = Color.YELLOW_GREEN
-			Graphs.RearrangeableVertexState.Colour6: colour = Color.GOLD
+			Graphs.RearrangeableVertexState.Colour3: colour = Color.MEDIUM_SEA_GREEN
+			Graphs.RearrangeableVertexState.Colour4: colour = Color.GOLD
+			Graphs.RearrangeableVertexState.Colour5: colour = Color.RED
+			Graphs.RearrangeableVertexState.Colour6: colour = Color.HOT_PINK
 			Graphs.RearrangeableVertexState.Colour7: colour = Color.DARK_ORANGE 
-			Graphs.RearrangeableVertexState.Colour8: colour = Color.RED
-			Graphs.RearrangeableVertexState.Colour9: colour = Color.HOT_PINK
+			Graphs.RearrangeableVertexState.Colour8: colour = Color.LIGHT_SEA_GREEN
+			Graphs.RearrangeableVertexState.Colour9: colour = Color.YELLOW_GREEN
+
 			# Note: Colours beyond this point aren't really used, so don't worry about them as much
 			Graphs.RearrangeableVertexState.Colour10: colour = Color.WEB_MAROON
 			Graphs.RearrangeableVertexState.Colour11: colour = Color.SADDLE_BROWN
@@ -79,9 +80,9 @@ func _draw() -> void:
 		if hover:
 			var light_amount: float = 0.3
 			colour = Color(lerp(colour.r, 1.0, light_amount), lerp(colour.g, 1.0, light_amount), lerp(colour.b, 1.0, light_amount), ) # make it lighter when hovering
-		draw_circle(position, 10, colour, true)
-		draw_circle(position, 10, Color.BLACK, false)
-		draw_string(font, position + Vector2(-5, 5), str(vertex), HORIZONTAL_ALIGNMENT_LEFT, -1, 16, Color(0, 0, 0))
+		draw_circle(position, Graphs.vertex_radius, colour, true)
+		draw_circle(position, Graphs.vertex_radius, Color.BLACK, false)
+		draw_string(font, position + Vector2(-6, 7), str(vertex), HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color(0, 0, 0))
 		
 	var draw_edge: Callable = func (end1: Vector2, end2: Vector2, crosses: bool = false) -> void:
 		draw_line(end1, end2, Color.RED if crosses else Color.BLACK, 2)

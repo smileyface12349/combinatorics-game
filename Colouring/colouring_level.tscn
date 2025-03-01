@@ -8,7 +8,7 @@
 [ext_resource type="Theme" uid="uid://ddq17un4mmhvy" path="res://Colouring/bounds_text.tres" id="4_5djmr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k041b"]
-bg_color = Color(0.810168, 0.825132, 0.783068, 1)
+bg_color = Color(0.870588, 0.854902, 0.772549, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_unf8a"]
 bg_color = Color(0.629, 0.85, 0.780017, 1)

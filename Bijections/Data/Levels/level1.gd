@@ -12,7 +12,7 @@ func _init() -> void:
 				0,
 				# Left elements
 				[
-					BijectionElement.new("{}", 1), 
+					BijectionElement.new("{}", 1, [1]), 
 				],
 				# Right elements 
 				[
@@ -23,8 +23,8 @@ func _init() -> void:
 				1,
 				# Left elements
 				[
-					BijectionElement.new("{}", 1), 
-					BijectionElement.new("{1}", 2),
+					BijectionElement.new("{}", 1, [1]), 
+					BijectionElement.new("{1}", 2, [2]),
 				],
 				# Right elements 
 				[
@@ -36,10 +36,10 @@ func _init() -> void:
 				2,
 				# Left elements
 				[
-					BijectionElement.new("{}", 1), 
-					BijectionElement.new("{1}", 2),
-					BijectionElement.new("{2}", 3),
-					BijectionElement.new("{1, 2}", 4),
+					BijectionElement.new("{}", 1, [1]), 
+					BijectionElement.new("{1}", 2, [3]),
+					BijectionElement.new("{2}", 3, [2]),
+					BijectionElement.new("{1, 2}", 4, [4]),
 				],
 				# Right elements 
 				[
@@ -53,14 +53,14 @@ func _init() -> void:
 				3,
 				# Left elements
 				[
-					BijectionElement.new("{}", 1), 
-					BijectionElement.new("{1}", 2),
-					BijectionElement.new("{2}", 3),
-					BijectionElement.new("{1, 2}", 4),
-					BijectionElement.new("{3}", 5), 
-					BijectionElement.new("{1, 3}", 6),
-					BijectionElement.new("{2, 3}", 7),
-					BijectionElement.new("{1, 2, 3}", 8),
+					BijectionElement.new("{}", 1, [1]), 
+					BijectionElement.new("{1}", 2, [5]),
+					BijectionElement.new("{2}", 3, [3]),
+					BijectionElement.new("{1, 2}", 4, [7]),
+					BijectionElement.new("{3}", 5, [2]), 
+					BijectionElement.new("{1, 3}", 6, [6]),
+					BijectionElement.new("{2, 3}", 7, [4]),
+					BijectionElement.new("{1, 2, 3}", 8, [8]),
 				],
 				# Right elements 
 				[
@@ -118,6 +118,8 @@ func _init() -> void:
 			#),
 		},
 		[],
-		"There's one value in the binary string for each element potentially in the subset. These each have two choices (0 or 1) - what could this represent for the corresponding element potentially in the subset?"
+		"There's one value in the binary string for each element potentially in the subset. These each have two choices (0 or 1) - what could this represent for the corresponding element potentially in the subset?",
+		BijectionProof.new(""),
+		1
 	)
 	

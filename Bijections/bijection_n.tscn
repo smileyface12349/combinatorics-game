@@ -53,12 +53,13 @@ text = "[center]Match Them Up!"
 [node name="Subtitle" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
 offset_left = 332.0
-offset_top = 128.0
+offset_top = 127.0
 offset_right = 1094.0
-offset_bottom = 174.0
+offset_bottom = 204.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
 text = "[center]Find a sensible way of matching up these two sequences to show that they are the same size. Your bijection will be checked automatically when completed for all values of n.
+[i]There are alternate solution(s). These do not work with hints. Validation may not be perfect. [/i]
 [/center]"
 
 [node name="MatchElements" type="Control" parent="Panel" node_paths=PackedStringArray("problemSizeIndicator")]

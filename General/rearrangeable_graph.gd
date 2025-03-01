@@ -52,9 +52,9 @@ func _draw() -> void:
 			Graphs.RearrangeableVertexState.Contract: colour = Color.ORANGE
 			Graphs.RearrangeableVertexState.Highlight: colour = Color.YELLOW
 			_: colour = Color.WHITE
-		draw_circle(position, 10, colour, true)
-		draw_circle(position, 10, Color.BLACK, false)
-		draw_string(font, position + Vector2(-5, 5), str(vertex), HORIZONTAL_ALIGNMENT_LEFT, -1, 16, Color(0, 0, 0))
+		draw_circle(position, Graphs.vertex_radius, colour, true)
+		draw_circle(position, Graphs.vertex_radius, Color.BLACK, false)
+		draw_string(font, position + Vector2(-6, 7), str(vertex), HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color(0, 0, 0))
 		
 	var draw_edge: Callable = func (end1: Vector2, end2: Vector2, crosses: bool = false) -> void:
 		draw_line(end1, end2, Color.RED if crosses else Color.BLACK, 2)

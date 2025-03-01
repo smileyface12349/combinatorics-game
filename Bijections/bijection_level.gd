@@ -14,6 +14,7 @@ var bijection_overview: BijectionOverviewNode
 var hints: Array[String] = []
 var hints_available: int = 5
 var level_hint: String = ""
+var level: BijectionLevel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -36,6 +37,7 @@ func create_level(level: BijectionLevel) -> void:
 	for problem_size: int in level.bijections:
 		create_bijection_n(level.bijections[problem_size], level, position)
 		position.x += bijection_width
+	self.level = level
 
 ## Create the elements to represent a bijection of particular size n
 func create_bijection_n(bijection: Bijection, level: BijectionLevel, position: Vector2) -> void:
@@ -115,14 +117,22 @@ func check_all() -> void:
 		return
 	
 	# Check if they are all correct
-	var correct: bool = true
-	for problem_n: BijectionLevelNode in bijection_problems:
-		if not problem_n.check():
-			correct = false
+	var is_any_correct: bool = false
+	for alternate_solution: int in range(0, level.alternate_solutions+1):
+		for reverse: bool in [false, true]:
+			var correct: bool = true
+			for problem_n: BijectionLevelNode in bijection_problems:
+				if not problem_n.check(alternate_solution, reverse):
+					correct = false
+					break
+			if correct:
+				is_any_correct = true
+				break
+		if is_any_correct:
 			break
 	
 	# All correct - tell them to update their appearance accordingly
-	if correct:
+	if is_any_correct:
 		for problem_n: BijectionLevelNode in bijection_problems:
 			problem_n.mark_as_done()
 			

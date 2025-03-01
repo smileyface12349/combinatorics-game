@@ -4,6 +4,8 @@ const force_attract: float = 0.2
 const force_repel: float = 0.02
 const distance_to_edge: float = 0.05
 
+const vertex_radius: int = 15
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -74,6 +76,7 @@ class Graph:
 	static func get_random_connected(n_vertices: int, edge_chance: float = 0.4) -> Graph:
 		var graph: Graph = Graph.get_random_mst(n_vertices)
 		graph.complete_random(edge_chance)
+		print("Generated a new graph: " + str(graph.vertex_neighbours))
 		return graph
 		
 	# Generates a random connected planar graph, by generating a connected graph and then removing
@@ -202,7 +205,6 @@ class Graph:
 
 		# For each subset of vertices...
 		for binary_string: int in range(2 ** self.vertex_neighbours.size()):
-			#print("Checking binary string: " + str(binary_string))
 			# Check if this is a valid clique
 			var clique: bool = true
 			var clique_size: int = 0
@@ -217,7 +219,6 @@ class Graph:
 					if (1 << j) & binary_string == 0:
 						# Node not in potential clique - don't consider
 						continue
-					#print("Checking edge (" + str(i) + ", " + str(j) + ")")
 					# We have two distinct vertices in the potential clique. If there isn't an edge, it isn't a clique
 					assert((self.vertex_neighbours.keys()[j] not in self.vertex_neighbours.values()[i]) == (self.vertex_neighbours.keys()[i] not in self.vertex_neighbours.values()[j]))
 					if self.vertex_neighbours.keys()[j] not in self.vertex_neighbours.values()[i]:
@@ -225,15 +226,12 @@ class Graph:
 						break
 				if not clique:
 					break
-				#print("Potential clique Size: " + str(clique_size))
 				# We found a clique!
 			if clique:
-				print("Found a clique of size " + str(clique_size) + " on the binary string " + str(binary_string))
 				if clique_size > max_clique:
 					max_clique = clique_size
 
 		# Output the size
-		print("Max clique size: " + str(max_clique))
 		return max_clique
 
 
@@ -586,11 +584,11 @@ class RearrangeableGraphDrawing extends GraphDrawing:
 			self.has_won = true
 	
 	# Check if mouse is hovering over this vertex. Last drawn size is used
-	func is_hovering_over_vertex(vertex: int, vertex_radius: int = 10) -> bool:
+	func is_hovering_over_vertex(vertex: int, extra_radius: int = 2) -> bool:
 		return (
 			self.vertex_to_world(self.vertex_positions[vertex], self.size) 
 		   -self.vertex_to_world(self.mouse_position, self.size)
-		).length() <= vertex_radius
+		).length() <= vertex_radius + extra_radius
 		
 	func get_vertex_at_mouse() -> int:
 		for vertex: int in self.vertex_positions.keys():
@@ -836,7 +834,8 @@ class ColourableGraphDrawing extends RearrangeableGraphDrawing:
 	# Callback upon producing a valid colouring
 	func check_win() -> void:
 		if is_valid_colouring():
-			self.on_win.call()
+			if self.on_win:
+				self.on_win.call()
 
 	# Change how many colours we cycle through based on the upper bound
 	func set_colouring_upper_bound(upper_bound: int) -> void:

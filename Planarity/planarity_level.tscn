@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://Planarity/non_planar_graph.gd" id="4_4fd3f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yjt5m"]
-bg_color = Color(0.870361, 0.873477, 0.832803, 1)
+bg_color = Color(0.870588, 0.854902, 0.772549, 1)
 
 [sub_resource type="Theme" id="Theme_uh2o2"]
 

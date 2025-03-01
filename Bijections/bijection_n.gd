@@ -84,14 +84,14 @@ func checkbox_toggled(toggled_on: bool) -> void:
 	set_panel_size()
 	
 ## Checks if it's fully correct. Requires everything to be matched up.
-func check() -> bool:
-	return matchElements.check()
+func check(alternate_solution: int = 0, reverse: bool = false) -> bool:
+	return matchElements.check(alternate_solution, reverse)
 	
 ## Checks if everything has been matched up.
 func is_complete() -> bool:
 	return matchElements.is_complete()
 	
-## Updates the appearance to show it as done (after double checking that it is actually done)
+## Updates the appearance to show it as done (does not check that it is done)
 func mark_as_done() -> void:
 	matchElements.mark_as_done()
 	

@@ -95,7 +95,11 @@ func new_graph() -> void:
 	# 	else:
 	# 		# Note: Default Settings
 	# 		graph = Graphs.Graph.get_random_connected(PlanarSettings.num_nodes, 0.33)
-	graph = Graphs.Graph.get_random_connected(PlanarSettings.num_nodes, PlanarSettings.edge_chance)
+	if not PlanarSettings.custom_graph: 
+		graph = Graphs.Graph.get_random_connected(PlanarSettings.num_nodes, PlanarSettings.edge_chance)
+	else:
+		graph = PlanarSettings.custom_graph
+		PlanarSettings.custom_graph = null
 
 	planarGraph = graph.get_drawing_best(true).get_rearrangeable(true)
 	planarGraph.on_win = on_planar_win

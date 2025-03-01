@@ -14,6 +14,7 @@ class_name BijectionElement
 
 var text: String
 var id: int
+var alternate: Array[int] = []
 var match: BijectionElement = null
 var hover: bool = false
 var side: bool # done when adding to scene, not during setup
@@ -24,9 +25,10 @@ var dot: BijectionElementDot
 const font_size: float = 48
 var font: Font = load("res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Black.ttf")
 
-func _init(text: String, id: int) -> void:
+func _init(text: String, id: int, alternate: Array[int] = []) -> void:
 	self.text = text
 	self.id = id
+	self.alternate = alternate
 	self.connect("mouse_entered", func () -> void: hover = true; queue_redraw())
 	self.connect("mouse_exited", func () -> void: hover = false; queue_redraw())
 	

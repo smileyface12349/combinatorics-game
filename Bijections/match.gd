@@ -94,19 +94,18 @@ func _input(event: InputEvent) -> void:
 		# Whatever happened, it's time for a redraw
 		queue_redraw()
 
-# Marks as done (as long as it is indeed done)
+# Marks as done
 func mark_as_done() -> void:
-	if bijection.check():
-		done = true
-		queue_redraw()
+	done = true
+	queue_redraw()
 		
 # Makes the lines red
 func show_incorrect(incorrect: bool = true) -> void:
 	self.incorrect = incorrect
 		
 # Checks if it's correct
-func check() -> bool:
-	return bijection.check()
+func check(alternate_solution: int = 0, reverse: bool = false) -> bool:
+	return bijection.check(alternate_solution, reverse)
 	
 # Checks if everything has been matched up
 func is_complete() -> bool:

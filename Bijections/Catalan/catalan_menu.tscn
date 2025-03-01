@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="3_vwxwu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n8mbj"]
-bg_color = Color(1, 1, 0.952941, 1)
+bg_color = Color(0.870588, 0.854902, 0.772549, 1)
 
 [node name="CatalanMenu" type="Control" node_paths=PackedStringArray("generateProblemButton")]
 layout_mode = 3
@@ -45,11 +45,11 @@ offset_right = 1846.0
 offset_bottom = 729.0
 theme = ExtResource("2_e2075")
 bbcode_enabled = true
-text = "[fill]The Catalan numbers are a famous sequence counted by loads of different problems. This game has 3 different problems, all of which have bijections between them. This gives you 3 bijections to discover.
+text = "[center]Random bijection problems! 
 
-You will be presented with a random bijection with random difficulty.
+All of these problems are counted by a famous sequence called the Catalan numbers.
 
-[/fill]You may want to check out the Bijections topic first."
+You may want to check out the Bijections topic first."
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
@@ -58,9 +58,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 614.0
-offset_top = -254.0
+offset_top = -268.0
 offset_right = -623.0
-offset_bottom = -180.0
+offset_bottom = -194.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("3_vwxwu")

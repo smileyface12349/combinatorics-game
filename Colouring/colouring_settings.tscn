@@ -1,6 +1,5 @@
-[gd_scene load_steps=15 format=3 uid="uid://eq7m207hslss"]
+[gd_scene load_steps=14 format=3 uid="uid://eq7m207hslss"]
 
-[ext_resource type="Theme" uid="uid://crnnsrj7q2hwh" path="res://General/Background.tres" id="1_4265g"]
 [ext_resource type="Theme" uid="uid://nm3tnjbbbaxg" path="res://Menu/heading.tres" id="2_50h1c"]
 [ext_resource type="FontFile" uid="uid://bywovpuc4ufa5" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Medium.ttf" id="3_3sqbe"]
 [ext_resource type="FontFile" uid="uid://cks6ewm6f4f8a" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-MediumIt.ttf" id="4_qm7os"]
@@ -14,8 +13,8 @@
 [ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="12_pm4xm"]
 [ext_resource type="Script" path="res://Colouring/colour_level_settings.gd" id="13_6qmfu"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwxsr"]
-bg_color = Color(0.810168, 0.825132, 0.783068, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qw4w5"]
+bg_color = Color(0.870588, 0.854902, 0.772549, 1)
 
 [node name="ColouringSettings" type="Control"]
 layout_mode = 3
@@ -29,8 +28,7 @@ grow_vertical = 2
 layout_mode = 0
 offset_right = 1930.0
 offset_bottom = 1095.0
-theme = ExtResource("1_4265g")
-theme_override_styles/panel = SubResource("StyleBoxFlat_dwxsr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_qw4w5")
 
 [node name="Terminology" type="RichTextLabel" parent="."]
 layout_mode = 0

@@ -25,3 +25,8 @@ func _input(event: InputEvent) -> void:
 	# ESC to go back to menu
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().change_scene_to_packed(chooseTopicScene)
+
+	# Custom demo graphs
+	if Input.is_action_just_pressed("num_1"):
+		PlanarSettings.custom_graph = Graphs.Graph.new({ 0: [1, 3, 7, 2, 4, 6], 1: [0, 2], 2: [1, 4, 6, 0, 5], 3: [0, 4, 7], 4: [2, 5, 0, 3, 7], 5: [4, 2, 7], 6: [2, 0, 7], 7: [0, 3, 4, 5, 6] })
+		get_tree().change_scene_to_file("res://Planarity/planarity_level.tscn")

@@ -25,7 +25,14 @@ var best_upper_bound: int
 
 func new_graph() -> void:
 	# Generate the new graph
-	graph = Graphs.Graph.get_random_connected(PlanarSettings.num_nodes, PlanarSettings.edge_chance).get_drawing_best().get_rearrangeable().get_colourable()
+	var graphNoDrawing: Graphs.Graph
+	if PlanarSettings.custom_graph == null:
+		graphNoDrawing = Graphs.Graph.get_random_connected(PlanarSettings.num_nodes, PlanarSettings.edge_chance)
+	else:
+		graphNoDrawing = PlanarSettings.custom_graph
+		PlanarSettings.custom_graph = null
+		
+	graph = graphNoDrawing.get_drawing_best().get_rearrangeable().get_colourable()
 	graphNode.set_graph(graph)
 	graphNode.set_callback(on_colouring_changed)
 

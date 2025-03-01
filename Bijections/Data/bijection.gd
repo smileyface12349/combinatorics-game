@@ -43,10 +43,26 @@ func get_elements_on_side(left: bool) -> Array[BijectionElement]:
 		#y += element.size.y + spacing
 		
 ## Checks if the current matching is correct
-func check() -> bool:
+func check(alternate_solution: int = 0, reverse: bool = false) -> bool:
+	print("Checking n=" + str(problem_size) + " alternate solution " + str(alternate_solution) + " with reverse " + str(reverse))
 	for element: BijectionElement in self.from:
-		if element.match == null || element.match.id != element.id:
+		if element.match == null:
 			return false
+		if alternate_solution == 0:
+			if not reverse:
+				if element.match.id != element.id:
+					return false
+			else:
+				if element.match.id != self.from.size() - element.id + 1:
+					return false
+		else:
+			if not reverse:
+				if element.match.id != element.alternate[alternate_solution-1]:
+					return false
+			else:
+				if element.match.id != self.from.size() - element.alternate[alternate_solution-1] + 1:
+					return false
+
 	return true
 	
 ## Checks if everything has been matched up
