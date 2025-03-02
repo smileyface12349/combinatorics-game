@@ -5,4 +5,5 @@ var PROBLEMS: Array[CatalanProblem] = [
 	CatalanDyckPaths.new(),
 	CatalanParentheses.new(),
 	CatalanBinaryTrees.new(),
+	CatalanTriangulations.new()
 ]
