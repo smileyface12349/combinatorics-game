@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cxh7qibimhynl"]
 
 [ext_resource type="Script" path="res://Bijections/LevelSelect/bijections_level_select.gd" id="1_2b5w8"]
-[ext_resource type="Texture2D" uid="uid://bwiquggr2ext4" path="res://Bijections/LevelSelect/lake-bijection-v2.png" id="2_f5xai"]
+[ext_resource type="Texture2D" uid="uid://ssns3sh0c8ka" path="res://Bijections/LevelSelect/lake-bijection-v2-small.png" id="2_dfw7f"]
 [ext_resource type="PackedScene" uid="uid://c18im8qe1f51" path="res://Bijections/LevelSelect/lilypad_level.tscn" id="3_p3rta"]
 [ext_resource type="Texture2D" uid="uid://cnvx6oenm2rn5" path="res://Bijections/LevelSelect/boat-attempt.png" id="4_4lsj5"]
 [ext_resource type="Script" path="res://ChooseTopic/menu_car.gd" id="5_up81k"]
@@ -15,8 +15,8 @@ script = ExtResource("1_2b5w8")
 
 [node name="Lake-bijection" type="Sprite2D" parent="."]
 position = Vector2(1533, 611)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_f5xai")
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_dfw7f")
 
 [node name="LilypadLevel2" parent="." instance=ExtResource("3_p3rta")]
 position = Vector2(1328, 317)

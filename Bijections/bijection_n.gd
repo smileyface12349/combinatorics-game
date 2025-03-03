@@ -170,7 +170,7 @@ func use_hint_which() -> void:
 			if correct == total:
 				hintText.text = "[center]All correct! You can find this later in Hints & Definitions"
 			else:
-				hintText.text = str(correct) + "/" + str(total) + " correct! You can find this later in Hints & Definitions"
+				hintText.text = "[center]" + str(correct) + "/" + str(total) + " correct! You can find this later in Hints & Definitions"
 			add_hint.call(2, extended_text)
 		
 	else:

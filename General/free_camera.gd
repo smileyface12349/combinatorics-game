@@ -6,6 +6,7 @@ var last_mouse_position: Vector2
 var target_position: Vector2
 var target_zoom: Vector2
 
+const zoom_from_animation: Vector2 = Vector2(0.5, 0.5)
 const min_zoom: Vector2 = Vector2(0.3, 0.3)
 const max_zoom: Vector2 = Vector2(2, 2)
 const min_pos: Vector2 = Vector2(-1000, 0)
@@ -22,7 +23,7 @@ func _ready() -> void:
 	target_zoom = zoom
 
 	# Start the level with a subtle zooming in animation
-	zoom = Vector2(0.75, 0.75)
+	zoom = zoom_from_animation
 
 
 func _input(event: InputEvent) -> void:
