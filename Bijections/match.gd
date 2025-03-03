@@ -85,6 +85,9 @@ func _input(event: InputEvent) -> void:
 									display_incorrect.erase(e.id)
 						# Add the new matching
 						active_element.match = element
+					# Mark correct when there's only one
+					if bijection.from.size() == 1:
+						display_correct.append(element.id)
 					active_element = null
 					callback_on_match.call()
 					break
@@ -236,6 +239,10 @@ func _draw() -> void:
 			else:
 				colour = Color.BLUE
 			draw_line(element.get_line_pos(), element.match.get_line_pos(), colour, line_width)
+
+	# Handle empty case
+	if bijection.from.is_empty():
+		draw_string(font, Vector2(0, 130), "(there aren't any for n=" + str(bijection.problem_size) + ")", HORIZONTAL_ALIGNMENT_CENTER, size.x, 24, Color(0, 0, 0, 0.5))
 			
 	# Draw active matching (if applicable)
 	#if active_element != null:

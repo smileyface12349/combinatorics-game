@@ -32,7 +32,7 @@ func _input(event: InputEvent) -> void:
 	
 	# Demo buttons
 	if Input.is_action_just_pressed("num_1"):
-		BijectionSettings.current_level = BijectionLevel5.new()
+		BijectionSettings.current_level = BijectionLevel4.new()
 		get_tree().change_scene_to_file("res://Bijections/bijection_level.tscn")
 	elif Input.is_action_just_pressed("num_2"):
 		get_tree().change_scene_to_file("res://Bijections/Catalan/catalan_menu.tscn")

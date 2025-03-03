@@ -52,7 +52,8 @@ func set_level(level: BijectionLevel, update_show_diagrams: Callable) -> void:
 func set_panel_size() -> void:
 	if bijection.from.is_empty():
 		# Special case to prevent error when trying to access element size
-		panel.size.y = panel_size_excluding_elements
+		# +50 to leave space for the "no cases" text
+		panel.size.y = panel_size_excluding_elements + 70
 	else:
 		panel.size.y = panel_size_excluding_elements + bijection.from.size() * (bijection.from[0].size.y + 32)
 		
