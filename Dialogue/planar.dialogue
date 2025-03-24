@@ -1,0 +1,83 @@
+~ planar_intro
+if not ("planar" in SaveData.seen_dialogue)
+	You knock on the door of the hut.
+	Nothing happens.
+	  - Knock again
+	  - Wait
+	You hear a voice from behind the door.
+	Professor Planard: Ya tryna' rob me?
+	 - Yes
+			Professor Planard: Leave me alone! I don't have any valuables!
+			You hear footsteps walking away from the door.
+			=> END
+	 - No
+			Professor Planard: Oh, alright then.
+			The door opens.
+			do SaveData.seen_dialouge.append("planar")
+			Professor Planard: What do you want to do?
+			 - I'd like to solve some planar graph puzzles
+			 - Nevermind
+				Professor Planard: Ok, feel free to come back when you're ready for some planar graph puzzles!
+				=> END
+	
+	Oh, that's wonderful! Do you need me to bring you up to speed with some important definitions or are you happy to jump straight in?
+else
+	Ah, you again! Care for some planar graphs?
+
+~ planar_intro_decision
+ - What's a graph?
+	Professor Planard: A graph is made up of nodes and connections between them, called edges.
+	Professor Planard: Graphs are an abstract way of representing many common situations. For example, you could think of each node as a train station and each edge as the train tracks between them.
+	Professor Planard: Graphs can be drawn in many different ways. As long as the same nodes are matched up to each other, we consider it to be the same graph.
+	=> planar_intro_decision
+ - What's a planar graph?
+	Professor Planard: Good question! First, we need to esatablish what a planar drawing is.
+	Professor Planard: A drawing of a graph is planar if none of the eges cross over each other.
+	Professor Planard: A graph is planar if there exists a drawing of it which is planar.
+	Professor Planard: So if we want to prove that a graph is planar, we just need to rearrange the vertices until none of the edges cross over!
+	Professor Planard: Similarly, a graph is non-planar if it is impossible to rearrange the vertices to find a planar drawing.
+ - What's the Kuratowski-Wagner theorem?
+	Professor Planard: The Kuratowski-Wagner theorem is an important theorem that we will be using to prove that graphs are non-planar.
+	Professor Planard: This theorem exists in many forms. We'll be using the one stated by Wagner in 1937 which is inspired by Kuratowski's formulation in 1930.
+	Professor Planard: The theorem states "A graph is non-planar if and only if it has a K_5 or a K_3,3 as a minor."
+	Professor Planard: There's a lot to unpack here. First, what is a minor?
+	 - A person under the age of 18.
+		Professor Planard: Very funny.
+	 - A minor scale containing no flats or sharps.
+		Professor Planard: Doesn't quite work. That's "A minor", not "a minor".
+	 - No idea.
+		Professor Planard: I'll tell you!
+	 - [Remain silent]
+	Professor Planard: A minor of a graph is obtained by performing a sequence of vertex deletions, edge deletions and edge contractions.
+	Professor Planard: Vertex deletions and edge deletions are pretty self-explanatory, but what about edge contractions?
+	Professor Planard: In an edge contraction, we combine the two endpoints to form one new node and retain all of its neighbours. For example, take a graph where a vertex 1 is incident to vertices 2, 3 and 4 and a vertex 2 is incident to vertices 1, 4 and 5. When we contract vertices 1 and 2, we get a new vertex incident to vertices 3, 4 and 5.
+	Professor Planard: Remember that we're only dealing with simple graphs, so there can only be one edge between any two vertices!
+	Professor Planard: Don't worry if that particular step didn't make sense right now - it'll make more sense when you start doing it.
+	Professor Planard: Finally, what actually is a K_5 and a K_3,3?
+	 - I know this already
+		Professor Planard: Great!
+	 - [Remain silent]
+		Professor Planard: A K_5 is a graph on 5 vertices where every pair of vertices are connected by an edge.
+		Professor Planard: In total, this means it has 10 edges. It's got the maximum edges for a graph with 5 vertices.
+		Professor Planard: A K_3,3 is a bipartite graph meaning the 6 vertices are divided into two groups of three.
+		Professor Planard: An edge exists between every pair of vertices in different groups, but not between vertices in the same group.
+		Professor Planard: This graph is famous for modelling the 3 utilities problem. Imagine 3 houses and 3 utilities, where every house needs to be connected to every utility. This is K_3,3!
+	Professor Planard: Now recall the theorem: "A graph is non-planar if and only if it has a K_5 or a K_3,3 as a minor". Which direction should we look at first?
+	 - Forwards
+		Professor Planard: This tells us that every non-planar graph has a K_5 or a K_3,3 as a minor.
+		Professor Planard: This is great, because we know that we can use this theorem on every non-planar graph!
+		Professor Planard: The backwards direction allows us to construct these proofs by finding a K_5 or a K_3,3.
+	 - Backwards
+		Professor Planard: This tells us that if we do some vertex deletions, edge deletions and edge contractions and end up with a K_5 or a K_3,3, then the graph is non-planar!
+		Professor Planard: This is really useful as it provides an algorithmic approach that we can use to construct a proof.
+		Professor Planard: The forwards direction tells us that this works on every graph.
+	Professor Planard: That's it for the Kuratowski-Wagner theorem! I hope it made sense.
+	=> planar_intro_decision
+ - Let's jump straight in.
+	=> END
+ - Actually, I don't feel like planar graphs right now.
+	Professor Planard: No worries! You're more than welcome to return whenever you want to.
+	=> END
+
+
+=> END

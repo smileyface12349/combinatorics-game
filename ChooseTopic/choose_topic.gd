@@ -3,10 +3,12 @@ extends Node
 @export var boringMenuButton: Button
 
 var bijectionsScene: PackedScene = preload("res://Bijections/LevelSelect/lake_level_select.tscn")
+var dialogueResource: DialogueResource = preload("res://Dialogue/intro.dialogue")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	boringMenuButton.connect("pressed", go_to_boring)
+	DialogueManager.show_dialogue_balloon(dialogueResource)
 
 func _input(event: InputEvent) -> void:
 	if GeneralSettings.is_popup_open:

@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://b4qcbrnn6upej"
+path="res://.godot/imported/planar.dialogue-9ef4b5ff2784c9c5fce7cdd4d9313802.tres"
+
+[deps]
+
+source_file="res://Dialogue/planar.dialogue"
+dest_files=["res://.godot/imported/planar.dialogue-9ef4b5ff2784c9c5fce7cdd4d9313802.tres"]
+
+[params]
+
+defaults=true
