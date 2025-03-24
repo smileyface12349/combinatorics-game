@@ -8,6 +8,13 @@ const camera_offset: Vector2 = Vector2(0, 40)
 var bijection_n_scene: PackedScene = preload("res://Bijections/bijection_n.tscn")
 var bijection_overview_scene: PackedScene = preload("res://Bijections/Overview/bijection_overview_screen.tscn")
 var bijection_level_select_scene: PackedScene = preload("res://Bijections/LevelSelect/lake_level_select.tscn")
+var tracks: Array[AudioStream] = [
+	preload("res://Music/Myst on the Moor.mp3"),
+	preload("res://Music/Eternity.mp3"),
+	preload("res://Music/Inspired.mp3"),
+	preload("res://Music/Nowhere Land.mp3"),
+]
+
 var show_diagrams: bool = false
 var bijection_problems: Array[BijectionLevelNode] = []
 var bijection_overview: BijectionOverviewNode
@@ -19,6 +26,7 @@ var level: BijectionLevel
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	create_level(BijectionSettings.current_level) 
+	MusicPlayer.change_track_to_random(tracks)
 	
 ## Creates the elements to represent the level
 func create_level(level: BijectionLevel) -> void:

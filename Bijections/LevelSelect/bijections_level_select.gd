@@ -1,10 +1,11 @@
 extends Node
 
 var chooseTopicScene: PackedScene = preload("res://ChooseTopic/choose_topic.tscn")
+var track: AudioStream = preload("res://Music/Salty Ditty.mp3")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	MusicPlayer.change_track(track)
 
 func _input(event: InputEvent) -> void:
 	# ESC to go back to menu

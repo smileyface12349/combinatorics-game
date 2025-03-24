@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c8nqflo6bupvf"
+path="res://.godot/imported/Balloon Game.mp3-561e0d6ecb45581b9f2e810f924b22fc.mp3str"
+
+[deps]
+
+source_file="res://Music/Balloon Game.mp3"
+dest_files=["res://.godot/imported/Balloon Game.mp3-561e0d6ecb45581b9f2e810f924b22fc.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

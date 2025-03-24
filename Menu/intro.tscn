@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvgld1o1k520x"]
+
+[ext_resource type="Script" path="res://Menu/intro.gd" id="1_ccpdi"]
+
+[node name="Intro" type="Node2D"]
+script = ExtResource("1_ccpdi")

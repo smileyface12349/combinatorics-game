@@ -15,6 +15,7 @@ var nonPlanarGraph: Graphs.MinorRearrangeableGraphDrawing
 @export var planarWinButton: Button
 @export var nonPlanarWinButton: Button
 @export var skipButton: Button
+@export var successSound: AudioStreamPlayer
 
 var improve_button_held: bool = false
 const improve_button_every: float = 0.02
@@ -64,9 +65,11 @@ func _input(event: InputEvent) -> void:
 
 func on_planar_win() -> void:
 	planarWinButton.visible = true
+	successSound.play()
 	
 func on_non_planar_win() -> void:
 	nonPlanarWinButton.visible = true
+	successSound.play()
 	
 func new_graph() -> void:
 	planarWinButton.visible = false

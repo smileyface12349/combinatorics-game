@@ -6,10 +6,12 @@ extends Button
 @export var problemType: SBSpinButton
 
 var chooseTopicScene: PackedScene = preload("res://ChooseTopic/choose_topic.tscn")
+var track: AudioStream = preload("res://Music/Robobozo.mp3")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.connect("pressed", go)
+	MusicPlayer.change_track(track)
 
 func go() -> void:
 	# Store settings in global variable

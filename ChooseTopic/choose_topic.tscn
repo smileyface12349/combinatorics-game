@@ -518,6 +518,7 @@ boundary_top = -1300
 boundary_bottom = 1200
 boundary_left = -2000
 boundary_right = 2500
+is_car = true
 dialog_text = NodePath("../HUD/DialogText")
 
 [node name="Sprite2D" type="Sprite2D" parent="Car"]

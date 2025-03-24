@@ -46,11 +46,17 @@ position = Vector2(1051, 514)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_4lsj5")
 script = ExtResource("5_up81k")
+acceleration = 150.0
+braking = 75.0
+reverse_amount = 75.0
+turn_amount = 1.0
 boundary_top = 70
 boundary_bottom = 1150
 boundary_left = 650
 boundary_right = 2490
+is_boat = true
 dialog_text = NodePath("../CanvasLayer/DialogText")
+damping = 10.0
 
 [node name="Area2D" type="Area2D" parent="Boat-attempt"]
 

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://crt6his5qgrf8"
+path="res://.godot/imported/Salty Ditty.mp3-1c94660314cca0c8919f93a5716d5904.mp3str"
+
+[deps]
+
+source_file="res://Music/Salty Ditty.mp3"
+dest_files=["res://.godot/imported/Salty Ditty.mp3-1c94660314cca0c8919f93a5716d5904.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,10 +1,10 @@
 extends Node
 
-const acceleration: float = 250
-const braking: float = 200
+@export var acceleration: float = 250
+@export var braking: float = 200
 const reverse_delay: float = 0.2
-const reverse_amount: float = 100
-const turn_amount: float = 3
+@export var reverse_amount: float = 100
+@export var turn_amount: float = 3
 
 # const BOUNDARY_TOP: int = -1300
 # const BOUNDARY_BOTTOM: int = 1200
@@ -16,14 +16,17 @@ const turn_amount: float = 3
 @export var boundary_left: int
 @export var boundary_right: int
 
+@export var is_car: bool
+@export var is_boat: bool
+
 @export var dialog_text: RichTextLabel
 
 # Max speed is now controlled by air resistance alone
 #const max_forwards_speed: float = 5
 #const max_reverse_speed: float = 1
 
-const air_resistance: float = 0.002 # multiplied by velocity squared, per second
-const damping: float = 20.0 # does not scale with velocity, per second
+@export var air_resistance: float = 0.002 # multiplied by velocity squared, per second
+@export var damping: float = 20.0 # does not scale with velocity, per second
 
 var speed: float
 var direction: float
@@ -48,6 +51,10 @@ var current: TopicHover = TopicHover.new_no_topic()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if is_car and GeneralSettings.car_position != Vector2(0, 0):
+		self.position = GeneralSettings.car_position
+	if is_boat and GeneralSettings.boat_position != Vector2(0, 0):
+		self.position = GeneralSettings.boat_position
 	speed = 0
 	direction = PI
 	reverse_delay_elapsed = 0
@@ -138,6 +145,10 @@ func _process(delta: float) -> void:
 	# Go to level that we're driving over
 	if Input.is_action_just_pressed("ui_accept"):
 		if current.is_topic():
+			if is_car:
+				GeneralSettings.car_position = self.position
+			elif is_boat:
+				GeneralSettings.boat_position = self.position
 			current.go.call()
 
 func body_entered(other: Area2D) -> void:

@@ -22,6 +22,8 @@ Graphs="*res://General/graphs.gd"
 BijectionSettings="*res://Bijections/bijections_user_data.gd"
 GeneralSettings="*res://General/general_settings.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+SaveData="*res://SaveData/save_data.gd"
+MusicPlayer="*res://Music/music_player.gd"
 
 [debug]
 
@@ -31,6 +33,10 @@ gdscript/warnings/unsafe_property_access=1
 gdscript/warnings/unsafe_method_access=1
 gdscript/warnings/unsafe_cast=1
 gdscript/warnings/unsafe_call_argument=1
+
+[dialogue_manager]
+
+general/balloon_path="res://Dialogue/balloon.tscn"
 
 [display]
 

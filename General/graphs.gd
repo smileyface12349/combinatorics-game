@@ -306,7 +306,7 @@ class GraphDrawing extends Graph:
 	func graph_drawing_changed() -> void:
 		self.edge_crossings_cache_invalidate = true
 		self.edge_intersections_cache_invalidate = true
-		self.check_win()
+		# Note: Need to manually check of win at an appropriate time (e.g. when the mouse button is released)
 		
 	# Override depending on type of graph
 	func check_win() -> void:
@@ -656,6 +656,7 @@ class RearrangeableGraphDrawing extends GraphDrawing:
 			
 	func left_mouse_released() -> void:
 		self.selected_vertex = -1
+		self.check_win()
 		
 	func right_mouse_clicked() -> void:
 		pass # only used for stuff with graph minors
@@ -700,7 +701,8 @@ class RearrangeableGraphDrawing extends GraphDrawing:
 
 	func get_colourable() -> ColourableGraphDrawing:
 		return ColourableGraphDrawing.new(self.vertex_neighbours, self.vertex_positions)
-	
+
+
 class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 	# A rearrangeable graph that also supports vertex and edge deletions using right click, and
 	# vertex contractions by dragging vertices on top of each other
@@ -747,12 +749,14 @@ class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 		var vertex_to_delete: int = self.get_vertex_at_mouse()
 		if vertex_to_delete != -1:
 			self.delete_vertex(vertex_to_delete)
+			self.check_win()
 			return
 			
 		# Delete edge if clicked on
 		var edge_to_delete: Edge = self.get_edge_at_mouse()
 		if edge_to_delete != null:
 			self.delete_edge(edge_to_delete)
+			self.check_win()
 		
 	func right_mouse_released() -> void:
 		pass # don't actually care right now
@@ -763,6 +767,7 @@ class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 		if other_vertex != -1 and self.selected_vertex != -1:
 			# Contract selected vertex and the other vertex
 			self.contract_vertices(other_vertex, self.selected_vertex)
+			self.check_win()
 		super()
 		
 	func draw_rearrangeable(size: Vector2, draw_vertex: Callable, draw_edge: Callable, draw_edge_intersection: Callable) -> void:
@@ -843,15 +848,13 @@ class ColourableGraphDrawing extends RearrangeableGraphDrawing:
 		
 	# Cycle colours on right click
 	func right_mouse_clicked() -> void:
-		print("right mouse clicked")
 		# Delete vertex if clicked on
 		var vertex_to_colour: int = self.get_vertex_at_mouse()
 		if vertex_to_colour != -1:
-			# TODO: Bring up a right click menu to choose new colour
-			print("Recolouring")
 			self.vertex_colours[vertex_to_colour] += 1
 			if self.vertex_colours[vertex_to_colour] > self.colouring_upper_bound:
 				self.vertex_colours[vertex_to_colour] = 1
+			self.check_win()
 			
 	func right_mouse_released() -> void:
 		pass # don't actually care right now

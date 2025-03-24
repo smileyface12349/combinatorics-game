@@ -3,17 +3,45 @@ You find a middle-aged man lying nearly flat on a desk chair with his eyes close
 - Hello
 	He opens his eyes slowly. He looks at you for a few seconds as if you're not there, and then suddenly something changes and he leaps forward and gives your hand a good shake.
 	Dr Countwell: Hello visitor! I'm Dr Countwell, and it's a pleasure to welcome you to Combinopolis!
-	Dr Countwell: What brings you here today?
 - Excuse me, sir.
 	He opens his eyes slowly. He looks at you for a few seconds and slowly smiles.
-	Dr Countwell: It's Dr. Dr Countwell.
-	Dr Countwell: What brings you to Combinopolis?
+	Dr Countwell: It's Doctor. Dr Countwell.
 - \[Remain silent\]
 	You stand there in silence watching the man sleep. Eventually, his eyes start to open and he sits forward before being startled by your presence.
-	Dr Countwell: W-Where did you come from? Who are you and whadaya want?
+	Dr Countwell: W-Where did you come from? Blimey, you gave me a shock!
 
+Dr Countwell: What brings you here today?
 - I want to solve some combinatorics puzzles
 	Dr Countwell: Great! You're in the right place.
+- Just saw the sign off the M40 and thought I'd check it out.
+	His face lights up with excitment like a child on Christmas morning.
+	Dr Countwell: It worked! The motorway advert worked! Hooray!!!
+	Dr Countwell: Professor Binah Mial will be so proud of me!
+	Dr Countwell: You don't wanna know how much money we spent on that...
+	 - How much money did you spend on that?
+		Dr Countwell: All of it!
+	 - That's right, best for me not to know...
+	Dr Countwell: You see, we're in a bit of a tough spot right now.
+	Dr Countwell: We're running out of cash, so Professor Binah Mial told me to re-invest the money into recruiting new visitors.
+	Dr Countwell: I didn't quite know what to spend it on. But then I realised that we had exactly the right amount of cash for a motorway sign!
+	Dr Countwell: It was simply meant to be! So I contacted the council and got the sign put up.
+	 - Is there not a better way of spending the money?
+		Dr Countwell: Like what?
+		  - A social media advert?
+			Dr Countwell: Yeah, maybe next time.
+		  - Nevermind
+		  - A brown sign on the M25.
+			Dr Countwell: That's genius! The M25 has even more traffic! And we're within 2.5 hours drive, so I'm sure people will pop over if they see the sign.
+			Dr Countwell: I'll be sure to get another sign on the M25 if we raise enough money.
+	 - You should add yourself to google maps
+		Dr Countwell: Googol-what?
+		  - Nevermind
+	 - Why the M40?
+		Dr Countwell: It's my favourite motorway! Great route, none of this smart motorway nonsense.
+		Dr Countwell: And it's within an hour drive of here! Can't afford signs down the whole route but as long as we have one at the nearest motorway exit then I'm sure people will find it...
+		Dr Countwell: And a motorway is much better value for money than one of the more local roads. More cars = more visitors!
+		  - Nevermind
+	Dr Countwell: Anyway, let me introduce you to the town.
 - Is this McDonald's?
 	He gives you a rather puzzled look, which quickly changes into a very stern expression.
 	Dr Countwell: No. This is not McDonald's.

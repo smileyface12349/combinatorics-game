@@ -1,0 +1,103 @@
+[gd_scene load_steps=10 format=3 uid="uid://dnhxxi1rqer4r"]
+
+[ext_resource type="Script" path="res://Menu/settings_menu.gd" id="1_shvpa"]
+[ext_resource type="Theme" uid="uid://bcrjernlte8f8" path="res://Menu/background.tres" id="1_xk5is"]
+[ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="3_yksfe"]
+[ext_resource type="Theme" uid="uid://dlcxcyr3vrmuw" path="res://Menu/SpinButton.tres" id="5_8k7sy"]
+[ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_spin_button.gd" id="6_uvhwx"]
+[ext_resource type="Texture2D" uid="uid://0b3v0imcjtk3" path="res://addons/spin_button/example/assets/icons/buttons/navs/arrow_right_x32.png" id="7_0mvdd"]
+[ext_resource type="Texture2D" uid="uid://ocyfhsatf1sx" path="res://addons/spin_button/example/assets/icons/buttons/navs/arrow_left_x32.png" id="8_w5t20"]
+[ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_slider_button.gd" id="9_2cecq"]
+[ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="10_ufvua"]
+
+[node name="Settings" type="Control" node_paths=PackedStringArray("doneButton", "musicVolume", "effectsVolume", "showIntroButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_shvpa")
+doneButton = NodePath("MenuBackground/VBoxContainer/Button")
+musicVolume = NodePath("MenuBackground/VBoxContainer/MusicVolume")
+effectsVolume = NodePath("MenuBackground/VBoxContainer/EffectsVolume")
+showIntroButton = NodePath("MenuBackground/VBoxContainer/ShowIntro")
+
+[node name="MenuBackground" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 1947.0
+offset_bottom = 1096.0
+theme = ExtResource("1_xk5is")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MenuBackground"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 119.0
+offset_right = 1938.0
+offset_bottom = 335.0
+theme = ExtResource("3_yksfe")
+bbcode_enabled = true
+text = "[center]Settings"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuBackground"]
+custom_minimum_size = Vector2(1000, 500)
+layout_mode = 0
+offset_left = 446.0
+offset_top = 414.0
+offset_right = 1446.0
+offset_bottom = 914.0
+size_flags_vertical = 3
+
+[node name="DisplayMode" type="Button" parent="MenuBackground/VBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme = ExtResource("5_8k7sy")
+script = ExtResource("6_uvhwx")
+items = Array[String](["Fullscreen", "Windowed"])
+selected = 0
+item_count = 2
+loop = true
+next_icon = ExtResource("7_0mvdd")
+prev_icon = ExtResource("8_w5t20")
+title = "Display Mode"
+
+[node name="MusicVolume" type="Button" parent="MenuBackground/VBoxContainer"]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+theme = ExtResource("5_8k7sy")
+script = ExtResource("9_2cecq")
+value = 50.0
+value_label_visibility = 1
+value_separation = 25
+title = "Music Volume"
+
+[node name="EffectsVolume" type="Button" parent="MenuBackground/VBoxContainer"]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+theme = ExtResource("5_8k7sy")
+script = ExtResource("9_2cecq")
+value = 50.0
+value_label_visibility = 1
+value_separation = 25
+title = "Effects Volume
+"
+
+[node name="ShowIntro" type="Button" parent="MenuBackground/VBoxContainer"]
+layout_mode = 2
+text = "Show Intro Next Time"
+alignment = 0
+
+[node name="Spacer" type="Control" parent="MenuBackground/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MenuBackground/VBoxContainer"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("10_ufvua")
+theme_override_font_sizes/font_size = 42
+text = "Done"
