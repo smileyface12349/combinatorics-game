@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://djpcg6xagybsc"
+path="res://.godot/imported/bijections.dialogue-9ab066941243b33a738550dcc2a0c102.tres"
+
+[deps]
+
+source_file="res://Dialogue/bijections.dialogue"
+dest_files=["res://.godot/imported/bijections.dialogue-9ab066941243b33a738550dcc2a0c102.tres"]
+
+[params]
+
+defaults=true

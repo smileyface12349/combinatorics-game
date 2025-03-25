@@ -1,9 +1,18 @@
 ~ planar_intro
+set GeneralSettings.dialogue_result = 0
+
+# Not sure why this isn't working as an else branch below
+if "planar" in SaveData.seen_dialogue
+	Professor Planard: [[Ah, you|Hello|Nice to see you|Ah, how lovely to see you]] again! [[Care for|Fancy solving|In the mood for|Want to solve]] some planar graphs?
+	=> planar_intro_decision_2
+
 if not ("planar" in SaveData.seen_dialogue)
 	You knock on the door of the hut.
+	~ planar_knock
 	Nothing happens.
 	  - Knock again
 	  - Wait
+		=> planar_knock
 	You hear a voice from behind the door.
 	Professor Planard: Ya tryna' rob me?
 	 - Yes
@@ -13,20 +22,21 @@ if not ("planar" in SaveData.seen_dialogue)
 	 - No
 			Professor Planard: Oh, alright then.
 			The door opens.
-			do SaveData.seen_dialouge.append("planar")
+			do SaveData.seen_dialogue.append("planar")
+			do SaveData.write()
 			Professor Planard: What do you want to do?
 			 - I'd like to solve some planar graph puzzles
 			 - Nevermind
 				Professor Planard: Ok, feel free to come back when you're ready for some planar graph puzzles!
 				=> END
+	Professor Planard: Oh, that's wonderful! Do you need me to bring you up to speed with some important definitions or are you happy to jump straight in?
+	=> planar_intro_decision_2
 	
-	Oh, that's wonderful! Do you need me to bring you up to speed with some important definitions or are you happy to jump straight in?
-else
-	Ah, you again! Care for some planar graphs?
-
 ~ planar_intro_decision
+Professor Planard: [[Would you like to|Care to|Want to]] solve some planar graphs now, or view some more definitions first?
+~ planar_intro_decision_2
  - What's a graph?
-	Professor Planard: A graph is made up of nodes and connections between them, called edges.
+	Professor Planard: A graph is made up of nodes/vertices and connections between them, called edges.
 	Professor Planard: Graphs are an abstract way of representing many common situations. For example, you could think of each node as a train station and each edge as the train tracks between them.
 	Professor Planard: Graphs can be drawn in many different ways. As long as the same nodes are matched up to each other, we consider it to be the same graph.
 	=> planar_intro_decision
@@ -74,6 +84,13 @@ else
 	Professor Planard: That's it for the Kuratowski-Wagner theorem! I hope it made sense.
 	=> planar_intro_decision
  - Let's jump straight in.
+	% Professor Planard: I like the spirit!
+	% Professor Planard: Let's do it!
+	% Professor Planard: Looking forward to it!
+	% Professor Planard: Those graphs don't stand a chance!
+	% Professor Planard: I like the confidence!
+	% Professor Planard: Good luck!
+	set GeneralSettings.dialogue_result = 1
 	=> END
  - Actually, I don't feel like planar graphs right now.
 	Professor Planard: No worries! You're more than welcome to return whenever you want to.

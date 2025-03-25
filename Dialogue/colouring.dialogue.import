@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://bi3a6dyhqp88l"
+path="res://.godot/imported/colouring.dialogue-c4f490772fdc69fa70b4879e0f4ba10a.tres"
+
+[deps]
+
+source_file="res://Dialogue/colouring.dialogue"
+dest_files=["res://.godot/imported/colouring.dialogue-c4f490772fdc69fa70b4879e0f4ba10a.tres"]
+
+[params]
+
+defaults=true

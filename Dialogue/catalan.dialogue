@@ -1,0 +1,72 @@
+~ catalan_intro
+set GeneralSettings.dialogue_result = 0
+
+# Not sure why this isn't working as an else branch below
+if "catalan" in SaveData.seen_dialogue
+	Professor Dycksworth: [[Howdy|Greetings|How lovely to meet you again|How lovely to be greeted by your presence once again]]. [[Care for|Fancy solving|In the mood for|Want to solve]] finding some bijections between Catalan problems?
+	=> catalan_intro_decision_2
+
+if not ("catalan" in SaveData.seen_dialogue)
+	You knock on the door of the hut.
+	The door opens. You see a large male figure dressed in an overcoat. He removes his pipe from his mouth.
+	Professor Dycksworth: How exquisite! A new visitor, perhaps?
+	 - Indeed
+	 - Yes
+	 - No. I'm a toad.
+		Professor Dycksworth: That's rather peculiar. I didn't know toads could talk.
+		Professor Dycksworth: Anyway, I don't allow toads in my house, so goodbye.
+		The door closes.
+		=> END
+	Professor Dycksworth: Wonderful! Did Professor Matchley send you?
+	 - Yes
+		Professor Dycksworth: Great! So you know why we find bijections between counting problems?
+		 - Yes
+			Professor Dycksworth: Wonderful.
+		 - No
+			He looks at you with a puzzled explanation.
+			Professor Dycksworth: Did Professor Matchley forget to explain that to you?
+			Professor Dycksworth: Well I'm sure she'll be willing to do it again.
+			He leans in closer and whispers.
+			Professor Dycksworth: The truth is, I've forgotten.
+			He puts his pipe back in his mouth and closes the door.
+			=> END
+	 - No
+		Professor Dycksworth: Ah. I would highly recommend speaking to Professor Matchley first.
+		Professor Dycksworth: She's a lovely woman. She'll explain to you what this bijections stuff is all about.
+		Professor Dycksworth: You can find her just down the road by the lake.
+		He puts his pipe back in his mouth and closes the door.
+		=> END
+	 - Who's Professor Matchley?
+		Professor Dycksworth: Ah. I would highly recommend speaking to Professor Matchley first.
+		Professor Dycksworth: Professor Matchley is a lovely woman. We both study similar problems, so it's best she does the explaining.
+		Professor Dycksworth: You'll find her just down the road by the lake.
+		He puts his pipe back in his mouth and closes the door.
+		=> END
+		
+	Professor Dycksworth: Unlike Professor Matchley, I'm focused on a particular sequence called the Catalan numbers.
+	Professor Dycksworth: There's lots of different problems which are all counted by the same sequence.
+	Professor Dycksworth: I'm trying to find all of the possible bijections, but there's rather a lot!
+	do SaveData.seen_dialogue.append("catalan")
+	do SaveData.write()
+	Professor Dycksworth: Can you help me?
+	=> catalan_intro_decision_2
+	
+~ catalan_intro_decision
+Professor Huebert: [[Would you like to|Care to|Want to]] find some bijections between Catalan problems?
+~ catalan_intro_decision_2
+ - Of course!
+	% Professor Dycksworth: How wonderful.
+	% Professor Dycksworth: Excellent
+	set GeneralSettings.dialogue_result = 1
+	=> END
+ - What are the Catalan numbers?
+	Professor Dycksworth: The Catalan numbers are a famous sequence that goes 1, 1, 2, 5, 14, 42...
+	Professor Dycksworth: However, the numbers aren't particularly interesting. Instead, they are famous for being counted by lots of different counting problems!
+	Professor Dycksworth: Since these are all equivalent, there exists a bijection between any two of them.
+	Professor Dycksworth: I'm trying to find all of them, but I think I could do with a little help...
+ - Nevermind
+	Professor Dycksworth: Oh, that's unfortunate. You're more than welcome to return whenever you want to.
+	=> END
+
+
+=> END

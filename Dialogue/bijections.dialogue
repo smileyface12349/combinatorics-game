@@ -1,0 +1,130 @@
+~ bijections_intro
+set GeneralSettings.dialogue_result = 0
+
+# Not sure why this isn't working as an else branch below
+if "bijections" in SaveData.seen_dialogue
+	Professor Matchley: [[Ah, you|Hello|Nice to see you|Ah, how lovely to see you]] again! Would you like a cuppa?
+	 - Yes please.
+		Professor Matchley: [[Of course!|Wonderful!|]] Here you go! [[ Isn't a good cuppa just great.| Isn't a cuppa just what you need. |]]
+		 - Thanks!
+			Professor Matchley: [[You're welcome!|A pleasure]]
+		 - [Remain silent]
+	 - No thanks.
+		Professor Matchley: Ok, no worries!
+
+if not ("bijections" in SaveData.seen_dialogue)
+	You approach the door, but as you are still 2 metres away it swings open.
+	
+	Professor Matchley: Hello and welcome! Come on in!
+	 - Go inside
+	 - Start walking in a different direction instead
+		She starts to sob.
+		Professor Matchley: Seven years! And I thought today was the day...
+		=> END
+	
+	Professor Matchley: Want a cuppa?
+	 - Yes please
+		~ bijections_cuppa
+		Professor Matchley: Of course! Here you go.
+		She hands you a lovely cup of tea. Milk with no sugar. It's just what you needed.
+		 - Thanks!
+			Professor Matchley: A pleasure
+		 - [Remain silent]
+	 - Milk and two sugars
+		Professor Matchley: Oh alright then. Yeah, I'm sure I can find some sugar somewhere.
+		Professor Matchley: Here you go!
+		 - Thanks!
+			Professor Matchley: A pleasure
+		 - [Remain silent]
+	 - I'd prefer a coffee
+		She pauses to think.
+		Professor Matchley: I'm... sorry. I don't have coffee. I can go and get some from the shop?
+		 - Don't worry
+			Professor Matchley: So sorry about that! Can I get you a biscuit instead?
+			 - Yes please.
+				Professor Matchley: Here you go!
+				 - Thanks
+					Professor Matchley: You're welcome
+				 - [Remain silent]
+			 - I'm alright, but thanks.
+				Professor Matchley: Ok. Let me konw if you need anything!
+			 - Nah, I really was hoping for a coffee.
+				Professor Matchley: Oh, I'm so sorry to disappoint! I'll be sure to buy some coffee soon.
+				Professor Matchley: Sorry again.
+	 - No thanks
+		Professor Matchley: Are you sure?
+		 - Yeah, I don't drink tea or coffee.
+			Professor Matchley: Ah, poor you. A biscuit?
+			 - Yes I'd love a biscuit thanks!
+				Professor Matchley: Here you go!
+				 - Thanks
+					Professor Matchley: You're welcome
+				 - [Remain silent]
+			 - Oh alright then.
+				Professor Matchley: Don't be so enthusiastic!
+				Professor Matchley: Here you go!
+				 - Thanks
+					Professor Matchley: You're welcome
+				 - [Remain silent]
+			 - No, I'm good thanks.
+				Professor Matchley: Ok. Let me know if you need anything!
+		 - Oh go on then.
+			=> bijections_cuppa
+		 - Can we just get on with it?
+			Professor Matchley: Oh, alright then. Just trying to be friendly...
+	
+	Professor Matchley: So, what brings you here today?
+	 - I want to solve bijection puzzles
+		Professor Matchley: Great! You're in the right place.
+	 - I don't know, I just saw a hut and went there
+		Professor Matchley: Fair enough! Let me explain the puzzles that I'm interested in.
+	
+	~ bijections_motivation
+	Professor Matchley: In combinatorics, we are often interested in counting problems.
+	Professor Matchley: For example, "number of subsets of {1, 2, ..., n}" is a counting problem.
+	Professor Matchley: So is "number of binary strings of length n".
+	Professor Matchley: In fact, these counting problems are equivalent!
+	 - What does that mean?
+		Professor Matchley: Two counting problems are equivalent if they are the same size for every value of n.
+		Professor Matchley: In this example, that means that there are the same number of subsets of {1, ..., n} as there are binary strings of length n.
+	 - [Remain silent]
+	Professor Matchley: Or at least, I think they are. Since we haven't had any visitors for so long, I've forgotten how to prove it.
+	Professor Matchley: I can remember the technique though!
+	Professor Matchley: We will do it by finding a bijection.
+	 - What's a bijection?
+		Professor Matchley: A bijection is a function between two sets that constitutes a one-to-one mapping.
+		Professor Matchley: More formally, we say that it is injective and surjective.
+		Professor Matchley: A function is injective if no two inputs map to the same output.
+		Professor Matchley: A function is surjective if for every output, there exists an input that maps to it.
+	 - [Remain silent]
+	Professor Matchley: If we construct a bijection that works for every value of n, then we have proved that the counting problems are equivalent!
+	 - Why can't we count them directly?
+		Professor Matchley: What is the value for this problem?
+		 - 2^n
+			Professor Matchley: Yeah, that sounds about right.
+		 - 2n
+			Professor Matchley: Hmmm, that doesn't sound quite right.
+		 - I don't know
+			Professor Matchley: Exactly!
+		Professor Matchley: While we could count them, the genius of this technique is that we don't have to!
+		Professor Matchley: And in fact, sometimes these problems are very difficult to count directly.
+		Professor Matchley: Sometimes, there simply isn't a closed form expression.
+		Professor Matchley: This is another technique in your toolbox to allow you to solve more problems, more easily.
+	 - [Remain silent]
+	do SaveData.seen_dialogue.append("bijections")
+	do SaveData.write()
+	Professor Matchley: I've got lots of problems similar to this one that I'd love for you to solve for me!
+	Professor Matchley: Also, once you've had enough of my problems, head over to Professor Dycksworth down the road! He's got loads more similar problems for you.
+
+~ bijections_intro_decision
+Professor Planard: [[Would you like to|Care to|Want to]] find some bijections now?
+ - What's the point again?
+	=> bijections_motivation
+ - Of course!
+	% Professor Matchley: Looking forward to it!
+	% Professor Matchley: Let's do it!
+	set GeneralSettings.dialogue_result = 1
+	=> END
+ - Nevermind
+	Professor Matchley: Ok, no worries. Come back whenever you want!
+	=> END

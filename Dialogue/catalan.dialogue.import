@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://otc3tmusufwn"
+path="res://.godot/imported/catalan.dialogue-f3d55fa59788db1c49d7e39441c78548.tres"
+
+[deps]
+
+source_file="res://Dialogue/catalan.dialogue"
+dest_files=["res://.godot/imported/catalan.dialogue-f3d55fa59788db1c49d7e39441c78548.tres"]
+
+[params]
+
+defaults=true

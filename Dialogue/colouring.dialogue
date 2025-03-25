@@ -1,0 +1,72 @@
+~ colouring_intro
+set GeneralSettings.dialogue_result = 0
+
+# Not sure why this isn't working as an else branch below
+if "colouring" in SaveData.seen_dialogue
+	Professor Huebert: [[H-hello|H-hi]] again. [[T-Time for|W-Want to find|Interested in]] g-graph colourings?
+	=> colouring_intro_decision_2
+
+if not ("colouring" in SaveData.seen_dialogue)
+	You knock on the door of the hut.
+	You wait for around 10 seconds.
+	The door opens slowly.
+	do SaveData.seen_dialogue.append("colouring")
+	do SaveData.write()
+	Professor Huebert: H-hello. Graph colourings?
+	 - Lovely to meet you too
+		Professor Huebert: So?
+		 - Yes
+			set GeneralSettings.dialogue_result = 1
+			=> END
+		 - What's a graph colouring?
+			Professor Huebert: A g-graph colouring is a way of colouring the v-vertices such that no neighbouring vertices have the same colour.
+		 - No
+			Professor Huebert: Ok
+			=> END
+	 - Sure
+		set GeneralSettings.dialogue_result = 1
+		=> END
+	 - What's that?
+		Professor Huebert: A g-graph colouring is a way of colouring the v-vertices such that no neighbouring vertices have the same colour.
+	 - Nevermind
+		Professor Huebert: Ok
+		=> END
+		
+	Professor Dycksworth: Can you help me?
+	=> colouring_intro_decision_2
+	
+~ colouring_intro_decision
+Professor Huebert: W-want to find graph colourings now?
+~ colouring_intro_decision_2
+ - Sure
+	set GeneralSettings.dialogue_result = 1
+	=> END
+ - What's the chromatic number?
+	Professor Huebert: The c-chromatic number of a g-graph is the minimum number of colours required to colour it.
+ - What's Brooke's theorem?
+	~ brookes_theorem
+	Professor Huebert: U-unless a graph is complete or an odd cycle, the chromatic number is upper bounded by the maximum degree.
+	 - What's the degree?
+		Professor Huebert: The d-degree of a vertex is how many neighbours it has.
+		=> brookes_theorem
+	 - What's a complete graph?
+		Professor Huebert: A c-complete graph has an edge between any pair of nodes.
+		=> brookes_theorem
+	 - What's an odd cycle?
+		Professor Huebert: A c-cycle of odd length.
+		Professor Huebert: In this c-case, we need three colours, but the maximum degree is t-two.
+		=> brookes_theorem
+	 - Ok, I understand
+		=> colouring_intro_decision
+ - What's the four colour theorem?
+	Professor Huebert: Any planar graph can be coloured with at most four colours.
+	Professor Huebert: To p-prove a graph is p-planar, rearrange the vertices such that no edges cross over.
+	=> colouring_intro_decision
+ - What's the max clique?
+	Professor Huebert: The l-largest subgraph where every pair of v-vertices is c-connected by an edge.
+	=> colouring_intro_decision
+ - Nevermind
+	=> END
+
+
+=> END
