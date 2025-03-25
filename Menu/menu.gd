@@ -17,7 +17,7 @@ func _ready() -> void:
 	SaveData.read()
 
 	# Test code
-	Parser.parse("if when")
+	Parser.parse("repeat 5 times\n  x <- 2\nendrepeat\nreturn x")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
