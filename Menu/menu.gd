@@ -16,6 +16,9 @@ func _ready() -> void:
 	MusicPlayer.change_track(track)
 	SaveData.read()
 
+	# Test code
+	Parser.parse("if when")
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

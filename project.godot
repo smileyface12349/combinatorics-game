@@ -24,6 +24,7 @@ GeneralSettings="*res://General/general_settings.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 SaveData="*res://SaveData/save_data.gd"
 MusicPlayer="*res://Music/music_player.gd"
+Parser="*res://Parser/parser.gd"
 
 [debug]
 
