@@ -8,6 +8,7 @@ const camera_offset: Vector2 = Vector2(0, 40)
 var bijection_n_scene: PackedScene = preload("res://Bijections/bijection_n.tscn")
 var bijection_overview_scene: PackedScene = preload("res://Bijections/Overview/bijection_overview_screen.tscn")
 var bijection_level_select_scene: PackedScene = preload("res://Bijections/LevelSelect/lake_level_select.tscn")
+var bijection_code_scene: PackedScene = preload("res://Bijections/bijection_code.tscn")
 var tracks: Array[AudioStream] = [
 	preload("res://Music/Myst on the Moor.mp3"),
 	preload("res://Music/Eternity.mp3"),
@@ -18,6 +19,7 @@ var tracks: Array[AudioStream] = [
 var show_diagrams: bool = false
 var bijection_problems: Array[BijectionLevelNode] = []
 var bijection_overview: BijectionOverviewNode
+var bijection_code: BijectionCodeNode
 var hints: Array[String] = []
 var hints_available: int = 5
 var level_hint: String = ""
@@ -40,12 +42,19 @@ func create_level(level: BijectionLevel) -> void:
 	bijection_overview.request_level_hint = request_level_hint
 	add_child(bijection_overview)
 
-	# Add the bijections
+	# Add the "match them up" sections
 	var position: Vector2 = Vector2(1000, 500)
 	for problem_size: int in level.bijections:
 		create_bijection_n(level.bijections[problem_size], level, position)
 		position.x += bijection_width
 	self.level = level
+
+	# Add the code input section
+	bijection_code = bijection_code_scene.instantiate()
+	bijection_code.set_level(level)
+	bijection_code.position = position
+	add_child(bijection_code)
+
 
 ## Create the elements to represent a bijection of particular size n
 func create_bijection_n(bijection: Bijection, level: BijectionLevel, position: Vector2) -> void:

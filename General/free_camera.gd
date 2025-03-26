@@ -57,6 +57,10 @@ func _input(event: InputEvent) -> void:
 		self.position += mouse_before_zoom - get_global_mouse_position()
 		target_position = self.position
 		
+	# Don't do keyboard movement when a popup is open / something else has focus
+	if GeneralSettings.is_popup_open:
+		return
+
 	# Keyboard movement
 	if Input.is_action_just_pressed("ui_left"):
 		target_position.x -= keyboard_move_amount.x

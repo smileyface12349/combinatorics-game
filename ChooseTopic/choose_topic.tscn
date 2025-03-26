@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=4 uid="uid://po8854lqyopy"]
+[gd_scene load_steps=115 format=4 uid="uid://po8854lqyopy"]
 
 [ext_resource type="Script" path="res://ChooseTopic/choose_topic.gd" id="1_55lkm"]
 [ext_resource type="Script" path="res://ChooseTopic/menu_car.gd" id="1_g4u3r"]
@@ -58,6 +58,7 @@
 [ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_colourings.gd" id="53_aa7ug"]
 [ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_planar.gd" id="55_c65t8"]
 [ext_resource type="PackedScene" uid="uid://2y3mwqr6b2re" path="res://ChooseTopic/Exercises/exercise_in_world.tscn" id="57_6btr7"]
+[ext_resource type="Texture2D" uid="uid://vqc1n3ayonra" path="res://ChooseTopic/portal.png" id="57_h0168"]
 [ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="59_66fcn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c6q06"]
@@ -359,7 +360,7 @@ bg_color = Color(0.57, 0.30514, 0.1026, 1)
 
 [node name="ChooseTopic" type="Node2D" node_paths=PackedStringArray("boringMenuButton")]
 script = ExtResource("1_55lkm")
-boringMenuButton = NodePath("HUD/Button")
+boringMenuButton = NodePath("Portal/Control/TeleportButton")
 
 [node name="GroundTileMap" type="TileMapLayer" parent="."]
 visible = false
@@ -510,6 +511,26 @@ texture = ExtResource("49_8ao1r")
 position = Vector2(1095, 973)
 texture = ExtResource("50_hugd2")
 
+[node name="Portal" type="Sprite2D" parent="."]
+position = Vector2(1, -39)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("57_h0168")
+
+[node name="Control" type="Control" parent="Portal"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TeleportButton" type="Button" parent="Portal/Control"]
+offset_left = -48.75
+offset_top = -41.25
+offset_right = 52.25
+offset_bottom = 34.75
+theme_override_font_sizes/font_size = 24
+text = "Click to
+teleport"
+
 [node name="Car" type="Node2D" parent="." node_paths=PackedStringArray("dialog_text")]
 position = Vector2(111, -522)
 rotation = -3.1295
@@ -537,7 +558,7 @@ shape = SubResource("RectangleShape2D_naxte")
 [node name="DialogText" type="RichTextLabel" parent="HUD"]
 offset_top = 817.0
 offset_right = 1920.0
-offset_bottom = 1075.0
+offset_bottom = 894.0
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "[center]Press SPACE or ENTER to go to Test"
@@ -553,10 +574,10 @@ text = "[u]Controls:[/u]
 W - Accelerate
 S - Brake / Reverse
 A - Turn Left
-D - Turn Right
-OR:"
+D - Turn Right"
 
 [node name="Button" type="Button" parent="HUD"]
+visible = false
 offset_left = 1690.0
 offset_top = 257.0
 offset_right = 1798.0

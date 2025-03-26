@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://vr7vbitqwv3"]
+[gd_scene load_steps=8 format=3 uid="uid://vr7vbitqwv3"]
 
 [ext_resource type="Script" path="res://ChooseTopic/BoringMenu/boring_menu.gd" id="1_461ef"]
 [ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="1_nb1xa"]
@@ -9,6 +9,9 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsduq"]
 bg_color = Color(0.870588, 0.854902, 0.772549, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wkvkq"]
+bg_color = Color(0.823354, 0.523203, 0.148213, 1)
+
 [node name="BoringMenu" type="Control" node_paths=PackedStringArray("houseButton", "planarButton", "bijectionsButton", "catalanButton", "colouringsButton")]
 layout_mode = 3
 anchors_preset = 15
@@ -17,11 +20,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_461ef")
-houseButton = NodePath("PanelContainer/VFlowContainer/House/GoButton")
-planarButton = NodePath("PanelContainer/VFlowContainer/PlanarGraphs/GoButton")
-bijectionsButton = NodePath("PanelContainer/VFlowContainer/BijectionsTopic/GoButton")
-catalanButton = NodePath("PanelContainer/VFlowContainer/CatalanTopic/GoButton")
-colouringsButton = NodePath("PanelContainer/VFlowContainer/GraphColouring/GoButton")
+houseButton = NodePath("PanelContainer/NewMenu/HomeButton")
+planarButton = NodePath("PanelContainer/NewMenu/HBoxContainer/PlanarButton")
+bijectionsButton = NodePath("PanelContainer/NewMenu/HBoxContainer/BijectionsButton")
+catalanButton = NodePath("PanelContainer/NewMenu/HBoxContainer/CatalanButton")
+colouringsButton = NodePath("PanelContainer/NewMenu/HBoxContainer/ColouringButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
@@ -29,16 +32,14 @@ offset_right = 1924.0
 offset_bottom = 1098.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_lsduq")
 
-[node name="VFlowContainer" type="VBoxContainer" parent="PanelContainer"]
-custom_minimum_size = Vector2(1120, 0)
+[node name="NewMenu" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
 
-[node name="SpacerTop" type="Control" parent="PanelContainer/VFlowContainer"]
+[node name="SpacerTop" type="Control" parent="PanelContainer/NewMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="Title" type="RichTextLabel" parent="PanelContainer/VFlowContainer"]
+[node name="Title" type="RichTextLabel" parent="PanelContainer/NewMenu"]
 custom_minimum_size = Vector2(100, 200)
 layout_mode = 2
 size_flags_vertical = 4
@@ -46,11 +47,105 @@ theme = ExtResource("1_nb1xa")
 bbcode_enabled = true
 text = "[center]Teleportation"
 
-[node name="Spacer4" type="Control" parent="PanelContainer/VFlowContainer"]
+[node name="Spacer4" type="Control" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme = ExtResource("2_ddwr2")
+bbcode_enabled = true
+text = "[center]Go to Topic:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/NewMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BijectionsButton" type="Button" parent="PanelContainer/NewMenu/HBoxContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme = ExtResource("3_8v8s1")
+text = "Bijections"
+
+[node name="Spacer" type="Control" parent="PanelContainer/NewMenu/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="CatalanButton" type="Button" parent="PanelContainer/NewMenu/HBoxContainer"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme = ExtResource("3_8v8s1")
+text = "Catalan Number Zone"
+
+[node name="Spacer2" type="Control" parent="PanelContainer/NewMenu/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="PlanarButton" type="Button" parent="PanelContainer/NewMenu/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme = ExtResource("3_8v8s1")
+text = "Planar Graphs"
+
+[node name="Spacer3" type="Control" parent="PanelContainer/NewMenu/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="ColouringButton" type="Button" parent="PanelContainer/NewMenu/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = ExtResource("3_8v8s1")
+text = "Graph Colourings"
+
+[node name="Spacer5" type="Control" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Disclaimer" type="RichTextLabel" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme = ExtResource("3_6qgiy")
+bbcode_enabled = true
+text = "[center]Teleportation is considered an accessibility option.
+It may skip important dialogue. Not recommended until you have encountered all dialogue.
+Counting problems are not available for teleportation."
+
+[node name="Spacer6" type="Control" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HomeButton" type="Button" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_8v8s1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_wkvkq")
+text = "Back home"
+
+[node name="OldMenu" type="VBoxContainer" parent="PanelContainer"]
+visible = false
+custom_minimum_size = Vector2(1120, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SpacerTop" type="Control" parent="PanelContainer/OldMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Title" type="RichTextLabel" parent="PanelContainer/OldMenu"]
+custom_minimum_size = Vector2(100, 200)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_nb1xa")
+bbcode_enabled = true
+text = "[center]Teleportation"
+
+[node name="Spacer4" type="Control" parent="PanelContainer/OldMenu"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="HouseHeading" type="RichTextLabel" parent="PanelContainer/VFlowContainer"]
+[node name="HouseHeading" type="RichTextLabel" parent="PanelContainer/OldMenu"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme = ExtResource("2_ddwr2")
@@ -58,127 +153,127 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "Places of Interest
 "
 
-[node name="House" type="HBoxContainer" parent="PanelContainer/VFlowContainer"]
+[node name="House" type="HBoxContainer" parent="PanelContainer/OldMenu"]
 layout_mode = 2
 
-[node name="Heading" type="RichTextLabel" parent="PanelContainer/VFlowContainer/House"]
+[node name="Heading" type="RichTextLabel" parent="PanelContainer/OldMenu/House"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme = ExtResource("3_6qgiy")
 text = "Your House"
 
-[node name="Description" type="RichTextLabel" parent="PanelContainer/VFlowContainer/House"]
+[node name="Description" type="RichTextLabel" parent="PanelContainer/OldMenu/House"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_6qgiy")
 text = "If you want to go back to driving around"
 
-[node name="GoButton" type="Button" parent="PanelContainer/VFlowContainer/House"]
+[node name="GoButton" type="Button" parent="PanelContainer/OldMenu/House"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme = ExtResource("3_8v8s1")
 text = "Go"
 
-[node name="Spacer3" type="Control" parent="PanelContainer/VFlowContainer"]
+[node name="Spacer3" type="Control" parent="PanelContainer/OldMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="TopicsHeading" type="RichTextLabel" parent="PanelContainer/VFlowContainer"]
+[node name="TopicsHeading" type="RichTextLabel" parent="PanelContainer/OldMenu"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme = ExtResource("2_ddwr2")
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "Topics"
 
-[node name="BijectionsTopic" type="HBoxContainer" parent="PanelContainer/VFlowContainer"]
+[node name="BijectionsTopic" type="HBoxContainer" parent="PanelContainer/OldMenu"]
 layout_mode = 2
 
-[node name="Heading" type="RichTextLabel" parent="PanelContainer/VFlowContainer/BijectionsTopic"]
+[node name="Heading" type="RichTextLabel" parent="PanelContainer/OldMenu/BijectionsTopic"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme = ExtResource("3_6qgiy")
 text = "Bijections"
 
-[node name="Description" type="RichTextLabel" parent="PanelContainer/VFlowContainer/BijectionsTopic"]
+[node name="Description" type="RichTextLabel" parent="PanelContainer/OldMenu/BijectionsTopic"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_6qgiy")
 text = "A set of curated bijection problems"
 
-[node name="GoButton" type="Button" parent="PanelContainer/VFlowContainer/BijectionsTopic"]
+[node name="GoButton" type="Button" parent="PanelContainer/OldMenu/BijectionsTopic"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme = ExtResource("3_8v8s1")
 text = "Go"
 
-[node name="CatalanTopic" type="HBoxContainer" parent="PanelContainer/VFlowContainer"]
+[node name="CatalanTopic" type="HBoxContainer" parent="PanelContainer/OldMenu"]
 layout_mode = 2
 
-[node name="Heading" type="RichTextLabel" parent="PanelContainer/VFlowContainer/CatalanTopic"]
+[node name="Heading" type="RichTextLabel" parent="PanelContainer/OldMenu/CatalanTopic"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme = ExtResource("3_6qgiy")
 text = "Catalan Number Zone"
 
-[node name="Description" type="RichTextLabel" parent="PanelContainer/VFlowContainer/CatalanTopic"]
+[node name="Description" type="RichTextLabel" parent="PanelContainer/OldMenu/CatalanTopic"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_6qgiy")
 text = "Procedurally generated bijection problems"
 
-[node name="GoButton" type="Button" parent="PanelContainer/VFlowContainer/CatalanTopic"]
+[node name="GoButton" type="Button" parent="PanelContainer/OldMenu/CatalanTopic"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme = ExtResource("3_8v8s1")
 text = "Go"
 
-[node name="PlanarGraphs" type="HBoxContainer" parent="PanelContainer/VFlowContainer"]
+[node name="PlanarGraphs" type="HBoxContainer" parent="PanelContainer/OldMenu"]
 layout_mode = 2
 
-[node name="Heading" type="RichTextLabel" parent="PanelContainer/VFlowContainer/PlanarGraphs"]
+[node name="Heading" type="RichTextLabel" parent="PanelContainer/OldMenu/PlanarGraphs"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme = ExtResource("3_6qgiy")
 text = "Planar Graphs"
 
-[node name="Description" type="RichTextLabel" parent="PanelContainer/VFlowContainer/PlanarGraphs"]
+[node name="Description" type="RichTextLabel" parent="PanelContainer/OldMenu/PlanarGraphs"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_6qgiy")
 text = "Proving if graphs are planar or non-planar"
 
-[node name="GoButton" type="Button" parent="PanelContainer/VFlowContainer/PlanarGraphs"]
+[node name="GoButton" type="Button" parent="PanelContainer/OldMenu/PlanarGraphs"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme = ExtResource("3_8v8s1")
 text = "Go"
 
-[node name="GraphColouring" type="HBoxContainer" parent="PanelContainer/VFlowContainer"]
+[node name="GraphColouring" type="HBoxContainer" parent="PanelContainer/OldMenu"]
 layout_mode = 2
 
-[node name="Heading" type="RichTextLabel" parent="PanelContainer/VFlowContainer/GraphColouring"]
+[node name="Heading" type="RichTextLabel" parent="PanelContainer/OldMenu/GraphColouring"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme = ExtResource("3_6qgiy")
 text = "Graph Colouring"
 
-[node name="Description" type="RichTextLabel" parent="PanelContainer/VFlowContainer/GraphColouring"]
+[node name="Description" type="RichTextLabel" parent="PanelContainer/OldMenu/GraphColouring"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_6qgiy")
 text = "Finding a minimum vertex colouring"
 
-[node name="GoButton" type="Button" parent="PanelContainer/VFlowContainer/GraphColouring"]
+[node name="GoButton" type="Button" parent="PanelContainer/OldMenu/GraphColouring"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme = ExtResource("3_8v8s1")
 text = "Go"
 
-[node name="Spacer2" type="Control" parent="PanelContainer/VFlowContainer"]
+[node name="Spacer2" type="Control" parent="PanelContainer/OldMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="ExercisesHeading" type="RichTextLabel" parent="PanelContainer/VFlowContainer"]
+[node name="ExercisesHeading" type="RichTextLabel" parent="PanelContainer/OldMenu"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme = ExtResource("2_ddwr2")
@@ -186,13 +281,13 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "Bonus Exercises
 "
 
-[node name="NotYetImplemented" type="RichTextLabel" parent="PanelContainer/VFlowContainer"]
+[node name="NotYetImplemented" type="RichTextLabel" parent="PanelContainer/OldMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme = ExtResource("3_6qgiy")
 bbcode_enabled = true
 text = "Bonus Exercises can only be found when driving"
 
-[node name="Spacer" type="Control" parent="PanelContainer/VFlowContainer"]
+[node name="Spacer" type="Control" parent="PanelContainer/OldMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2

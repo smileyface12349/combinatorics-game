@@ -8,7 +8,6 @@ var track: AudioStream = preload("res://Music/Balloon Game.mp3")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	boringMenuButton.connect("pressed", go_to_boring)
-	
 	MusicPlayer.change_track(track)
 
 func _input(event: InputEvent) -> void:
@@ -40,14 +39,8 @@ func _input(event: InputEvent) -> void:
 	elif Input.is_action_just_pressed("num_2"):
 		get_tree().change_scene_to_file("res://Bijections/Catalan/catalan_menu.tscn")
 	elif Input.is_action_just_pressed("num_3"):
-		# TODO: Fix a particular (planar) graph (or add an option in the level settings instead)
-		PlanarSettings.num_nodes = 8
-		PlanarSettings.edge_chance = 0.3
 		get_tree().change_scene_to_file("res://Planarity/planarity_level.tscn")
 	elif Input.is_action_just_pressed("num_4"):
-		# TODO: Fix a particular graph (large delta but planar)
-		PlanarSettings.num_nodes = 8
-		PlanarSettings.edge_chance = 0.3
 		get_tree().change_scene_to_file("res://Colouring/colouring_level.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

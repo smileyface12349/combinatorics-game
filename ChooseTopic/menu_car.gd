@@ -59,7 +59,8 @@ func _ready() -> void:
 	direction = PI
 	reverse_delay_elapsed = 0
 	is_reversing = false
-	dialog_text.text = ""  # text sometimes put in for testing
+	dialog_text.text = ""
+	dialog_text.hide()
 	get_node("Area2D").connect("area_entered", body_entered)
 	get_node("Area2D").connect("area_exited", body_exited)
 
@@ -156,8 +157,10 @@ func body_entered(other: Area2D) -> void:
 	if other.has_method("go"):
 		current = TopicHover.new(other.go, other.topic_name)
 		dialog_text.text = "[center]Press SPACE or ENTER to go to " + current.text
+		dialog_text.show()
 
 func body_exited(other: Area2D) -> void:
 	print("body exited")
 	current = TopicHover.new_no_topic()
 	dialog_text.text = ""
+	dialog_text.hide()
