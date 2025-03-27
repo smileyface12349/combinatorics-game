@@ -117,6 +117,20 @@ func _init() -> void:
 				#]
 			#),
 		},
+		func generate_left(size: int) -> Array[Array]:
+			var elements: Array[Array] = []
+			for bit_string: int in range(2 ** size):
+				var element: Array = []
+				for i: int in range(size):
+					if bit_string & (1 << i) != 0:
+						element.append(i + 1)
+				elements.append(element)
+			return elements,
+		func generate_right(size: int) -> Array[String]:
+			var elements: Array[String] = []
+			for bit_string: int in range(2 ** size):
+				elements.append(String.num_int64(bit_string, 2).pad_zeros(size))
+			return elements,
 		[],
 		"There's one value in the binary string for each element potentially in the subset. These each have two choices (0 or 1) - what could this represent for the corresponding element potentially in the subset?",
 		BijectionProof.new(""),

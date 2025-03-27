@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c0ckn3t1pwfmm"]
+[gd_scene load_steps=12 format=3 uid="uid://c0ckn3t1pwfmm"]
 
 [ext_resource type="Script" path="res://Bijections/bijection_code.gd" id="1_tvexy"]
 [ext_resource type="Theme" uid="uid://c33ih5c1w6hv4" path="res://Bijections/hint_button_theme.tres" id="4_0ijir"]
@@ -10,6 +10,9 @@ bg_color = Color(0.82, 0.928, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkpqa"]
 bg_color = Color(0.103206, 0.687556, 0.657828, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8m8np"]
+bg_color = Color(0.101961, 0.686275, 0.658824, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nist7"]
 bg_color = Color(0.76, 0.707053, 0.5928, 1)
@@ -26,19 +29,22 @@ symbol_color = Color(0.9055, 0.79, 1, 1)
 function_color = Color(0.2784, 0.87, 0.41644, 1)
 member_variable_color = Color(1, 1, 1, 1)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("testInput", "testOutput", "testButton", "codeInput", "extendedOutput", "insertIf", "insertIfElse", "insertWhile", "insertFor", "insertRepeat")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("testInput", "testOutput", "testButton", "checkBijectionButton", "codeInput", "extendedOutput", "debugText", "insertIf", "insertIfElse", "insertWhile", "insertFor", "insertRepeat", "documentationButton")]
 position = Vector2(1017, 493)
 script = ExtResource("1_tvexy")
 testInput = NodePath("Panel/Testing/TestInput")
 testOutput = NodePath("Panel/Testing/OutputText")
 testButton = NodePath("Panel/Testing/RunTestButton")
+checkBijectionButton = NodePath("Panel/BottomAnchor/CheckBijectionButton")
 codeInput = NodePath("Panel/CodeInput")
 extendedOutput = NodePath("Panel/Errors/ExtendedErrorText")
+debugText = NodePath("Panel/BottomAnchor/OutputContainer/DebugText")
 insertIf = NodePath("Panel/Insert/InsertIf")
 insertIfElse = NodePath("Panel/Insert/InsertElse")
 insertWhile = NodePath("Panel/Insert/InsertWhile")
 insertFor = NodePath("Panel/Insert/InsertFor")
 insertRepeat = NodePath("Panel/Insert/InsertRepeat")
+documentationButton = NodePath("Panel/Insert/DocumentationButton")
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = -709.0
@@ -110,9 +116,9 @@ layout_mode = 1
 anchors_preset = -1
 anchor_top = 2.737
 anchor_bottom = 2.737
-offset_left = 736.0
+offset_left = 611.0
 offset_top = -24.48
-offset_right = 854.0
+offset_right = 729.0
 offset_bottom = 20.52
 focus_mode = 0
 theme = ExtResource("5_747m1")
@@ -125,9 +131,9 @@ layout_mode = 1
 anchors_preset = -1
 anchor_top = 2.762
 anchor_bottom = 2.762
-offset_left = 637.0
+offset_left = 503.0
 offset_top = -25.48
-offset_right = 710.0
+offset_right = 576.0
 offset_bottom = 19.52
 focus_mode = 0
 theme = ExtResource("5_747m1")
@@ -140,9 +146,9 @@ layout_mode = 1
 anchors_preset = -1
 anchor_top = 2.712
 anchor_bottom = 2.712
-offset_left = 516.0
+offset_left = 373.0
 offset_top = -23.48
-offset_right = 613.0
+offset_right = 470.0
 offset_bottom = 21.52
 focus_mode = 0
 theme = ExtResource("5_747m1")
@@ -155,30 +161,54 @@ layout_mode = 1
 anchors_preset = -1
 anchor_top = 2.687
 anchor_bottom = 2.687
-offset_left = 319.0
+offset_left = 242.0
 offset_top = -22.48
-offset_right = 490.0
+offset_right = 341.0
 offset_bottom = 22.52
 focus_mode = 0
 theme = ExtResource("5_747m1")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_qkpqa")
-text = "If-Then-Else"
+text = "If-Else"
 
 [node name="InsertIf" type="Button" parent="Panel/Insert"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 2.662
 anchor_bottom = 2.662
-offset_left = 181.0
+offset_left = 172.0
 offset_top = -21.48
-offset_right = 295.0
+offset_right = 209.0
 offset_bottom = 23.52
 focus_mode = 0
 theme = ExtResource("5_747m1")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_qkpqa")
-text = "If-Then"
+text = "If"
+
+[node name="ViewText" type="RichTextLabel" parent="Panel/Insert"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 2.725
+anchor_bottom = 2.725
+offset_left = 857.0
+offset_top = -23.0
+offset_right = 1014.0
+offset_bottom = 20.0
+theme = ExtResource("6_prm8c")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 32
+text = "View:"
+
+[node name="DocumentationButton" type="Button" parent="Panel/Insert"]
+layout_mode = 0
+offset_left = 992.0
+offset_top = 85.0
+offset_right = 1242.0
+offset_bottom = 130.0
+theme = ExtResource("4_0ijir")
+theme_override_styles/normal = SubResource("StyleBoxFlat_8m8np")
+text = "Documentation"
 
 [node name="Testing" type="Panel" parent="Panel"]
 layout_mode = 0
@@ -244,6 +274,7 @@ theme_override_font_sizes/normal_font_size = 32
 text = "Test Input:"
 
 [node name="Errors" type="Panel" parent="Panel"]
+layout_mode = 0
 offset_left = 81.0
 offset_top = 1064.0
 offset_right = 1327.0
@@ -258,6 +289,7 @@ offset_right = 1226.0
 offset_bottom = 182.0
 theme = ExtResource("6_prm8c")
 theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
 
 [node name="BottomAnchor" type="Control" parent="Panel"]
 layout_mode = 1
@@ -283,7 +315,7 @@ theme = ExtResource("4_0ijir")
 theme_override_styles/normal = SubResource("StyleBoxFlat_jgljc")
 text = "Previous"
 
-[node name="Button" type="Button" parent="Panel/BottomAnchor"]
+[node name="CheckBijectionButton" type="Button" parent="Panel/BottomAnchor"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 34.965
@@ -296,7 +328,6 @@ theme = ExtResource("5_747m1")
 text = "Check Bijection"
 
 [node name="OutputContainer" type="CenterContainer" parent="Panel/BottomAnchor"]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 2.425
@@ -307,11 +338,12 @@ offset_top = -135.0
 offset_right = -271.56
 offset_bottom = 5.0
 
-[node name="OutputText" type="RichTextLabel" parent="Panel/BottomAnchor/OutputContainer"]
+[node name="DebugText" type="RichTextLabel" parent="Panel/BottomAnchor/OutputContainer"]
 custom_minimum_size = Vector2(850, 0)
 layout_mode = 2
 theme = ExtResource("6_prm8c")
 bbcode_enabled = true
+text = "Debug stuff goes here."
 fit_content = true
 
 [node name="CodeInput" type="CodeEdit" parent="Panel"]
@@ -320,7 +352,9 @@ offset_left = 81.0
 offset_top = 403.0
 offset_right = 1326.0
 offset_bottom = 930.0
-text = "// Input is stored in the variable 'input'. Check to see how the input and output are represented.
+text = "// INPUT VARIABLES
+// input = The input. Check above to see how it's represented.
+// n = The the size of the problem (not available during testing).
 
 // CombiCode is a simple language that looks a lot like pseudocode. 
 // Expressions use GDScript's parsing engine, so all methods available in Godot are available to you.

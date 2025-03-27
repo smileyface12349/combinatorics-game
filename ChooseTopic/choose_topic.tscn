@@ -523,6 +523,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="TeleportButton" type="Button" parent="Portal/Control"]
+layout_mode = 0
 offset_left = -48.75
 offset_top = -41.25
 offset_right = 52.25

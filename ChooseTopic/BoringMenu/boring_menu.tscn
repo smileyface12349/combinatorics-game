@@ -108,8 +108,8 @@ layout_mode = 2
 theme = ExtResource("3_6qgiy")
 bbcode_enabled = true
 text = "[center]Teleportation is considered an accessibility option.
-It may skip important dialogue. Not recommended until you have encountered all dialogue.
-Counting problems are not available for teleportation."
+It skips dialogue, so is not recommended until you have encountered all dialogue.
+Counting problems are not accessible by teleportation."
 
 [node name="Spacer6" type="Control" parent="PanelContainer/NewMenu"]
 custom_minimum_size = Vector2(0, 100)
@@ -121,7 +121,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("3_8v8s1")
 theme_override_styles/normal = SubResource("StyleBoxFlat_wkvkq")
-text = "Back home"
+text = "Back Home"
 
 [node name="OldMenu" type="VBoxContainer" parent="PanelContainer"]
 visible = false

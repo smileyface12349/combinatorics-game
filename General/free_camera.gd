@@ -2,6 +2,7 @@ extends Camera2D
 class_name FreeCamera
 
 var move_camera: bool = false
+var block_keyboard: bool = false
 var last_mouse_position: Vector2
 var target_position: Vector2
 var target_zoom: Vector2
@@ -27,6 +28,10 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	# If a popup is open in front of this, don't do anything
+	if GeneralSettings.is_popup_open:
+		return
+
 	# Middle mouse button to move camera
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_MIDDLE:
 		# Pressed
@@ -57,8 +62,8 @@ func _input(event: InputEvent) -> void:
 		self.position += mouse_before_zoom - get_global_mouse_position()
 		target_position = self.position
 		
-	# Don't do keyboard movement when a popup is open / something else has focus
-	if GeneralSettings.is_popup_open:
+	# Don't do keyboard movement when a text field is in focus
+	if block_keyboard:
 		return
 
 	# Keyboard movement
@@ -117,3 +122,9 @@ func _process(_delta: float) -> void:
 		target_position.x = max_pos.x
 	if target_position.y > max_pos.y:
 		target_position.y = max_pos.y
+
+func block_keyboard_inputs() -> void:
+	block_keyboard = true
+
+func allow_keyboard_inputs() -> void:
+	block_keyboard = false

@@ -5,19 +5,30 @@ class_name BijectionCodeNode
 @export var testInput: TextEdit
 @export var testOutput: RichTextLabel
 @export var testButton: Button
+@export var checkBijectionButton: Button
 @export var codeInput: CodeEdit
 @export var extendedOutput: RichTextLabel
+@export var debugText: RichTextLabel
 
 @export var insertIf: Button
 @export var insertIfElse: Button
 @export var insertWhile: Button
 @export var insertFor: Button
 @export var insertRepeat: Button
+@export var documentationButton: Button
 
+var level: BijectionLevel
+var camera: FreeCamera
+
+var open_documentation: Callable
 
 func _ready() -> void:
+	# Executing buttons
 	testButton.pressed.connect(test_code)
+	checkBijectionButton.pressed.connect(check_bijection)
+	documentationButton.pressed.connect(open_documentation)
 	
+	# Syntax highlighting
 	for keyword: String in ['return', 'if', 'then', 'else', 'endif', 'while', 'do', 'endwhile', 'for', 'in', 'endfor', 'repeat', 'times', 'endrepeat']:
 		codeInput.syntax_highlighter.add_keyword_color(keyword, Color.ORANGE)
 	codeInput.syntax_highlighter.add_color_region("//", "", Color.BLACK)
@@ -31,6 +42,8 @@ func _ready() -> void:
 	testInput.focus_exited.connect(text_focus_exited)
 	testInput.mouse_entered.connect(test_mouse_entered)
 	testInput.mouse_exited.connect(test_mouse_exited)
+	codeInput.mouse_exited.connect(code_mouse_exited)
+	codeInput.mouse_entered.connect(code_mouse_entered)
 	for insertButton: Button in [insertIf, insertIfElse, insertWhile, insertFor, insertRepeat, testButton]:
 		insertButton.mouse_entered.connect(insert_button_mouse_entered)
 		insertButton.mouse_exited.connect(insert_button_mouse_exited)
@@ -42,17 +55,75 @@ func _ready() -> void:
 	insertFor.pressed.connect(insert_for)
 	insertRepeat.pressed.connect(insert_repeat)
 
-	codeInput.mouse_exited.connect(code_mouse_exited)
-	codeInput.mouse_entered.connect(code_mouse_entered)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		on_mouse_click()
 
-func set_level(level: BijectionLevel) -> void:
-	pass
+func set_level(level: BijectionLevel, open_documentation: Callable, camera: FreeCamera) -> void:
+	self.level = level
+	self.open_documentation = open_documentation
+	self.camera = camera
+
+	# Debug stuff
+	debugText.text = "(n=2 left) " + str(level.left_generator.call(2)) + "\n(n=2 right) " + str(level.right_generator.call(2))
 
 # CODE EXECUTION
+
+func check_bijection() -> void:
+	# Build an AST from the source program
+	var ast: Parser.AST = Parser.build_ast(codeInput.text)
+	if ast is Parser.ErrorAST:
+		extendedOutput.text = "[color=red]Syntax Error[/color]\n" + Parser.format_error(codeInput.text, ast.start_pos, ast.error_text)
+		highlight_error_pos(ast.start_pos, ast.end_pos)
+		return
+
+	for problem_size: int in [1, 2, 3, 4, 5, 10]:
+		# Generate the cases on the left and right
+		var left_cases: Array = level.left_generator.call(problem_size)
+		var right_cases: Array = level.right_generator.call(problem_size)
+		var right_cases_matched: Array = []
+		for i: int in range(right_cases.size()):
+			right_cases_matched.append(null)
+
+		# Run the code on the AST
+		for input: Variant in left_cases:
+			var variables: Dictionary = ast.execute({"input": input, "n": problem_size})
+			if "%error%" in variables:
+				if "%error_pos%" in variables:
+					extendedOutput.text = "[color=red]Runtime Error[/color] (input=" + str(input) + "):\n" + Parser.format_error(codeInput.text, variables["%error_pos%"], variables["%error%"])
+				else:
+					extendedOutput.text = "[color=red]Runtime Error[/color] (input=" + str(input) + "):\n" + variables["%error%"]
+				return
+			elif "%return%" not in variables:
+				extendedOutput.text = "[color=red]Runtime Error[/color] (input=" + str(input) + "):\nThe program did not return a value."
+				return
+			var output: Variant = variables["%return%"]
+
+			# Find the corresponding case on the right
+			var right_index: int = -1
+			for i: int in range(right_cases.size()):
+				if typeof(right_cases[i]) == typeof(output) and right_cases[i] == output:
+					right_index = i
+					break
+			if right_index == -1:
+				extendedOutput.text = "[color=red]Bijection Error[/color]\nFailed closure for n=" + str(problem_size) + ":\n" + str(input) + " maps to " + str(output) + ", which is not in the codomain."
+				return
+			if right_cases_matched[right_index] != null:
+				extendedOutput.text = "[color=red]Bijection Error[/color]\nFailed injectivity for n=" + str(problem_size) + ":\n" + str(input) + " and " + str(right_cases_matched[right_index]) + " both map to " + str(output) + "."
+				return
+			right_cases_matched[right_index] = input
+
+		# Check that all cases on the right were matched (note: this isn't strictly necessary as we already know the sets are the same size)
+		for i: int in range(right_cases_matched.size()):
+			if right_cases_matched[i] == null:
+				extendedOutput.text = "[color=red]Bijection Error[/color]\nFailed surjectivity for n=" + str(problem_size) + ":\n" + str(right_cases[i]) + " is not in the image."
+				return
+
+	# Success!
+	extendedOutput.text = "Output: [color=green]Bijection is correct[/color]"
+
+
 
 func test_code() -> void:
 	# Parse the input to get it in the right data type
@@ -73,7 +144,7 @@ func test_code() -> void:
 		return
 
 	# Run the code on the AST
-	var variables: Dictionary = Parser.run_ast(ast, input)
+	var variables: Dictionary = ast.execute({"input": input})
 	if "%error%" in variables:
 		if "%error_pos%" in variables:
 			if "%error_pos_end%" not in variables:
@@ -94,6 +165,9 @@ func test_code() -> void:
 func display_error(error: String, start_pos: int = 0, end_pos: int = 0, error_title: String = "Error") -> void:
 	testOutput.text = "Output: [color=red]" + error_title + "[/color]"
 	extendedOutput.text = error_title + ": " + error
+	highlight_error_pos(start_pos, end_pos)
+
+func highlight_error_pos(start_pos: int, end_pos: int) -> void:
 	var start_line_col: Vector2 = Parser.get_line_and_col(codeInput.text, start_pos)
 	var end_line_col: Vector2 = Parser.get_line_and_col(codeInput.text, end_pos)
 	codeInput.select(start_line_col.x-1, start_line_col.y-1, end_line_col.x-1, end_line_col.y-1)
@@ -122,19 +196,19 @@ func insert_code(text: String, highlight_start: int, highlight_end: int) -> void
 	codeInput.select(line, column + highlight_start, line, column + highlight_end)
 
 func insert_if() -> void:
-	insert_code("if CONDITION then\n	// Your code here\nendif\n", 3, 12)
+	insert_code("if CONDITION then\n	// This code will run if CONDITION evaluates to true.\nendif\n", 3, 12)
 
 func insert_if_else() -> void:
-	insert_code("if CONDITION then\n	// Your code here\nelse\n	// Your code here\nendif\n", 3, 12)
+	insert_code("if CONDITION then\n	// This code will run if CONDITION evaluates to true.\nelse\n	// This code will run if CONDITION evaluates to false.\nendif\n", 3, 12)
 
 func insert_while() -> void:
-	insert_code("while CONDITION do\n	// Your code here\nendwhile\n", 6, 15)
+	insert_code("while CONDITION do\n	// This code will keep running while CONDITION evaluates to true.\nendwhile\n", 6, 15)
 
 func insert_for() -> void:
-	insert_code("for VARIABLE in EXPRESSION do\n	// Your code here\nendfor\n", 4, 13)
+	insert_code("for VARIABLE in EXPRESSION do\n	// This code will run once for every element in EXPRESSION, setting VARIABLE to be that element.\nendfor\n", 4, 12)
 
 func insert_repeat() -> void:
-	insert_code("repeat EXPRESSION times\n	// Your code here\nendrepeat\n", 7, 16)
+	insert_code("repeat EXPRESSION times\n	// i = Counter for which iteration we are on. Starts at 1, ends at EXPRESSION.\nendrepeat\n", 7, 17)
 
 
 # Lots of fiddly stuff to manage the focus
@@ -160,14 +234,13 @@ func insert_button_mouse_exited() -> void:
 	is_mouse_over_insert = false
 
 func text_focus_entered() -> void:
-	GeneralSettings.is_popup_open = true
+	camera.block_keyboard_inputs()
 
 func text_focus_exited() -> void:
-	GeneralSettings.is_popup_open = false
+	camera.allow_keyboard_inputs()
 
 
 func on_mouse_click() -> void:
-	return
 	if is_mouse_over_insert:
 		# Don't lose focus if we're clicking on the insert buttons
 		return

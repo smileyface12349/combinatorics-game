@@ -37,15 +37,6 @@ static func parse(code: String, input: Variant = 0) -> Variant:
 static func build_ast(code: String) -> AST:
 	return ProgramAST.parse(code, 0)
 
-# Runs the AST. Outputs the variables. Key variables:
-#    %return% - Contains the return value. This may be empty if the user hasn't put a return statement - it is your responsibility to flag this as an error should you wish.
-#    %error% - Contains the error message, if there is one. This will span one line only, will not include the word "Error" and will not include the line number.
-#    %error_pos% - Contains the position of the error in the code. Use this and the error message in Parser.format_error to get a nice error message.
-static func run_ast(ast: AST, input: Variant = 0) -> Dictionary:
-	var variables: Dictionary = {"input": input}
-	return ast.execute(variables)
-
-
 
 static func is_letter(char: String) -> bool:
 	return char in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -53,6 +44,10 @@ static func is_letter(char: String) -> bool:
 class AST:
 	var end_pos: int = 0
 
+	# Runs the AST. Outputs the variables. Key variables:
+	#    %return% - Contains the return value. This may be empty if the user hasn't put a return statement - it is your responsibility to flag this as an error should you wish.
+	#    %error% - Contains the error message, if there is one. This will span one line only, will not include the word "Error" and will not include the line number.
+	#    %error_pos% - Contains the position of the error in the code. Use this and the error message in Parser.format_error to get a nice error message.
 	func execute(variables: Dictionary) -> Dictionary:
 		return variables
 	
@@ -93,7 +88,7 @@ class BlockAST extends AST:
 			elif code[pos] in [" ", "\n", "\t", "\r"]:
 				pos += 1
 			elif code.substr(pos, 2) == "//":
-				pos = code.findn("\n", pos)
+				pos = code.find("\n", pos)
 			elif code.substr(pos, 2) == "if":
 				statements.push_back(IfStmtAST.parse(code, pos))
 				pos = statements[-1].end_pos
@@ -136,12 +131,12 @@ class BlockAST extends AST:
 				pos = statements[-1].end_pos
 			else:
 				# Assignment or just an expression
-				var end_pos: int = code.findn("\n", pos)
+				var end_pos: int = code.find("\n", pos)
 				if end_pos == -1:
 					end_pos = len(code)
 				var line: String = code.substr(pos, end_pos-pos)
 				print("Either assignment or expression: " + line)
-				if line.findn("<-", 0) == -1:
+				if line.find("<-", 0) == -1:
 					statements.push_back(ExprLineAST.parse_line(line, pos))
 				else:
 					statements.push_back(AssignLineAST.parse_line(line, pos))
@@ -173,7 +168,7 @@ class IfStmtAST extends StmtAST:
 		self.end_pos = end_pos
 
 	static func parse(code: String, pos: int) -> AST:
-		var then_pos: int = code.findn("then", pos+2)
+		var then_pos: int = code.find("then", pos+2)
 		if then_pos == -1:
 			return ErrorAST.new("Expected 'then' after 'if' expression", pos, pos+2)
 		var expr: ExprLineAST = ExprLineAST.parse_line(code.substr(pos+2, then_pos-pos-2), pos+2)
@@ -209,7 +204,7 @@ class WhileStmtAST extends StmtAST:
 		self.end_pos = end_pos
 
 	static func parse(code: String, pos: int) -> AST:
-		var expr_end: int = code.findn("do", pos+6)
+		var expr_end: int = code.find("do", pos+6)
 		if expr_end == -1:
 			return ErrorAST.new("'while' should be followed by an expression and then the word 'do'", pos, pos+6)
 		var expr: ExprLineAST = ExprLineAST.parse_line(code.substr(pos+6, expr_end-pos-6), pos+6)
@@ -246,13 +241,13 @@ class ForStmtAST extends StmtAST:
 		self.end_pos = end_pos
 
 	static func parse(code: String, pos: int) -> AST:
-		var in_pos: int = code.findn("in", pos+4)
+		var in_pos: int = code.find("in", pos+4)
 		if in_pos == -1:
 			return ErrorAST.new("Expected 'in' after 'for'. Syntax is 'for VARIABLE in ITERABLE do CODE endfor'", pos, pos+4)
 		var ident: String = code.substr(pos+4, in_pos-pos-4).strip_edges()
 		if not ident.is_valid_identifier():
 			return ErrorAST.new("Invalid identifier: " + ident, pos+4, in_pos)
-		var do_pos: int = code.findn("do", in_pos+2)
+		var do_pos: int = code.find("do", in_pos+2)
 		if do_pos == -1:
 			return ErrorAST.new("Expecting the word 'do' after the expression in a 'for' loop", in_pos, in_pos+2)
 		var expr: ExprLineAST = ExprLineAST.parse_line(code.substr(in_pos+2, do_pos-in_pos-2), in_pos+2)
@@ -283,7 +278,7 @@ class RepeatStmtAST extends StmtAST:
 		self.end_pos = end_pos
 
 	static func parse(code: String, pos: int) -> AST:
-		var expr_end: int = code.findn("times", pos+6)
+		var expr_end: int = code.find("times", pos+6)
 		if expr_end == -1:
 			return ErrorAST.new("'repeat' should be followed by an expression and then the word 'times'", pos, pos+6)
 		var expr: ExprLineAST = ExprLineAST.parse_line(code.substr(pos+6, expr_end-pos-6), expr_end)
@@ -296,7 +291,7 @@ class RepeatStmtAST extends StmtAST:
 		variables = self.expr.execute(variables)
 		var count: int = variables["%result%"]
 		for i: int in range(count):
-			variables["repeat_iteration_count"] = i+1
+			variables["i"] = i+1
 			variables = self.block.execute(variables)
 			if "%return%" in variables or "%error%" in variables:
 				break
@@ -317,7 +312,7 @@ class AssignLineAST extends LineAST:
 
 	static func parse_line(line: String, pos: int) -> AST:
 		print("Parsing assignment: " + line)
-		var arrow_pos: int = line.findn("<-")
+		var arrow_pos: int = line.find("<-")
 		if arrow_pos == -1:
 			return ErrorAST.new("Expecting a statement of the form 'identifier <- expression'", pos, pos+len(line))
 		var ident: String = line.substr(0, arrow_pos).strip_edges()
@@ -341,7 +336,7 @@ class ReturnStmtAST extends AST:
 		self.end_pos = end_pos
 
 	static func parse(code: String, pos: int) -> AST:
-		var end_pos: int = code.findn("\n", pos+1)
+		var end_pos: int = code.find("\n", pos+1)
 		if end_pos == -1:
 			end_pos = len(code)
 		print("Return statement starting at: " + str(pos) + " and ending at: " + str(end_pos) + ", in total: \"" + code.substr(pos, end_pos-pos) + "\"")

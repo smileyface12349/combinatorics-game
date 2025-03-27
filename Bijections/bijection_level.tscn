@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=4 uid="uid://c4xc07s1njmlp"]
+[gd_scene load_steps=11 format=4 uid="uid://c4xc07s1njmlp"]
 
 [ext_resource type="Script" path="res://Bijections/bijection_level.gd" id="1_lc3rp"]
 [ext_resource type="Script" path="res://General/free_camera.gd" id="2_jvgqo"]
 [ext_resource type="Texture2D" uid="uid://bx1rf617sltm8" path="res://Bijections/planks_2.png" id="3_8t2vb"]
+[ext_resource type="Theme" uid="uid://nm3tnjbbbaxg" path="res://Menu/heading.tres" id="4_61qg0"]
+[ext_resource type="Theme" uid="uid://b26p2vjohd0vr" path="res://Menu/body.tres" id="5_ahtip"]
+[ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="6_rorw7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bbgc1"]
 texture = ExtResource("3_8t2vb")
@@ -13,9 +16,18 @@ texture_region_size = Vector2i(1024, 1024)
 tile_size = Vector2i(1024, 1024)
 sources/0 = SubResource("TileSetAtlasSource_bbgc1")
 
-[node name="BijectionLevel" type="Node2D" node_paths=PackedStringArray("camera")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nk0u7"]
+bg_color = Color(0.834614, 0.834614, 0.834614, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_akls2"]
+bg_color = Color(0.927769, 0.343238, 0.110748, 1)
+
+[node name="BijectionLevel" type="Node2D" node_paths=PackedStringArray("camera", "codeDocPopup", "closeCodeDocButton", "levelCompletePopup")]
 script = ExtResource("1_lc3rp")
 camera = NodePath("Camera2D")
+codeDocPopup = NodePath("CodeDocPopup")
+closeCodeDocButton = NodePath("CodeDocPopup/Panel/CloseButton")
+levelCompletePopup = NodePath("LevelCompletePopup")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1000, 540)
@@ -36,3 +48,178 @@ offset_top = -1330.0
 offset_right = 8717.0
 offset_bottom = 8670.0
 focus_mode = 1
+
+[node name="LevelCompletePopup" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Panel" type="Panel" parent="LevelCompletePopup"]
+offset_left = 585.0
+offset_top = 232.0
+offset_right = 1352.0
+offset_bottom = 855.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nk0u7")
+
+[node name="Title" type="RichTextLabel" parent="LevelCompletePopup/Panel"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 59.0
+offset_right = 766.0
+offset_bottom = 204.0
+theme = ExtResource("4_61qg0")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[center]Level Complete!"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelCompletePopup/Panel"]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 231.0
+offset_right = 713.0
+offset_bottom = 421.0
+
+[node name="Description" type="RichTextLabel" parent="LevelCompletePopup/Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_ahtip")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Congratulations! You came up with a valid bijection.
+
+Now, can you prove that it works? Try getting out a pen and paper and writing up a formal proof of its correctness. Remember you'll need to show it's injective and surjective.
+
+If you leave this level, your bijection will not be saved."
+fit_content = true
+
+[node name="Spacer" type="Control" parent="LevelCompletePopup/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="LevelCompletePopup/Panel"]
+layout_mode = 0
+offset_left = 315.0
+offset_top = 524.0
+offset_right = 408.0
+offset_bottom = 569.0
+theme = ExtResource("6_rorw7")
+text = "Done"
+
+[node name="CodeDocPopup" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Panel" type="Panel" parent="CodeDocPopup"]
+offset_left = 186.0
+offset_top = 50.0
+offset_right = 1765.0
+offset_bottom = 1016.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nk0u7")
+
+[node name="Title" type="RichTextLabel" parent="CodeDocPopup/Panel"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 76.0
+offset_right = 1574.0
+offset_bottom = 221.0
+theme = ExtResource("4_61qg0")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[center]CombiCode Documentation"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CodeDocPopup/Panel"]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 231.0
+offset_right = 1488.0
+offset_bottom = 908.0
+
+[node name="Description" type="RichTextLabel" parent="CodeDocPopup/Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_ahtip")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "CombiCode is a simple language designed to look a lot like pseudocode. You can find out about the control blocks by pressing the insert buttons. The language is parsed down to individual expressions, and these are sent to Godot's Expression class. This means that all functions available in Godot are available here."
+fit_content = true
+
+[node name="GeneralHeading" type="RichTextLabel" parent="CodeDocPopup/Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_ahtip")
+bbcode_enabled = true
+text = "
+General"
+fit_content = true
+
+[node name="GeneralText" type="RichTextLabel" parent="CodeDocPopup/Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_ahtip")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Assignment: var <- value"
+fit_content = true
+
+[node name="ArraysHeading" type="RichTextLabel" parent="CodeDocPopup/Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_ahtip")
+bbcode_enabled = true
+text = "
+Arrays"
+fit_content = true
+
+[node name="ArraysText" type="RichTextLabel" parent="CodeDocPopup/Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_ahtip")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "An array is an ordered list of values, like [1, 3, 10, \"Hi\", [0, 1]].
+Assignment: arr[index] <- value
+Methods: push_back(element), push_front(element), pop_back(element), pop_front(element), insert(index, element), erase(element)
+E.g. if you wanted to add 2 to the end of arr, you would write 'arr.push_back(2)'"
+fit_content = true
+
+[node name="StringsHeading" type="RichTextLabel" parent="CodeDocPopup/Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_ahtip")
+bbcode_enabled = true
+text = "
+Strings"
+fit_content = true
+
+[node name="StringsText" type="RichTextLabel" parent="CodeDocPopup/Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_ahtip")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "An string is a sequence of characters. It is written like \"this\".
+Overwriting a Character: string[character_position] <- new_character
+Methods: contains(string), find(string, from), insert(position, string), length(), to_int(), substr(from, len)"
+fit_content = true
+
+[node name="DictionaryHeading" type="RichTextLabel" parent="CodeDocPopup/Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_ahtip")
+bbcode_enabled = true
+text = "
+Dictionaries"
+fit_content = true
+
+[node name="DictionaryText" type="RichTextLabel" parent="CodeDocPopup/Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_ahtip")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "A dictionary is a list of {key: value} pairs. It's like a list of variables but you can keep them all organised under one name.
+Assignment: dict[key] = value
+Methods: erase(key), has(key), keys(), values()"
+fit_content = true
+
+[node name="Spacer" type="Control" parent="CodeDocPopup/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="CodeDocPopup/Panel"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 0
+offset_left = 1455.0
+offset_top = 40.0
+offset_right = 1535.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_akls2")
+text = "X"

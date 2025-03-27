@@ -87,6 +87,10 @@ func _init() -> void:
 				],
 			),
 		},
+		func generate_left (size: int) -> Array[String]:
+			return [],
+		func generate_right (size: int) -> Array[String]:
+			return [],
 		[],
 		"Think of the binary string as 3 buckets, with the 1s simply being dividers between these buckets"
 	)

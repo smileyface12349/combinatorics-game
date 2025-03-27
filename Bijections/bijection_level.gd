@@ -1,6 +1,9 @@
 extends Node
 
 @export var camera: FreeCamera
+@export var codeDocPopup: CanvasLayer
+@export var closeCodeDocButton: Button
+@export var levelCompletePopup: CanvasLayer
 
 const bijection_width: int = 1500
 const camera_offset: Vector2 = Vector2(0, 40)
@@ -29,6 +32,7 @@ var level: BijectionLevel
 func _ready() -> void:
 	create_level(BijectionSettings.current_level) 
 	MusicPlayer.change_track_to_random(tracks)
+	closeCodeDocButton.pressed.connect(close_documentation)
 	
 ## Creates the elements to represent the level
 func create_level(level: BijectionLevel) -> void:
@@ -51,7 +55,7 @@ func create_level(level: BijectionLevel) -> void:
 
 	# Add the code input section
 	bijection_code = bijection_code_scene.instantiate()
-	bijection_code.set_level(level)
+	bijection_code.set_level(level, open_documentation, camera)
 	bijection_code.position = position
 	add_child(bijection_code)
 
@@ -167,3 +171,12 @@ func _input(event: InputEvent) -> void:
 		else:
 			BijectionSettings.current_level = null
 			get_tree().change_scene_to_packed(bijection_level_select_scene)
+
+# Code documentation popup
+func open_documentation() -> void:
+	GeneralSettings.is_popup_open = true
+	codeDocPopup.show()
+
+func close_documentation() -> void:
+	GeneralSettings.is_popup_open = false
+	codeDocPopup.hide()

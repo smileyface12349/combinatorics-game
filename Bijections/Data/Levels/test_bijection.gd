@@ -36,6 +36,16 @@ func _init() -> void:
 				]
 			),
 		},
+		func left_generator(size: int) -> Array:
+			var element: Array = []
+			for i: int in range(size):
+				element.append(1)
+			return element,
+		func right_generator(size: int) -> Array:
+			var element: Array = []
+			for i: int in range(size):
+				element.append(1)
+			return element,
 		[],
 		"You're stupid",
 		BijectionProof.new("Proof by Assumption: Assume that it is a bijection. Therefore it is a bijection. QED.")

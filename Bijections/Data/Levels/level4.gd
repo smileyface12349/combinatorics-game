@@ -159,6 +159,10 @@ func _init() -> void:
 				],
 			)
 		},
+		func generate_left (size: int) -> Array[Array]:
+			return [],
+		func generate_right (size: int) -> Array[Array]:
+			return [],
 		[
 			DefinitionSelfConjugate.new(),
 			DefinitionPartition.new(),
