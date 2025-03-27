@@ -303,10 +303,12 @@ class LineAST extends AST:
 
 class AssignLineAST extends LineAST:
 	var ident: String
+	var index: ExprLineAST
 	var expr: ExprLineAST
 
-	func _init(ident: String, expr: ExprLineAST) -> void:
+	func _init(ident: String, expr: ExprLineAST, index: ExprLineAST = null) -> void:
 		self.ident = ident
+		self.index = index
 		self.expr = expr
 		self.end_pos = end_pos
 
@@ -316,16 +318,51 @@ class AssignLineAST extends LineAST:
 		if arrow_pos == -1:
 			return ErrorAST.new("Expecting a statement of the form 'identifier <- expression'", pos, pos+len(line))
 		var ident: String = line.substr(0, arrow_pos).strip_edges()
+		var index: ExprLineAST = null
+		if ident.contains("[") and ident.ends_with("]"):
+			index = ExprLineAST.parse_line(ident.substr(ident.find("[")+1, ident.find("]")-ident.find("[")-1), pos)
+			ident = ident.substr(0, ident.find("["))
 		if not ident.is_valid_identifier():
 			return ErrorAST.new("Invalid identifier: " + ident, pos, pos+arrow_pos)
 		var expr: ExprLineAST = ExprLineAST.parse_line(line.substr(arrow_pos+2), pos+arrow_pos+2)
-		return AssignLineAST.new(ident, expr)
+		return AssignLineAST.new(ident, expr, index)
 
 	func execute(variables: Dictionary) -> Dictionary:
 		variables = expr.execute(variables)
 		if "%error%" in variables:
 			return variables
-		variables[ident] = variables["%result%"]
+		var value: Variant = variables["%result%"]
+		if self.index != null:
+			variables = self.index.execute(variables)
+			if "%error%" in variables:
+				return variables
+			var index: Variant = variables["%result%"]
+			if self.ident not in variables:
+				variables["%error%"] = "Undefined variable: " + self.ident
+				variables["%error_pos%"] = self.end_pos-len(self.ident)
+				variables["%error_pos_end%"] = self.end_pos
+				return variables
+			if typeof(variables[self.ident]) not in [TYPE_ARRAY, TYPE_DICTIONARY]:
+				variables["%error%"] = "Variable is not an array or dictionary: " + self.ident
+				variables["%error_pos%"] = self.end_pos-len(self.ident)
+				variables["%error_pos_end%"] = self.end_pos
+				return variables
+			if typeof(variables[self.ident]) == TYPE_ARRAY:
+				if typeof(index) != TYPE_INT:
+					variables["%error%"] = "Array index must be an integer"
+					variables["%error_pos%"] = self.end_pos-len(self.ident)
+					variables["%error_pos_end%"] = self.end_pos
+					return variables
+				if index >= len(variables[self.ident]):
+					variables["%error%"] = "Index out of bounds: " + str(index) + " (length is " + str(len(variables[self.ident])) + " so max index is " + str(len(variables[self.ident])-1) + ")"
+					variables["%error_pos%"] = self.end_pos-len(self.ident)
+					variables["%error_pos_end%"] = self.end_pos
+					return variables
+			print("Before: " + str(variables))
+			variables[self.ident][index] = value
+			print("After: " + str(variables))
+		else:
+			variables[self.ident] = value
 		return variables
 
 class ReturnStmtAST extends AST:

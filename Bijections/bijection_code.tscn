@@ -356,10 +356,6 @@ text = "// INPUT VARIABLES
 // input = The input. Check above to see how it's represented.
 // n = The the size of the problem (not available during testing).
 
-// CombiCode is a simple language that looks a lot like pseudocode. 
-// Expressions use GDScript's parsing engine, so all methods available in Godot are available to you.
-// Array methods you might need: push_back(), push_front(), pop_back(), pop_front(), set(index, value), insert(index, value), erase(value)
-
 // YOUR CODE HERE: Generate the output from the input
 output <- input
 

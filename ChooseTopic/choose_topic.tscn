@@ -1,4 +1,4 @@
-[gd_scene load_steps=115 format=4 uid="uid://po8854lqyopy"]
+[gd_scene load_steps=117 format=4 uid="uid://po8854lqyopy"]
 
 [ext_resource type="Script" path="res://ChooseTopic/choose_topic.gd" id="1_55lkm"]
 [ext_resource type="Script" path="res://ChooseTopic/menu_car.gd" id="1_g4u3r"]
@@ -60,6 +60,8 @@
 [ext_resource type="PackedScene" uid="uid://2y3mwqr6b2re" path="res://ChooseTopic/Exercises/exercise_in_world.tscn" id="57_6btr7"]
 [ext_resource type="Texture2D" uid="uid://vqc1n3ayonra" path="res://ChooseTopic/portal.png" id="57_h0168"]
 [ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="59_66fcn"]
+[ext_resource type="Texture2D" uid="uid://ba4indmgido25" path="res://ChooseTopic/Huts/broken-hut.png" id="61_1b1mg"]
+[ext_resource type="Texture2D" uid="uid://6pduhsp480v8" path="res://ChooseTopic/Huts/bijections-icon.png" id="62_apmbv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c6q06"]
 texture = ExtResource("1_yccy3")
@@ -531,6 +533,15 @@ offset_bottom = 34.75
 theme_override_font_sizes/font_size = 24
 text = "Click to
 teleport"
+
+[node name="Broken-hut" type="Sprite2D" parent="."]
+position = Vector2(915, -846)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("61_1b1mg")
+
+[node name="Bijections-icon" type="Sprite2D" parent="Broken-hut"]
+position = Vector2(18, 42)
+texture = ExtResource("62_apmbv")
 
 [node name="Car" type="Node2D" parent="." node_paths=PackedStringArray("dialog_text")]
 position = Vector2(111, -522)
