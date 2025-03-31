@@ -403,7 +403,7 @@ class ExprLineAST extends LineAST:
 		if error != OK:
 			if expression.get_error_text() == "Expected '='":
 				variables["%error%"] = "(Parsing expression) Unexpected '='. Did you mean '==' (for testing equality) or '<-' (for assignment)?"
-			elif "self can't be used because instance is null (not passed)" in expression.get_error_text():
+			elif expression.get_error_text().contains("instance is null (not passed)"):
 				variables["%error%"] = "(Parsing expression) Undefined variable"
 			else:
 				variables["%error%"] = "(Parsing expression) " + expression.get_error_text()
@@ -413,7 +413,7 @@ class ExprLineAST extends LineAST:
 			return variables
 		var result: Variant = expression.execute(variables.values())
 		if expression.has_execute_failed():
-			if "self can't be used because instance is null (not passed)" in expression.get_error_text():
+			if expression.get_error_text().contains("instance is null (not passed)"):
 				variables["%error%"] = "(Executing expression) Undefined variable"
 			else:
 				variables["%error%"] = "(Executing expression) " + expression.get_error_text()
