@@ -29,9 +29,14 @@ func _init(left_title: String, right_title: String, left_description: String, ri
 
 static func from_catalan_problems(problem1: CatalanProblem, problem2: CatalanProblem) -> BijectionLevel:
 	var bijections: Dictionary = {}
-	for size: int in problem1.get_sizes_dict():
-		var from: Array[BijectionElement] = problem1.get_sizes_dict()[size] as Array[BijectionElement]
-		var to: Array[BijectionElement] = problem2.get_sizes_dict()[size] as Array[BijectionElement]
+	var problem1_sizes: Dictionary = problem1.get_sizes_dict()
+	var problem2_sizes: Dictionary = problem2.get_sizes_dict()
+	if problem1_sizes.size() != problem2_sizes.size():
+		print("Error: Problem sizes do not match. Problem 1 has %d sizes, Problem 2 has %d sizes" % [problem1_sizes.size(), problem2_sizes.size()])
+		return null
+	for size: int in problem1_sizes.keys():
+		var from: Array[BijectionElement] = problem1_sizes[size] as Array[BijectionElement]
+		var to: Array[BijectionElement] = problem2_sizes[size] as Array[BijectionElement]
 		bijections[size] = Bijection.new(size, from, to)
 	# TODO: Add hints and proofs
-	return BijectionLevel.new(problem1.title, problem2.title, problem1.description, problem2.description, bijections, Callable(), Callable(), problem1.definitions + problem2.definitions, "", BijectionProof.new(), 0, true)
+	return BijectionLevel.new(problem1.title, problem2.title, problem1.description, problem2.description, bijections, problem1.generate_elements_code, problem2.generate_elements_code, problem1.definitions + problem2.definitions, "", BijectionProof.new(), 0, true)

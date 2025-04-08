@@ -76,6 +76,10 @@ func draw_contents_diagrams() -> void:
 func draw_empty() -> void:
 	draw_string(font, Vector2(16, size.y * 0.6), "(empty)", HORIZONTAL_ALIGNMENT_CENTER, -1, font_size / 2, Color(0, 0, 0, 0.5))
 
+# Get the best representation for code input
+func get_code_representation() -> Variant:
+	return self.text
+
 func _ready() -> void:
 	# Add dot as a separate element, so it can draw in front of the lines
 	dot = BijectionElementDot.new()

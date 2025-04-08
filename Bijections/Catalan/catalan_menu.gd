@@ -15,12 +15,12 @@ func _input(event: InputEvent) -> void:
 
 func generate_problem() -> void:
 	# Choose two random problems
-	var problem1: CatalanProblem = CatalanProblems.new().PROBLEMS.pick_random()
-	var problem2: CatalanProblem = CatalanProblems.new().PROBLEMS.pick_random()
+	var problem1: CatalanProblem = CatalanProblems.new().PROBLEMS.values().pick_random()
+	var problem2: CatalanProblem = CatalanProblems.new().PROBLEMS.values().pick_random()
 
 	# Make sure they're not the same problem - that would be boring wouldn't it!
 	while problem1.description == problem2.description:
-		problem2 = CatalanProblems.new().PROBLEMS.pick_random()
+		problem2 = CatalanProblems.new().PROBLEMS.values().pick_random()
 
 	# Combine these into one level and assign it
 	BijectionSettings.current_level = BijectionLevel.from_catalan_problems(problem1, problem2)

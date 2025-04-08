@@ -147,3 +147,8 @@ func draw_recurse(root: Array, x: int, y: int, square_size: int) -> void:
 		draw_recurse(root[1], x+square_size, y+square_size, square_size)
 	
 	
+func get_code_representation() -> Variant:
+	if self.root == []:
+		return 0
+	else:
+		return root

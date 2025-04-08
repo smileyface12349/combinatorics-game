@@ -34,6 +34,10 @@ func count_parts() -> int:
 		total += occurrences
 	return total
 	
+func get_code_representation() -> Variant:
+	return parts
+
+
 ## Iterates through every part with a non-zero number of occurrences in descending order, and calls
 ## the function. For example, 1+2(5) would call with (5, 2) then call with (1, 1)
 func for_each_part(action: Callable) -> void:
