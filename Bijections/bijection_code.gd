@@ -9,6 +9,7 @@ class_name BijectionCodeNode
 @export var codeInput: CodeEdit
 @export var extendedOutput: RichTextLabel
 @export var debugText: RichTextLabel
+@export var representationText: RichTextLabel
 
 @export var insertIf: Button
 @export var insertIfElse: Button
@@ -66,7 +67,8 @@ func set_level(level: BijectionLevel, open_documentation: Callable, camera: Free
 	self.camera = camera
 
 	# Debug stuff
-	debugText.text = "(n=2 left) " + str(level.left_generator.call(2)) + "\n(n=2 right) " + str(level.right_generator.call(2))
+	representationText.text = "[b]Input[/b]: " + level.left_representation + "\n[b]Output[/b]: " + level.right_representation
+	debugText.text = "(n=2 left) " + str(level.left_generator.call(13)) + "\n(n=2 right) " + str(level.right_generator.call(13))
 
 # CODE EXECUTION
 

@@ -27,5 +27,6 @@ func _init() -> void:
 				2
 			)
 		},
+        "An array of integers 10 (red flat), 20 (blue flat), 1 (up), -1 (down), e.g. [1, 10, 1, -1, -1] or [20, 10]",
 		[DefinitionDyckPath.new()]
 	)

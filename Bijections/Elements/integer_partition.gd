@@ -111,3 +111,23 @@ func draw_contents_diagrams() -> void:
 			self.y += square_size
 			x = horizontal_padding
 	)
+
+
+# Generates all partitions of a number n
+# Output: Array of partitions, where each partition is an array of integers in descending order
+static func generate_partitions(n: int, max_part: int = n) -> Array[Array]:
+	# Base case: No partitions of 0
+	if n == 0:
+		return [[]]
+
+	var partitions: Array[Array] = []
+	# Generate the partitions recursively
+	for largest_part: int in range(min(n, max_part), 0, -1):
+		# Generate the partitions of n - largest_part
+		var sub_partitions: Array[Array] = generate_partitions(n - largest_part, largest_part)
+		# Add the largest part to each partition
+		for sub_partition: Array[int] in sub_partitions:
+			partitions.append([largest_part] + sub_partition)
+
+	# Return the partitions
+	return partitions

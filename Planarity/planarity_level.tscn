@@ -75,16 +75,17 @@ offset_top = 149.0
 offset_right = 758.0
 offset_bottom = 243.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
 text = "Left Click: Move vertices.
 Right Click: Delete vertices and edges.
-Drag a vertex on top of another to contract them."
+Drag a vertex on top of another to contract them [i](if connected by an edge)[/i]."
 
 [node name="ResetNonPlanarButton" type="Button" parent="Panel/NonPlanarHeading/NonPlanarInstructions"]
 layout_mode = 0
-offset_left = 477.0
-offset_top = 20.0
-offset_right = 580.0
-offset_bottom = 51.0
+offset_left = 466.0
+offset_top = 3.0
+offset_right = 569.0
+offset_bottom = 34.0
 text = "Reset Graph"
 
 [node name="PlanarHeading" type="RichTextLabel" parent="Panel"]

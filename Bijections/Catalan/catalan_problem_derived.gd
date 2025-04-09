@@ -2,12 +2,13 @@ extends CatalanProblem
 class_name CatalanProblemDerived
 
 func _init(title: String, description: String, id: int, 
-		bijections: Dictionary = {}, definitions: Array[BijectionDefinition] = []) -> void:
+		bijections: Dictionary = {}, representation: String = "", definitions: Array[BijectionDefinition] = []) -> void:
 	super(
 		title,
 		description,
 		id,
 		bijections,
+		representation,
 		definitions
 	)
 

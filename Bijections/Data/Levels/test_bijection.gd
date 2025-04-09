@@ -46,6 +46,8 @@ func _init() -> void:
 			for i: int in range(size):
 				element.append(1)
 			return element,
+		"Left representation",
+		"Right representation",
 		[],
 		"You're stupid",
 		BijectionProof.new("Proof by Assumption: Assume that it is a bijection. Therefore it is a bijection. QED.")

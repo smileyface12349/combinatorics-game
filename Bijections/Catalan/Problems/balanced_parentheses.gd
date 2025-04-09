@@ -85,6 +85,7 @@ func _init() -> void:
 				2
 			)
 		},
+		"A string of balanced parentheses e.g. \"(()())\"",
 		[DefinitionBalancedParentheses.new()]
 	)
 

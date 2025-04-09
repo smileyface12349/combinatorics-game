@@ -131,6 +131,8 @@ func _init() -> void:
 			for bit_string: int in range(2 ** size):
 				elements.append(String.num_int64(bit_string, 2).pad_zeros(size))
 			return elements,
+		"An array with the elements of the set, in increasing order. E.g. [1, 3]",
+		"A string of zeroes and ones e.g. \"0110\"",
 		[],
 		"There's one value in the binary string for each element potentially in the subset. These each have two choices (0 or 1) - what could this represent for the corresponding element potentially in the subset?",
 		BijectionProof.new(""),

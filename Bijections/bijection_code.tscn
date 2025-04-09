@@ -29,7 +29,7 @@ symbol_color = Color(0.9055, 0.79, 1, 1)
 function_color = Color(0.2784, 0.87, 0.41644, 1)
 member_variable_color = Color(1, 1, 1, 1)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("testInput", "testOutput", "testButton", "checkBijectionButton", "codeInput", "extendedOutput", "debugText", "insertIf", "insertIfElse", "insertWhile", "insertFor", "insertRepeat", "documentationButton")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("testInput", "testOutput", "testButton", "checkBijectionButton", "codeInput", "extendedOutput", "debugText", "representationText", "insertIf", "insertIfElse", "insertWhile", "insertFor", "insertRepeat", "documentationButton")]
 position = Vector2(1017, 493)
 script = ExtResource("1_tvexy")
 testInput = NodePath("Panel/Testing/TestInput")
@@ -39,6 +39,7 @@ checkBijectionButton = NodePath("Panel/BottomAnchor/CheckBijectionButton")
 codeInput = NodePath("Panel/CodeInput")
 extendedOutput = NodePath("Panel/Errors/ExtendedErrorText")
 debugText = NodePath("Panel/BottomAnchor/OutputContainer/DebugText")
+representationText = NodePath("Panel/InputOutput")
 insertIf = NodePath("Panel/Insert/InsertIf")
 insertIfElse = NodePath("Panel/Insert/InsertElse")
 insertWhile = NodePath("Panel/Insert/InsertWhile")
@@ -80,7 +81,7 @@ It will be checked on a lots of values for n.
 [node name="InputOutput" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
 offset_left = 81.0
-offset_top = 243.0
+offset_top = 237.0
 offset_right = 1290.0
 offset_bottom = 332.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)

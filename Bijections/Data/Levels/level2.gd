@@ -91,6 +91,8 @@ func _init() -> void:
 			return [],
 		func generate_right (size: int) -> Array[String]:
 			return [],
+		"Strings in alphabetical order on {A, B, C} e.g. \"AAB\" or \"ABBCCC\"",
+		"Strings on {0, 1} e.g. \"0110\" or \"101010\"",
 		[],
 		"Think of the binary string as 3 buckets, with the 1s simply being dividers between these buckets"
 	)

@@ -766,8 +766,10 @@ class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 		var other_vertex: int = self.get_other_vertex_at_mouse(self.selected_vertex)
 		if other_vertex != -1 and self.selected_vertex != -1:
 			# Contract selected vertex and the other vertex
-			self.contract_vertices(other_vertex, self.selected_vertex)
-			self.check_win()
+			if other_vertex in self.vertex_neighbours[self.selected_vertex]:
+				# Only do it when there's an edge between them
+				self.contract_vertices(other_vertex, self.selected_vertex)
+				self.check_win()
 		super()
 		
 	func draw_rearrangeable(size: Vector2, draw_vertex: Callable, draw_edge: Callable, draw_edge_intersection: Callable) -> void:
@@ -786,13 +788,22 @@ class MinorRearrangeableGraphDrawing extends RearrangeableGraphDrawing:
 		for vertex: int in self.vertex_neighbours.keys():
 			var state: RearrangeableVertexState
 			if self.selected_vertex == vertex:
-				if self.get_other_vertex_at_mouse(vertex) != -1:
+				if self.get_other_vertex_at_mouse(vertex) != -1 and self.get_other_vertex_at_mouse(vertex) in self.vertex_neighbours[vertex]:
+					# If we are dragging a vertex over another vertex, and there is an edge between them, we can contract
 					state = RearrangeableVertexState.Contract
 				else:
 					state = RearrangeableVertexState.Selected
 			elif self.is_hovering_over_vertex(vertex):
 				if self.selected_vertex != -1:
-					state = RearrangeableVertexState.Contract
+					if self.get_other_vertex_at_mouse(vertex) != -1 and self.get_other_vertex_at_mouse(vertex) in self.vertex_neighbours[vertex]:
+						# If we are dragging a vertex over another vertex, and there is an edge between them, we can contract
+						state = RearrangeableVertexState.Contract
+					else:
+						# Don't highlight at all
+						if vertex_neighbours[vertex].size() >= 4:
+							state = RearrangeableVertexState.Highlight # highlight high degree vertices
+						else:
+							state = RearrangeableVertexState.Default
 				else:
 					state = RearrangeableVertexState.Hover
 			else:

@@ -160,9 +160,58 @@ func _init() -> void:
 			)
 		},
 		func generate_left (size: int) -> Array[Array]:
-			return [],
+			var partitions: Array[Array] = []
+			for partition: Array[int] in IntegerPartitionElement.generate_partitions(size):
+				# Filter out the partitions which have repeating parts or even parts
+				var include: bool = true
+				for i: int in range(len(partition)):
+					if i > 0 and partition[i] == partition[i - 1]:
+						include = false
+						break
+					if partition[i] % 2 == 0:
+						include = false
+						break
+				if include:
+					partitions.append(partition)
+			return partitions,
 		func generate_right (size: int) -> Array[Array]:
-			return [],
+			var partitions: Array[Array] = []
+			for partition: Array[int] in IntegerPartitionElement.generate_partitions(size):
+				#print("Considering partition: ", partition)
+				# Get elements and multiplicities (to make it easier to work with)
+				var elements: Array[int] = []
+				var multiplicities: Array[int] = []
+				# OLD FORMAT:
+				# for i: int in range(len(partition)):
+				#     if partition[i] > 0:
+				#         elements.append(i + 1)
+				#         multiplicities.append(partition[i])
+				for part: int in partition:
+					if part in elements:
+						multiplicities[elements.find(part)] += 1
+					else:
+						elements.append(part)
+						multiplicities.append(1)
+				
+				# Determine if it is self-conjugate
+				var include: bool = true
+				for i: int in range(len(elements)):
+					# Test if element i is equal to the sum of the first i multiplicities
+					var sum: int = 0
+					for j: int in range(i+1):
+						sum += multiplicities[j]
+					if elements[elements.size()-i-1] != sum:
+						# print("Filtered out from index ", i, " as the sum is ", sum, " and the element is ", elements[elements.size()-i-1])
+						include = false
+						break
+				
+				# Include if it's self-conjugate
+				if include:
+					partitions.append(partition)
+			# Return the partitions
+			return partitions,
+		"An array of integers in descending order representing the parts, e.g. [7, 5, 1] or [11, 9, 1]",
+		"An array of integers in descending order representing the parts, e.g. [4, 3, 2, 1] or [6, 6, 3, 2, 2]",
 		[
 			DefinitionSelfConjugate.new(),
 			DefinitionPartition.new(),

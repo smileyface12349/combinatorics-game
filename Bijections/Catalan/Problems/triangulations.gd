@@ -53,5 +53,6 @@ func _init() -> void:
 				0
 			)
 		},
+		"An array of interior edges e.g. [[1, 3], [2, 4]]",
 		[DefinitionDyckPath.new()]
 	)

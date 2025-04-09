@@ -75,3 +75,11 @@ func draw_contents_diagrams() -> void:
 	# 	# draw a dot at the end of the line
 	# 	draw_circle(Vector2(x, y), dot_radius, Color.BLACK)
 		
+
+func get_code_representation() -> Array[Array]:
+	# Remove any edges between consecutive vertices (these are on the outside and are not needed)
+	var edges_copy: Array = []
+	for edge: Array in self.edges:
+		if edge[0] != edge[1] and (edge[0] + 1) % vertices != edge[1]:
+			edges_copy.append(edge)
+	return edges_copy

@@ -100,5 +100,6 @@ func _init() -> void:
 				2
 			)
 		},
+		"An array of integers 1 (up) or -1 (down), e.g. [1, -1, 1, -1] or [1, 1, -1, -1]",
 		[DefinitionDyckPath.new()]
 	)

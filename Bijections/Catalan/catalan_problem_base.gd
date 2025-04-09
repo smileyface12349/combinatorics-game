@@ -10,12 +10,13 @@ var size_4: Array[BijectionElement]
 func _init(title: String, description: String, id: int, 
 		size_0: Array[BijectionElement], size_1: Array[BijectionElement], size_2: Array[BijectionElement], 
 		size_3: Array[BijectionElement], size_4: Array[BijectionElement],
-		bijections: Dictionary = {}, definitions: Array[BijectionDefinition] = []) -> void:
+		bijections: Dictionary = {}, representation: String = "", definitions: Array[BijectionDefinition] = []) -> void:
 	super(
 		title,
 		description,
 		id,
 		bijections,
+		representation,
 		definitions
 	)
 	self.size_0 = size_0

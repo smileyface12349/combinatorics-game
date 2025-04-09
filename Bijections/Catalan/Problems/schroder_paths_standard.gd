@@ -68,5 +68,6 @@ func _init() -> void:
                 2
             )
         },
+        "An array of integers, 0 (flat, length 2 but only appears once), 1 (up), -1 (down), e.g. [1, 0, -1, 1, -1] or [0, 1, -1, 0]",
         [DefinitionDyckPath.new()]
     )
