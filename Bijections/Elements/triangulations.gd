@@ -22,16 +22,16 @@ func draw_contents_text() -> void:
 
 # Constants used in drawing Triangulations
 const horizontal_padding: int = 32
-const vertical_padding: int = 32
+const vertical_padding: int = 16
 const line_width: int = 2
 
 func draw_line_between_vertices(v1: int, v2: int) -> void:
-	print("Drawing a line between vertices " + str(v1) + " and " + str(v2))
-	var radius: float = min(size.y - vertical_padding*2, size.x - horizontal_padding*2)
+	#print("Drawing a line between vertices " + str(v1) + " and " + str(v2))
+	var radius: float = min(size.y - vertical_padding*2, size.x - horizontal_padding*2) / 2
 	var centre: Vector2 = size / 2
 	var angle_increment: float = PI * 2 / vertices
 
-	print("Start point of line: " + str(Vector2(centre.x + radius * cos(angle_increment * v1), centre.y + radius * sin(angle_increment * v1))))
+	#print("Start point of line: " + str(Vector2(centre.x + radius * cos(angle_increment * v1), centre.y + radius * sin(angle_increment * v1))))
 
 	draw_line(Vector2(centre.x + radius * cos(angle_increment * v1), centre.y + radius * sin(angle_increment * v1)),
 			  Vector2(centre.x + radius * cos(angle_increment * v2), centre.y + radius * sin(angle_increment * v2)),

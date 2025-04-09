@@ -80,6 +80,24 @@ func _init() -> void:
 					return MotzkinPathElement.new(steps, colours, dyck_path.id),
 				"TODO",
 				2
+			),
+			5: CatalanBijection.new(
+				"Each down step followed by an up step becomes a flat steps, and we ignore the first up step and last down step.",
+				func to_schroder_path(dyck_path: DyckPathElement) -> SchroderPathElement:
+					if len(dyck_path.steps) < 2:
+						return SchroderPathElement.new([], dyck_path.id)
+					var steps: Array[int] = []
+					for i: int in range(1, len(dyck_path.steps)-1):
+						if dyck_path.steps[i] == 1 and dyck_path.steps[i-1] == -1:
+							steps.pop_back()
+							steps.append(0)
+						else:
+							steps.append(dyck_path.steps[i])
+					print("Old steps: ", dyck_path.steps)
+					print("New steps: ", steps)
+					return SchroderPathElement.new(steps, dyck_path.id),
+				"TODO",
+				2
 			)
 		},
 		[DefinitionDyckPath.new()]

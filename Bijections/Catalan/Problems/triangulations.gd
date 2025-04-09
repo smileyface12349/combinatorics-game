@@ -41,14 +41,14 @@ func _init() -> void:
 		# 	DyckPathElement.new([1, -1, 1, -1, 1, -1, 1, -1], 14),
 		# ],
 		{
-			0: CatalanBijection.new(
-				"Map triangulations to Dyck paths",
-				func to_dyck_path(triangulation: TriangulationElement) -> DyckPathElement:
-					var path: Array[int] = []
-					for c: Array[int] in triangulation.triangulation:
-						path.append(c[0])
-						path.append(c[1])
-					return DyckPathElement.new(path, triangulation.id),
+			2: CatalanBijection.new(
+				"TODO",
+				func to_binary_tree(triangulation: TriangulationElement) -> BinaryTreeElement:
+					# TODO
+					return BinaryTreeElement.new(
+						[0, 0],
+						1
+					),
 				"TODO",
 				0
 			)

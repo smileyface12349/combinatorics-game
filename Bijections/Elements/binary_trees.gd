@@ -73,10 +73,11 @@ func get_string(node: Array) -> String:
 
 # Constants used in drawing Binary Trees
 const horizontal_padding: int = 32
-const vertical_padding: int = 32
+const vertical_padding: int = 16
 const max_square_size: int = 48
 const line_width: int = 2
 const dot_radius: int = 5
+const horizontal_shrink_factor: float = 0.8 # this stops anything from overlapping
 
 # Draw a visual representation of the Binary Tree
 # - Find out how big each edge should be
@@ -108,7 +109,7 @@ func draw_contents_diagrams() -> void:
 	square_size = min(square_size, max_square_size)
 
 	# Draw it
-	draw_recurse(self.root, horizontal_padding + available_space.x / 2, vertical_padding, square_size)
+	draw_recurse(self.root, horizontal_padding + available_space.x / 2, vertical_padding, square_size, square_size)
 	
 	# # Draw a dot to begin with
 	# var y: int = size.y - vertical_padding
@@ -132,19 +133,19 @@ func draw_contents_diagrams() -> void:
 	# 	# draw a dot at the end of the line
 	# 	draw_circle(Vector2(x, y), dot_radius, Color.BLACK)
 		
-func draw_recurse(root: Array, x: int, y: int, square_size: int) -> void:
+func draw_recurse(root: Array, x: int, y: int, horizontal_size: int, vertical_size: int) -> void:
 	# Draw this node
 	draw_circle(Vector2(x, y), dot_radius, Color.BLACK)
 
 	# Draw the left child (if applicable)
 	if typeof(root[0]) == TYPE_ARRAY:
-		draw_line(Vector2(x, y), Vector2(x-square_size, y+square_size), Color.BLACK, line_width)
-		draw_recurse(root[0], x-square_size, y+square_size, square_size)
+		draw_line(Vector2(x, y), Vector2(x-horizontal_size, y+vertical_size), Color.BLACK, line_width)
+		draw_recurse(root[0], x-horizontal_size, y+vertical_size, horizontal_size * horizontal_shrink_factor, vertical_size)
 	
 	# Draw the right child (if applicable)
 	if typeof(root[1]) == TYPE_ARRAY:
-		draw_line(Vector2(x, y), Vector2(x+square_size, y+square_size), Color.BLACK, line_width)
-		draw_recurse(root[1], x+square_size, y+square_size, square_size)
+		draw_line(Vector2(x, y), Vector2(x+horizontal_size, y+vertical_size), Color.BLACK, line_width)
+		draw_recurse(root[1], x+horizontal_size, y+vertical_size, horizontal_size * horizontal_shrink_factor, vertical_size)
 	
 	
 func get_code_representation() -> Variant:

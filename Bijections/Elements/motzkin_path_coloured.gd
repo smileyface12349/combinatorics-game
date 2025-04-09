@@ -29,13 +29,8 @@ func _init(steps: Array[int], colours: Array[int], id: int) -> void:
         if colours[i] > 0:
             text += "[/color]"
 
-# No text representation for this
-func draw_contents_text() -> void:
-    draw_contents_diagrams()
 
 func get_code_representation() -> Variant:
-    print("get_code_representation: steps = ", self.steps)
-    print("get_code_representation: colours = ", self.colours)
     var steps: Array[int] = []
     for i: int in range(len(self.steps)):
         steps.append(self.steps[i] + self.colours[i] * 10)

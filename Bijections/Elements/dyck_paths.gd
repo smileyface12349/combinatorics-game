@@ -49,7 +49,7 @@ func get_width() -> int:
 
 # Constants used in drawing Young diagrams
 const horizontal_padding: int = 32
-const vertical_padding: int = 32
+const vertical_padding: int = 16
 const max_square_size: int = 48
 const line_width: int = 2
 const dot_radius: int = 5
@@ -83,7 +83,7 @@ func draw_contents_diagrams() -> void:
         # work out the next position
         var new_x: int = x + square_size
         var new_y: int = y + square_size * self.steps[i] * -1
-        print("x: ", x, " y: ", y, " new_x: ", new_x, " new_y: ", new_y, " step: ", steps[i], " square_size: ", square_size)
+        # print("x: ", x, " y: ", y, " new_x: ", new_x, " new_y: ", new_y, " step: ", steps[i], " square_size: ", square_size)
         
         # draw a line between these points
         draw_line(Vector2(x, y), Vector2(new_x, new_y), get_colour(i), line_width)
