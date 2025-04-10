@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://c701emtjegjkj"
+path="res://.godot/imported/colouring_win.dialogue-67bc23a23c0e304d86508de9d9931007.tres"
+
+[deps]
+
+source_file="res://Dialogue/colouring_win.dialogue"
+dest_files=["res://.godot/imported/colouring_win.dialogue-67bc23a23c0e304d86508de9d9931007.tres"]
+
+[params]
+
+defaults=true

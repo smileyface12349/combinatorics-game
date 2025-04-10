@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://b8v40524dnpv4"
+path="res://.godot/imported/leaving.dialogue-55947e86f4037edf071e0a1ddc46c709.tres"
+
+[deps]
+
+source_file="res://Dialogue/leaving.dialogue"
+dest_files=["res://.godot/imported/leaving.dialogue-55947e86f4037edf071e0a1ddc46c709.tres"]
+
+[params]
+
+defaults=true

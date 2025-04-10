@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=4 uid="uid://po8854lqyopy"]
+[gd_scene load_steps=123 format=4 uid="uid://po8854lqyopy"]
 
 [ext_resource type="Script" path="res://ChooseTopic/choose_topic.gd" id="1_55lkm"]
 [ext_resource type="Script" path="res://ChooseTopic/menu_car.gd" id="1_g4u3r"]
@@ -48,7 +48,7 @@
 [ext_resource type="Texture2D" uid="uid://bkewdlbjy83tk" path="res://ChooseTopic/MedievalAssets/Buildings/medievalStructure_08.png" id="43_gka0g"]
 [ext_resource type="Texture2D" uid="uid://dkxv5xku3v4i4" path="res://ChooseTopic/MedievalAssets/Buildings/medievalStructure_09.png" id="44_hdyxx"]
 [ext_resource type="Texture2D" uid="uid://dlpcv7r6ixqjr" path="res://ChooseTopic/MedievalAssets/Buildings/medievalStructure_10.png" id="45_adjbr"]
-[ext_resource type="Texture2D" uid="uid://clhrvud2wk12k" path="res://ChooseTopic/combinatorics-town-v5.png" id="47_wncw7"]
+[ext_resource type="Texture2D" uid="uid://4lnwp46wkydy" path="res://ChooseTopic/combinatorics-town-v6.png" id="47_nvve7"]
 [ext_resource type="Texture2D" uid="uid://che7f8ewkbgok" path="res://ChooseTopic/MedievalAssets/Environment/medievalEnvironment_01.png" id="48_2c665"]
 [ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_main_menu.gd" id="48_2xo8k"]
 [ext_resource type="Texture2D" uid="uid://b0l064frcqfip" path="res://ChooseTopic/MedievalAssets/Environment/medievalEnvironment_03.png" id="49_8ao1r"]
@@ -60,8 +60,14 @@
 [ext_resource type="PackedScene" uid="uid://2y3mwqr6b2re" path="res://ChooseTopic/Exercises/exercise_in_world.tscn" id="57_6btr7"]
 [ext_resource type="Texture2D" uid="uid://vqc1n3ayonra" path="res://ChooseTopic/portal.png" id="57_h0168"]
 [ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="59_66fcn"]
+[ext_resource type="Script" path="res://ChooseTopic/Huts/hut.gd" id="59_axl0d"]
+[ext_resource type="Texture2D" uid="uid://bin02x3xitrb8" path="res://ChooseTopic/Huts/planar-icon.png" id="59_wo2xu"]
 [ext_resource type="Texture2D" uid="uid://ba4indmgido25" path="res://ChooseTopic/Huts/broken-hut.png" id="61_1b1mg"]
+[ext_resource type="Texture2D" uid="uid://bc6kivyia8wh7" path="res://ChooseTopic/Huts/catalan-icon.png" id="61_jpuw2"]
+[ext_resource type="Texture2D" uid="uid://giq44bkrfdc2" path="res://ChooseTopic/Huts/completed-hut.png" id="61_vjg7n"]
 [ext_resource type="Texture2D" uid="uid://6pduhsp480v8" path="res://ChooseTopic/Huts/bijections-icon.png" id="62_apmbv"]
+[ext_resource type="Texture2D" uid="uid://bs6isc1ekmxma" path="res://ChooseTopic/Huts/colouring-icon.png" id="65_dggf5"]
+[ext_resource type="Texture2D" uid="uid://b6ruxgxw31tt1" path="res://ChooseTopic/Huts/house.png" id="66_jr3ih"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c6q06"]
 texture = ExtResource("1_yccy3")
@@ -340,19 +346,19 @@ sources/21 = SubResource("TileSetAtlasSource_bxjw8")
 sources/22 = SubResource("TileSetAtlasSource_q7adj")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y5ivf"]
-size = Vector2(501.25, 511.25)
+size = Vector2(380, 410)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cm8pi"]
-size = Vector2(850, 527.709)
+size = Vector2(363.333, 396.667)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2i0ya"]
-size = Vector2(465, 595)
+size = Vector2(368.333, 420)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_evgro"]
-size = Vector2(584.167, 670.833)
+size = Vector2(358.333, 383.333)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpv3t"]
-size = Vector2(630.25, 725)
+size = Vector2(443.125, 474.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_naxte"]
 size = Vector2(69, 121)
@@ -378,14 +384,14 @@ tile_set = SubResource("TileSet_il1oi")
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(122, 8)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("47_wncw7")
+texture = ExtResource("47_nvve7")
 
 [node name="Area2DMainMenu" type="Area2D" parent="Background"]
 position = Vector2(382, -8)
 script = ExtResource("48_2xo8k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Area2DMainMenu"]
-position = Vector2(-464.292, -1316.38)
+position = Vector2(-787, 1083)
 shape = SubResource("RectangleShape2D_y5ivf")
 
 [node name="Area2DBijections" type="Area2D" parent="Background"]
@@ -393,7 +399,7 @@ position = Vector2(-122, -8)
 script = ExtResource("50_y777p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Area2DBijections"]
-position = Vector2(1493.67, -389.812)
+position = Vector2(1832, 183)
 shape = SubResource("RectangleShape2D_cm8pi")
 
 [node name="Area2DPlanarGraphs" type="Area2D" parent="Background"]
@@ -401,14 +407,14 @@ position = Vector2(-122, -8)
 script = ExtResource("55_c65t8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Area2DPlanarGraphs"]
-position = Vector2(-2208.83, -989.5)
+position = Vector2(-1405.5, 46.3333)
 shape = SubResource("RectangleShape2D_2i0ya")
 
 [node name="Area2DColourings" type="Area2D" parent="Background"]
 script = ExtResource("53_aa7ug")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Area2DColourings"]
-position = Vector2(-1750.42, 330.417)
+position = Vector2(-1735.83, -830)
 shape = SubResource("RectangleShape2D_evgro")
 
 [node name="Area2DCatalan" type="Area2D" parent="Background"]
@@ -416,12 +422,12 @@ position = Vector2(832.5, -237.5)
 script = ExtResource("51_ec2hn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Area2DCatalan"]
-position = Vector2(474.896, 1261.25)
+position = Vector2(337.865, -611.458)
 scale = Vector2(0.833333, 0.833333)
 shape = SubResource("RectangleShape2D_xpv3t")
 
 [node name="Exercise1" parent="Background" node_paths=PackedStringArray("exerciseLayer") instance=ExtResource("57_6btr7")]
-position = Vector2(796.667, -1148.33)
+position = Vector2(296.667, -905)
 id = 1
 title = "Arrangements"
 description = "You have the following tasks to do: Washing Up, Cleaning Teeth, Hoovering, Calling Insurance Company, Buying Train Tickets, Painting the Living Room. Once started, each task must be finished.
@@ -438,14 +444,14 @@ answer = 84
 exerciseLayer = NodePath("../../ExerciseLayer")
 
 [node name="Exercise3" parent="Background" node_paths=PackedStringArray("exerciseLayer") instance=ExtResource("57_6btr7")]
-position = Vector2(-2330, -348.333)
+position = Vector2(-1013.33, -3.33331)
 id = 3
 description = "How many graphs are there on 5 nodes?"
 answer = 32
 exerciseLayer = NodePath("../../ExerciseLayer")
 
 [node name="Exercise4" parent="Background" node_paths=PackedStringArray("exerciseLayer") instance=ExtResource("57_6btr7")]
-position = Vector2(-1383.33, -1620)
+position = Vector2(-420, -1685)
 id = 4
 description = "A University has 384 students. It offers courses in Maths, Computer Science and Philosophy, as well as joint courses. The University also offers a course called MOPECS in Maths, Ontology, Philosophy, Engineering and Computer Science.
 
@@ -534,23 +540,88 @@ theme_override_font_sizes/font_size = 24
 text = "Click to
 teleport"
 
-[node name="Broken-hut" type="Sprite2D" parent="."]
-position = Vector2(915, -846)
+[node name="House" type="Sprite2D" parent="."]
+position = Vector2(-120, 645)
 scale = Vector2(0.5, 0.5)
+texture = ExtResource("66_jr3ih")
+
+[node name="ColouringHut" type="Node2D" parent="." node_paths=PackedStringArray("finished_hut")]
+position = Vector2(-926, -497)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("59_axl0d")
+topic = "colouring"
+finished_hut = NodePath("Colouring-hut-finished")
+
+[node name="Colouring-hut-broken" type="Sprite2D" parent="ColouringHut"]
 texture = ExtResource("61_1b1mg")
 
-[node name="Bijections-icon" type="Sprite2D" parent="Broken-hut"]
+[node name="Colouring-hut-finished" type="Sprite2D" parent="ColouringHut"]
+visible = false
+texture = ExtResource("61_vjg7n")
+
+[node name="Colouring-icon" type="Sprite2D" parent="ColouringHut"]
+position = Vector2(16, 36)
+texture = ExtResource("65_dggf5")
+
+[node name="PlanarHut" type="Node2D" parent="." node_paths=PackedStringArray("finished_hut")]
+position = Vector2(-797, 28)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("59_axl0d")
+topic = "planar"
+finished_hut = NodePath("Planar-hut-completed")
+
+[node name="Planar-hut-broken" type="Sprite2D" parent="PlanarHut"]
+texture = ExtResource("61_1b1mg")
+
+[node name="Planar-hut-completed" type="Sprite2D" parent="PlanarHut"]
+texture = ExtResource("61_vjg7n")
+
+[node name="Planar-icon" type="Sprite2D" parent="PlanarHut"]
+position = Vector2(16.3334, 38)
+texture = ExtResource("59_wo2xu")
+
+[node name="BijectionsHut" type="Node2D" parent="." node_paths=PackedStringArray("finished_hut")]
+position = Vector2(1147, 100)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("59_axl0d")
+topic = "bijections"
+finished_hut = NodePath("Bijections-hut-completed")
+
+[node name="Bijections-hut-broken" type="Sprite2D" parent="BijectionsHut"]
+texture = ExtResource("61_1b1mg")
+
+[node name="Bijections-hut-completed" type="Sprite2D" parent="BijectionsHut"]
+texture = ExtResource("61_vjg7n")
+
+[node name="Bijections-icon" type="Sprite2D" parent="BijectionsHut"]
 position = Vector2(18, 42)
 texture = ExtResource("62_apmbv")
 
+[node name="CatalanHut" type="Node2D" parent="." node_paths=PackedStringArray("finished_hut")]
+position = Vector2(822, -515)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("59_axl0d")
+topic = "catalan"
+finished_hut = NodePath("Catalan-hut-completed")
+
+[node name="Catalan-hut-broken" type="Sprite2D" parent="CatalanHut"]
+texture = ExtResource("61_1b1mg")
+
+[node name="Catalan-hut-completed" type="Sprite2D" parent="CatalanHut"]
+texture = ExtResource("61_vjg7n")
+
+[node name="Catalan-icon" type="Sprite2D" parent="CatalanHut"]
+position = Vector2(4, 38)
+texture = ExtResource("61_jpuw2")
+
 [node name="Car" type="Node2D" parent="." node_paths=PackedStringArray("dialog_text")]
-position = Vector2(111, -522)
-rotation = -3.1295
+position = Vector2(-159, 371)
 script = ExtResource("1_g4u3r")
 boundary_top = -1300
 boundary_bottom = 1200
 boundary_left = -2000
 boundary_right = 2500
+boundary_top_dialogue = -1200
 is_car = true
 dialog_text = NodePath("../HUD/DialogText")
 

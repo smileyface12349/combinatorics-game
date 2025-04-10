@@ -1,0 +1,37 @@
+~ leaving
+% Dr Countwell: Hey, leaving already?
+% Dr Countwell: Off already?
+% Dr Countwell: Really, you're already leaving?
+
+ - Oh, is this the exit?
+	Dr Countwell: Of course it is! It's the same way you came in!
+	 - I forgot
+		Dr Countwell: Good save - Professor Binah Mial wouldn't be happy if you left already.
+	 - I... uh... was just going for a drink
+		Dr Countwell: Soft drink, I hope?
+		 - Of course
+			Dr Countwell: Well good news! We've got plenty.
+			Dr Countwell: I'll re-stock your fridge with a nice selection.
+		 - Nope
+			Dr Countwell: You're driving! 
+			Dr Countwell: I'm afraid I can't allow you to leave with the intention of committing an offence.
+ - Yep. I'm leaving.
+	Dr Countwell: You're the first visitor we've had in 7 years!
+	Dr Countwell: The whole town will be devastated if you leave now.
+	Dr Countwell: You're our only hope. Please stay!
+	 - Okay fine
+		Dr Countwell: Knew I could count on you!
+	 - Nope
+		Dr Countwell: Why do you want to leave?
+		 - I'm bored
+			Dr Countwell: How rude. This game took a long time to make. Have some respect.
+			Dr Countwell: Now get back in there and solve some puzzles.
+		 - I... uh... was just going for a drink
+			Dr Countwell: Soft drink, I hope?
+			 - Of course
+				Dr Countwell: Well good news! We've got plenty.
+				Dr Countwell: I'll re-stock your fridge with a nice selection.
+			 - Nope
+				Dr Countwell: You're driving! 
+				Dr Countwell: I'm afraid I can't allow you to leave with the intention of committing an offence.
+=> END

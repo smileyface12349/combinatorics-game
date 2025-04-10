@@ -16,6 +16,9 @@ const reverse_delay: float = 0.2
 @export var boundary_left: int
 @export var boundary_right: int
 
+@export var boundary_top_dialogue: int
+var top_dialogue: DialogueResource = preload("res://Dialogue/leaving.dialogue")
+
 @export var is_car: bool
 @export var is_boat: bool
 
@@ -27,6 +30,7 @@ const reverse_delay: float = 0.2
 
 @export var air_resistance: float = 0.002 # multiplied by velocity squared, per second
 @export var damping: float = 20.0 # does not scale with velocity, per second
+var boundary_force_factor: float = 0.02
 
 var speed: float
 var direction: float
@@ -56,7 +60,7 @@ func _ready() -> void:
 	if is_boat and GeneralSettings.boat_position != Vector2(0, 0):
 		self.position = GeneralSettings.boat_position
 	speed = 0
-	direction = PI
+	#direction = PI
 	reverse_delay_elapsed = 0
 	is_reversing = false
 	dialog_text.text = ""
@@ -135,13 +139,19 @@ func _process(delta: float) -> void:
 	
 	# Stay within bounds
 	if self.position.x > boundary_right:
-		self.position.x = boundary_right
+		self.position.x -= (self.position.x - boundary_right) * boundary_force_factor
 	if self.position.x < boundary_left:
-		self.position.x = boundary_left
+		self.position.x += (boundary_left - self.position.x) * boundary_force_factor
 	if self.position.y > boundary_bottom:
-		self.position.y = boundary_bottom
+		self.position.y -= (self.position.y - boundary_bottom) * boundary_force_factor
 	if self.position.y < boundary_top:
-		self.position.y = boundary_top
+		self.position.y += (boundary_top - self.position.y) * boundary_force_factor
+	if self.position.y < boundary_top_dialogue:
+		self.position.y = boundary_top_dialogue + 1
+		speed = 0
+		direction = PI
+		DialogueManager.show_dialogue_balloon(top_dialogue)
+		
 
 	# Go to level that we're driving over
 	if Input.is_action_just_pressed("ui_accept"):

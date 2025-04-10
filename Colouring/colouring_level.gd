@@ -23,6 +23,8 @@ var clique_lower_bound: int
 var best_lower_bound: int
 var best_upper_bound: int
 
+var win_dialogue: DialogueResource = preload("res://Dialogue/colouring_win.dialogue")
+
 func new_graph() -> void:
 	# Generate the new graph
 	var graphNoDrawing: Graphs.Graph
@@ -62,10 +64,23 @@ func new_graph() -> void:
 	skipGraphButton.visible = true
 	on_colouring_changed()
 
+func on_win_press() -> void:
+	if PlanarSettings.is_challenge and graphNode.graph.is_valid_colouring():
+		SaveData.colouring_challenge_solved += 1
+		SaveData.write()
+		check_topic_complete()
+	new_graph()
+
+func check_topic_complete() -> void:
+	if SaveData.colouring_challenge_solved >= 10:
+		SaveData.topics_done.append("colouring")
+		SaveData.write()
+		get_tree().change_scene_to_file("res://ChooseTopic/choose_topic.tscn")
+		DialogueManager.show_dialogue_balloon(win_dialogue)
 
 func _ready() -> void:
 	new_graph()
-	newGraphButton.connect("pressed", new_graph)
+	newGraphButton.connect("pressed", on_win_press)
 	skipGraphButton.connect("pressed", new_graph)
 
 func update_best_bounds() -> void:

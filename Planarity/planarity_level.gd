@@ -26,6 +26,8 @@ const shrink_button_every: float = 0.05
 var time_since_last_shrink: float = 0
 const shrink_per_second: float = 1.5
 
+var win_dialogue: DialogueResource = preload("res://Dialogue/planar_win.dialogue")
+
 
 func _ready() -> void:
 	new_graph()
@@ -36,8 +38,8 @@ func _ready() -> void:
 	resetNonPlanarButton.pressed.connect(reset_non_planar)
 	shrinkDrawingButton.button_down.connect(start_shrinking)
 	shrinkDrawingButton.button_up.connect(stop_shrinking)
-	planarWinButton.pressed.connect(new_graph)
-	nonPlanarWinButton.pressed.connect(new_graph)
+	planarWinButton.pressed.connect(planar_win_new_graph)
+	nonPlanarWinButton.pressed.connect(non_planar_win_new_graph)
 	skipButton.pressed.connect(new_graph)
 	
 func _process(delta: float) -> void:
@@ -70,6 +72,27 @@ func on_planar_win() -> void:
 func on_non_planar_win() -> void:
 	nonPlanarWinButton.visible = true
 	successSound.play()
+
+func planar_win_new_graph() -> void:
+	if PlanarSettings.is_challenge:
+		SaveData.planar_challenge_solved[0] += 1
+		SaveData.write()
+		check_topic_complete()
+	new_graph()
+
+func non_planar_win_new_graph() -> void:
+	if PlanarSettings.is_challenge:
+		SaveData.planar_challenge_solved[1] += 1
+		SaveData.write()
+		check_topic_complete()
+	new_graph()
+
+func check_topic_complete() -> void:
+	if SaveData.planar_challenge_solved[0] >= 5 and SaveData.planar_challenge_solved[1] >= 5:
+		SaveData.topics_done.append("planarity")
+		SaveData.write()
+		get_tree().change_scene_to_file("res://ChooseTopic/choose_topic.tscn")
+		DialogueManager.show_dialogue_balloon(win_dialogue)
 	
 func new_graph() -> void:
 	planarWinButton.visible = false

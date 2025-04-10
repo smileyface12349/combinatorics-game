@@ -50,7 +50,6 @@ offset_bottom = 8670.0
 focus_mode = 1
 
 [node name="LevelCompletePopup" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Panel" type="Panel" parent="LevelCompletePopup"]
 offset_left = 585.0

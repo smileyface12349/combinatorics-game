@@ -1,11 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://bw5nw7s0uevf7"]
+[gd_scene load_steps=17 format=3 uid="uid://bw5nw7s0uevf7"]
 
 [ext_resource type="Theme" uid="uid://crnnsrj7q2hwh" path="res://General/Background.tres" id="1_t604e"]
 [ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="2_8ii1i"]
+[ext_resource type="Theme" uid="uid://b26p2vjohd0vr" path="res://Menu/body.tres" id="3_cc7sj"]
 [ext_resource type="FontFile" uid="uid://bywovpuc4ufa5" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Medium.ttf" id="3_n30wm"]
 [ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_spin_button.gd" id="4_54ugn"]
 [ext_resource type="FontFile" uid="uid://cks6ewm6f4f8a" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-MediumIt.ttf" id="4_dvuk5"]
 [ext_resource type="FontFile" uid="uid://b6q7hj0kflkpj" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Bold.ttf" id="4_pewdh"]
+[ext_resource type="Theme" uid="uid://c33ih5c1w6hv4" path="res://Bijections/hint_button_theme.tres" id="4_qwnd2"]
 [ext_resource type="Theme" uid="uid://dlcxcyr3vrmuw" path="res://Menu/SpinButton.tres" id="5_n38al"]
 [ext_resource type="Texture2D" uid="uid://0b3v0imcjtk3" path="res://addons/spin_button/example/assets/icons/buttons/navs/arrow_right_x32.png" id="7_hkp87"]
 [ext_resource type="Theme" uid="uid://nm3tnjbbbaxg" path="res://Menu/heading.tres" id="7_unj3n"]
@@ -32,7 +34,53 @@ offset_bottom = 1095.0
 theme = ExtResource("1_t604e")
 theme_override_styles/panel = SubResource("StyleBoxFlat_dwxsr")
 
+[node name="Challenge" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -1.0
+offset_top = 679.0
+offset_right = 39.0
+offset_bottom = 719.0
+
+[node name="ChallengeTitle" type="RichTextLabel" parent="Challenge"]
+offset_right = 1920.0
+offset_bottom = 68.0
+theme = ExtResource("7_unj3n")
+bbcode_enabled = true
+text = "[center]Challenge Mode"
+
+[node name="ChallengeDescription" type="RichTextLabel" parent="Challenge"]
+layout_mode = 0
+offset_left = 374.0
+offset_top = 105.0
+offset_right = 1550.0
+offset_bottom = 145.0
+theme = ExtResource("3_cc7sj")
+bbcode_enabled = true
+text = "[center]To re-build the hut, solve 5 planar and 5 non-planar challenge graphs."
+
+[node name="ChallengeCounter" type="RichTextLabel" parent="Challenge"]
+layout_mode = 0
+offset_left = 374.0
+offset_top = 175.0
+offset_right = 1550.0
+offset_bottom = 257.0
+theme = ExtResource("3_cc7sj")
+bbcode_enabled = true
+text = "[center]Planar: 0/5
+Non-Planar: 0/5"
+
+[node name="ChallengeButton" type="Button" parent="Challenge"]
+custom_minimum_size = Vector2(75, 60)
+offset_left = 875.0
+offset_top = 282.0
+offset_right = 1050.0
+offset_bottom = 342.0
+size_flags_horizontal = 4
+theme = ExtResource("4_qwnd2")
+text = "Challenge"
+
 [node name="Terminology" type="RichTextLabel" parent="."]
+visible = false
 layout_mode = 0
 offset_top = 666.0
 offset_right = 1920.0
@@ -42,6 +90,7 @@ bbcode_enabled = true
 text = "[center]Terminology"
 
 [node name="TerminologyText" type="RichTextLabel" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 436.0
 offset_top = 773.0
@@ -87,10 +136,10 @@ layout_mode = 0
 offset_left = 457.0
 offset_top = 402.0
 offset_right = 1457.0
-offset_bottom = 1052.0
+offset_bottom = 735.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-custom_minimum_size = Vector2(1000, 500)
+custom_minimum_size = Vector2(1000, 250)
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -154,7 +203,7 @@ title = "Edge Density
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer" node_paths=PackedStringArray("numNodes", "edgeChance", "graphGeneration", "problemType")]
+[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer" node_paths=PackedStringArray("numNodes", "edgeChance", "graphGeneration", "problemType", "challengeButton", "challengeCounter")]
 custom_minimum_size = Vector2(75, 60)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -166,3 +215,5 @@ numNodes = NodePath("../NumNodes")
 edgeChance = NodePath("../EdgeDensity")
 graphGeneration = NodePath("../GraphGeneration")
 problemType = NodePath("../ProblemTypes")
+challengeButton = NodePath("../../../Challenge/ChallengeButton")
+challengeCounter = NodePath("../../../Challenge/ChallengeCounter")
