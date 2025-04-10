@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://pttw3w884dtk"]
+[gd_scene load_steps=13 format=3 uid="uid://pttw3w884dtk"]
 
 [ext_resource type="Script" path="res://Planarity/planarity_level.gd" id="1_bvqhp"]
 [ext_resource type="PackedScene" uid="uid://b56b0ua4mtymv" path="res://Planarity/non_planar_table.tscn" id="2_3gqbe"]
@@ -17,7 +17,10 @@ bg_color = Color(0.870588, 0.854902, 0.772549, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u72h0"]
 bg_color = Color(0.86, 0.69746, 0.1634, 1)
 
-[node name="PlanarityLevel" type="Node2D" node_paths=PackedStringArray("planar", "nonPlanar", "resetDrawingButton", "improveDrawingButton", "centerDrawingButton", "resetNonPlanarButton", "shrinkDrawingButton", "nonPlanarTable", "planarWinButton", "nonPlanarWinButton", "skipButton", "successSound")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ibutn"]
+bg_color = Color(0.75, 0.2925, 0.2925, 1)
+
+[node name="PlanarityLevel" type="Node2D" node_paths=PackedStringArray("planar", "nonPlanar", "resetDrawingButton", "improveDrawingButton", "centerDrawingButton", "resetNonPlanarButton", "shrinkDrawingButton", "nonPlanarTable", "planarWinButton", "nonPlanarWinButton", "skipButton", "exitButton", "successSound")]
 script = ExtResource("1_bvqhp")
 planar = NodePath("PlanarGraph")
 nonPlanar = NodePath("NonPlanarGraph")
@@ -30,6 +33,7 @@ nonPlanarTable = NodePath("Panel/NonPlanarTable")
 planarWinButton = NodePath("Panel/PlanarWinButton")
 nonPlanarWinButton = NodePath("Panel/NonPlanarWinButton")
 skipButton = NodePath("Panel/SkipButton")
+exitButton = NodePath("Panel/ExitButton")
 successSound = NodePath("SuccessEffect")
 
 [node name="Panel" type="Panel" parent="."]
@@ -192,13 +196,23 @@ text = "You win! Click for a new graph"
 
 [node name="SkipButton" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 788.0
-offset_top = 990.0
-offset_right = 1032.0
-offset_bottom = 1038.0
+offset_left = 786.0
+offset_top = 988.0
+offset_right = 1030.0
+offset_bottom = 1036.0
 theme = ExtResource("3_uqq12")
 theme_override_styles/normal = SubResource("StyleBoxFlat_u72h0")
 text = "Skip this graph"
+
+[node name="ExitButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 1861.0
+offset_top = 18.0
+offset_right = 1901.0
+offset_bottom = 63.0
+theme = ExtResource("3_uqq12")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ibutn")
+text = "X"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
 layout_mode = 0

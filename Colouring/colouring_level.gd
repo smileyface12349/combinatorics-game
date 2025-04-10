@@ -6,6 +6,7 @@ var graph: Graphs.ColourableGraphDrawing
 @export var coloursUsedDisplay: RichTextLabel
 @export var newGraphButton: Button
 @export var skipGraphButton: Button
+@export var exitButton: Button
 
 @export var greedyBound: RichTextLabel
 @export var brookesBound: RichTextLabel
@@ -82,6 +83,7 @@ func _ready() -> void:
 	new_graph()
 	newGraphButton.connect("pressed", on_win_press)
 	skipGraphButton.connect("pressed", new_graph)
+	exitButton.connect("pressed", exit)
 
 func update_best_bounds() -> void:
 	best_lower_bound = clique_lower_bound
@@ -112,4 +114,7 @@ func on_colouring_changed() -> void:
 func _input(event: InputEvent) -> void:
 	# ESC to go back to menu
 	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().change_scene_to_file("res://Colouring/colouring_settings.tscn")
+		exit()
+
+func exit() -> void:
+	get_tree().change_scene_to_file("res://Colouring/colouring_settings.tscn")

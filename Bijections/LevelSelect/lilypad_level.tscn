@@ -1,21 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://c18im8qe1f51"]
+[gd_scene load_steps=6 format=3 uid="uid://c18im8qe1f51"]
 
 [ext_resource type="Script" path="res://Bijections/LevelSelect/lilypad_level.gd" id="1_jw6ck"]
 [ext_resource type="Texture2D" uid="uid://c71xot8l54e24" path="res://Bijections/LevelSelect/lilypad.png" id="2_8dc6u"]
 [ext_resource type="Script" path="res://Bijections/LevelSelect/lilypad_collider.gd" id="3_52pp8"]
+[ext_resource type="Texture2D" uid="uid://jctp0lg1maql" path="res://Bijections/LevelSelect/lilypad_flower.png" id="3_jyp6j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ky74e"]
 size = Vector2(89, 79)
 
-[node name="LilypadLevel" type="Node2D" node_paths=PackedStringArray("collider", "numberText")]
+[node name="LilypadLevel" type="Node2D" node_paths=PackedStringArray("collider", "numberText", "lilypadIncomplete", "lilypadComplete")]
 script = ExtResource("1_jw6ck")
 collider = NodePath("Area2D")
 numberText = NodePath("LevelNumber")
+lilypadIncomplete = NodePath("Lilypad-incomplete")
+lilypadComplete = NodePath("Lilypad-complete")
 
-[node name="Lilypad" type="Sprite2D" parent="."]
+[node name="Lilypad-incomplete" type="Sprite2D" parent="."]
 position = Vector2(3.00002, 2.00001)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("2_8dc6u")
+
+[node name="Lilypad-complete" type="Sprite2D" parent="."]
+position = Vector2(3.00002, 2.00001)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_jyp6j")
 
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("parent")]
 script = ExtResource("3_52pp8")

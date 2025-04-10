@@ -1,0 +1,122 @@
+[gd_scene load_steps=8 format=3 uid="uid://cgul78vqkd4ex"]
+
+[ext_resource type="Script" path="res://Bijections/LevelSelect/boring_level_select.gd" id="1_8nrxm"]
+[ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="1_f48sg"]
+[ext_resource type="Theme" uid="uid://b26p2vjohd0vr" path="res://Menu/body.tres" id="2_1ytc0"]
+[ext_resource type="Theme" uid="uid://nm3tnjbbbaxg" path="res://Menu/heading.tres" id="3_30u5w"]
+[ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="4_038rc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ql812"]
+bg_color = Color(0.870588, 0.854902, 0.772549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cb5q1"]
+bg_color = Color(0.823354, 0.523203, 0.148213, 1)
+
+[node name="BoringLevelSelect" type="Control" node_paths=PackedStringArray("level0", "level1", "level2", "level3", "level4", "level5", "backButton")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_8nrxm")
+level0 = NodePath("PanelContainer/NewMenu/Level0")
+level1 = NodePath("PanelContainer/NewMenu/Level1")
+level2 = NodePath("PanelContainer/NewMenu/Level2")
+level3 = NodePath("PanelContainer/NewMenu/Level3")
+level4 = NodePath("PanelContainer/NewMenu/Level4")
+level5 = NodePath("PanelContainer/NewMenu/Level5")
+backButton = NodePath("PanelContainer/NewMenu/HomeButton")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_right = 1924.0
+offset_bottom = 1098.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ql812")
+
+[node name="NewMenu" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="SpacerTop" type="Control" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Title" type="RichTextLabel" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(100, 200)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_f48sg")
+bbcode_enabled = true
+text = "[center]Bijections"
+
+[node name="Spacer4" type="Control" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Disclaimer" type="RichTextLabel" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme = ExtResource("2_1ytc0")
+bbcode_enabled = true
+text = "[center]You have chosen to use an alternative menu that is provided as an accessibility option.
+You can disable this in settings."
+
+[node name="Spacer5" type="Control" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme = ExtResource("3_30u5w")
+bbcode_enabled = true
+text = "[center]Go to Level:"
+
+[node name="Level0" type="Button" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_038rc")
+text = "0 - Tutorial"
+
+[node name="Level1" type="Button" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_038rc")
+text = "1 - Binary Strings and Subsets"
+
+[node name="Level2" type="Button" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_038rc")
+text = "2 - Stars and Bars"
+
+[node name="Level3" type="Button" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_038rc")
+text = "3 - Not Yet Implemented"
+
+[node name="Level4" type="Button" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_038rc")
+text = "4 - Self-Conjugate Partitions"
+
+[node name="Level5" type="Button" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_038rc")
+text = "5 - Odd and Distinct Partitions"
+
+[node name="Spacer6" type="Control" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HomeButton" type="Button" parent="PanelContainer/NewMenu"]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_038rc")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cb5q1")
+text = "Back To Teleporter"

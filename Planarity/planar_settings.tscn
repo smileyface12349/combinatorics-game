@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bw5nw7s0uevf7"]
+[gd_scene load_steps=18 format=3 uid="uid://bw5nw7s0uevf7"]
 
 [ext_resource type="Theme" uid="uid://crnnsrj7q2hwh" path="res://General/Background.tres" id="1_t604e"]
 [ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="2_8ii1i"]
@@ -18,6 +18,9 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwxsr"]
 bg_color = Color(0.870588, 0.854902, 0.772549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h3q16"]
+bg_color = Color(0.75, 0.2925, 0.2925, 1)
 
 [node name="PlanarSettings" type="Control"]
 layout_mode = 3
@@ -42,6 +45,7 @@ offset_right = 39.0
 offset_bottom = 719.0
 
 [node name="ChallengeTitle" type="RichTextLabel" parent="Challenge"]
+layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 68.0
 theme = ExtResource("7_unj3n")
@@ -71,6 +75,7 @@ Non-Planar: 0/5"
 
 [node name="ChallengeButton" type="Button" parent="Challenge"]
 custom_minimum_size = Vector2(75, 60)
+layout_mode = 0
 offset_left = 875.0
 offset_top = 282.0
 offset_right = 1050.0
@@ -78,6 +83,16 @@ offset_bottom = 342.0
 size_flags_horizontal = 4
 theme = ExtResource("4_qwnd2")
 text = "Challenge"
+
+[node name="ExitButton" type="Button" parent="Challenge"]
+layout_mode = 0
+offset_left = 1858.0
+offset_top = -654.0
+offset_right = 1899.0
+offset_bottom = -609.0
+theme = ExtResource("9_6x0t8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_h3q16")
+text = "X"
 
 [node name="Terminology" type="RichTextLabel" parent="."]
 visible = false
@@ -203,7 +218,7 @@ title = "Edge Density
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer" node_paths=PackedStringArray("numNodes", "edgeChance", "graphGeneration", "problemType", "challengeButton", "challengeCounter")]
+[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer" node_paths=PackedStringArray("numNodes", "edgeChance", "graphGeneration", "problemType", "challengeButton", "challengeCounter", "exitButton")]
 custom_minimum_size = Vector2(75, 60)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -217,3 +232,4 @@ graphGeneration = NodePath("../GraphGeneration")
 problemType = NodePath("../ProblemTypes")
 challengeButton = NodePath("../../../Challenge/ChallengeButton")
 challengeCounter = NodePath("../../../Challenge/ChallengeCounter")
+exitButton = NodePath("../../../Challenge/ExitButton")

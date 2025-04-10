@@ -18,4 +18,7 @@ func dialogue_ended(resource: DialogueResource) -> void:
 	if resource != dialogueResource:
 		return
 	if GeneralSettings.dialogue_result == 1:
-		get_tree().change_scene_to_packed(bijectionsScene)
+		if SaveData.boring_bijections:
+			get_tree().change_scene_to_file("res://Bijections/LevelSelect/boring_level_select.tscn")
+		else:
+			get_tree().change_scene_to_packed(bijectionsScene)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://digoswc3vjcon"]
+[gd_scene load_steps=11 format=3 uid="uid://digoswc3vjcon"]
 
 [ext_resource type="Script" path="res://Colouring/colouring_level.gd" id="1_41mup"]
 [ext_resource type="Theme" uid="uid://crnnsrj7q2hwh" path="res://General/Background.tres" id="1_cuwys"]
@@ -16,7 +16,10 @@ bg_color = Color(0.629, 0.85, 0.780017, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36b0i"]
 bg_color = Color(0.84, 0.67074, 0.0588, 1)
 
-[node name="ColouringLevel" type="Control" node_paths=PackedStringArray("graphNode", "coloursUsedDisplay", "newGraphButton", "skipGraphButton", "greedyBound", "brookesBound", "planarBound", "cliqueBound", "bestBoundsDisplay")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uqiyb"]
+bg_color = Color(0.75, 0.2925, 0.2925, 1)
+
+[node name="ColouringLevel" type="Control" node_paths=PackedStringArray("graphNode", "coloursUsedDisplay", "newGraphButton", "skipGraphButton", "exitButton", "greedyBound", "brookesBound", "planarBound", "cliqueBound", "bestBoundsDisplay")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,6 +31,7 @@ graphNode = NodePath("Panel/Graph")
 coloursUsedDisplay = NodePath("Panel/BoundsPanel/ColoursUsed")
 newGraphButton = NodePath("Panel/BoundsPanel/NewGraphButton")
 skipGraphButton = NodePath("Panel/BoundsPanel/SkipGraphButton")
+exitButton = NodePath("Panel/ExitButton")
 greedyBound = NodePath("Panel/BoundsPanel/GreedyBound/BoundResult")
 brookesBound = NodePath("Panel/BoundsPanel/BrookeBound/BoundResult")
 planarBound = NodePath("Panel/BoundsPanel/PlanarBound/BoundResult")
@@ -268,3 +272,13 @@ Left click to move vertices around (for 4-colour theorem)."
 position = Vector2(742, 263)
 script = ExtResource("2_tow41")
 font = ExtResource("4_3e5f3")
+
+[node name="ExitButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 1861.0
+offset_top = 18.0
+offset_right = 1901.0
+offset_bottom = 63.0
+theme = ExtResource("3_u48ww")
+theme_override_styles/normal = SubResource("StyleBoxFlat_uqiyb")
+text = "X"

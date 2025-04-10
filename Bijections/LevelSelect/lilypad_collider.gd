@@ -8,7 +8,6 @@ func _ready() -> void:
 	self.topic_name = "Level " + str(parent.id)
 
 func go() -> void:
-	# Buttons to change level
 	# TODO: Store a map somewhere else
 	if parent.id == 0:
 		BijectionSettings.current_level = BijectionLevel0.new()

@@ -15,6 +15,7 @@ var nonPlanarGraph: Graphs.MinorRearrangeableGraphDrawing
 @export var planarWinButton: Button
 @export var nonPlanarWinButton: Button
 @export var skipButton: Button
+@export var exitButton: Button
 @export var successSound: AudioStreamPlayer
 
 var improve_button_held: bool = false
@@ -41,6 +42,7 @@ func _ready() -> void:
 	planarWinButton.pressed.connect(planar_win_new_graph)
 	nonPlanarWinButton.pressed.connect(non_planar_win_new_graph)
 	skipButton.pressed.connect(new_graph)
+	exitButton.pressed.connect(exit)
 	
 func _process(delta: float) -> void:
 	if improve_button_held:
@@ -63,7 +65,10 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	# ESC to go back to menu
 	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().change_scene_to_file("res://Planarity/planar_settings.tscn")
+		exit()
+
+func exit() -> void:
+	get_tree().change_scene_to_file("res://Planarity/planar_settings.tscn")
 
 func on_planar_win() -> void:
 	planarWinButton.visible = true

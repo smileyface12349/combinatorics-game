@@ -54,6 +54,7 @@ boundary_top = 70
 boundary_bottom = 1150
 boundary_left = 650
 boundary_right = 2490
+boundary_top_dialogue = -10000
 is_boat = true
 dialog_text = NodePath("../CanvasLayer/DialogText")
 damping = 10.0

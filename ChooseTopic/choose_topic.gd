@@ -32,10 +32,12 @@ func _input(event: InputEvent) -> void:
 	# 	# 3 = graph colouring
 	# 	get_tree().change_scene_to_file("res://Colouring/colouring_settings.tscn")
 	
-	# Demo buttons
+	# Shortcut buttons
 	if Input.is_action_just_pressed("num_1"):
-		BijectionSettings.current_level = BijectionLevel4.new()
-		get_tree().change_scene_to_file("res://Bijections/bijection_level.tscn")
+		if SaveData.boring_bijections:
+			get_tree().change_scene_to_file("res://Bijections/LevelSelect/boring_level_select.tscn")
+		else:
+			get_tree().change_scene_to_packed(bijectionsScene)
 	elif Input.is_action_just_pressed("num_2"):
 		get_tree().change_scene_to_file("res://Bijections/Catalan/catalan_menu.tscn")
 	elif Input.is_action_just_pressed("num_3"):

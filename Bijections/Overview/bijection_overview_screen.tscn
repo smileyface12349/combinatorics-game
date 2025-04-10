@@ -1,22 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnxtsll3lc18w"]
+[gd_scene load_steps=6 format=3 uid="uid://cnxtsll3lc18w"]
 
 [ext_resource type="Script" path="res://Bijections/Overview/bijection_overview.gd" id="1_p524g"]
+[ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="3_ol0ns"]
 [ext_resource type="Theme" uid="uid://c33ih5c1w6hv4" path="res://Bijections/hint_button_theme.tres" id="3_we76v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mbf0"]
 bg_color = Color(0.646029, 0.646029, 0.646029, 1)
 
-[node name="BijectionOverviewScreen" type="Node2D" node_paths=PackedStringArray("text", "availableHintsText", "levelHintButton")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4l5dl"]
+bg_color = Color(0.78, 0.3588, 0.37986, 1)
+
+[node name="BijectionOverviewScreen" type="Node2D" node_paths=PackedStringArray("text", "availableHintsText", "levelHintButton", "exitButton")]
 script = ExtResource("1_p524g")
 text = NodePath("Panel/Text")
 availableHintsText = NodePath("Panel/HintCounter")
 levelHintButton = NodePath("Panel/HintButton")
+exitButton = NodePath("Panel/ExitButton")
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = -709.0
 offset_top = -442.0
 offset_right = 691.0
-offset_bottom = 855.0
+offset_bottom = 1175.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7mbf0")
 
 [node name="HintButton" type="Button" parent="Panel"]
@@ -54,13 +59,13 @@ text = "
 
 [node name="Subtitle" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
-offset_left = 455.0
+offset_left = 397.0
 offset_top = 163.0
-offset_right = 964.0
+offset_right = 1035.0
 offset_bottom = 209.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
-text = "[center]If you're stuck, here's the place to be!
+text = "[center]If you're stuck, here's the place to be! If you're not, press right arrow.
 [/center]"
 
 [node name="BottomAnchor" type="Control" parent="Panel"]
@@ -77,12 +82,31 @@ offset_bottom = -82.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Text" type="RichTextLabel" parent="Panel"]
+[node name="StaticText" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
 offset_left = 52.0
 offset_top = 456.0
 offset_right = 1340.0
-offset_bottom = 1170.0
+offset_bottom = 679.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "[font_size=48][b]Controls[/b][/font_size]
+
+Pan - WASD, Arrow Keys, or Middle Mouse Button
+Zoom - I/O or Mouse Wheel
+Exit - Escape"
+
+[node name="Text" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 700.0
+offset_right = 1340.0
+offset_bottom = 1586.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/bold_italics_font_size = 32
 theme_override_font_sizes/italics_font_size = 24
@@ -98,3 +122,13 @@ This level does not have any particular definitions that you need to know.
 
 No hints used. Spend 🧠 and what you learn will appear here.
 "
+
+[node name="ExitButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 25.0
+offset_right = 187.0
+offset_bottom = 70.0
+theme = ExtResource("3_ol0ns")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4l5dl")
+text = "Exit Level"

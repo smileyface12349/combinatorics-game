@@ -30,7 +30,10 @@ func go_to_planar() -> void:
 	get_tree().change_scene_to_file("res://Planarity/planar_settings.tscn")
 
 func go_to_bijections() -> void:
-	get_tree().change_scene_to_packed(bijectionsScene)
+	if SaveData.boring_bijections:
+		get_tree().change_scene_to_file("res://Bijections/LevelSelect/boring_level_select.tscn")
+	else:
+		get_tree().change_scene_to_packed(bijectionsScene)
 
 func go_to_catalan() -> void:
 	get_tree().change_scene_to_file("res://Bijections/Catalan/catalan_menu.tscn")

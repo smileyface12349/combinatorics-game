@@ -4,6 +4,7 @@ extends Node
 var music_volume: int
 var effects_volume: int
 var fullscreen: bool
+var boring_bijections: bool
 
 # State to handle progression
 var seen_dialogue: Array[String] = []
@@ -29,6 +30,7 @@ func read() -> void:
 	music_volume = config.get_value("settings", "music_volume", 50)
 	effects_volume = config.get_value("settings", "effects_volume", 50)
 	fullscreen = config.get_value("settings", "fullscreen", true)
+	boring_bijections = config.get_value("settings", "boring_bijections", false)
 	seen_dialogue.assign(config.get_value("progress", "seen_dialogue", []))
 	bijection_levels_done.assign(config.get_value("progress", "bijection_levels_done", []))
 	topics_done.assign(config.get_value("progress", "topics_done", []))
@@ -46,6 +48,7 @@ func write() -> void:
 	config.set_value("settings", "music_volume", music_volume)
 	config.set_value("settings", "effects_volume", effects_volume)
 	config.set_value("settings", "fullscreen", fullscreen)
+	config.set_value("settings", "boring_bijections", boring_bijections)
 	config.set_value("progress", "seen_dialogue", seen_dialogue)
 	config.set_value("progress", "bijection_levels_done", bijection_levels_done)
 	config.set_value("progress", "topics_done", topics_done)

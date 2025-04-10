@@ -68,9 +68,9 @@ func set_level(level: BijectionLevel, open_documentation: Callable, on_win: Call
 	self.camera = camera
 	self.on_win = on_win
 
-	# Debug stuff
+	# Text
 	representationText.text = "[b]Input[/b]: " + level.left_representation + "\n[b]Output[/b]: " + level.right_representation
-	debugText.text = "(n=2 left) " + str(level.left_generator.call(13)) + "\n(n=2 right) " + str(level.right_generator.call(13))
+	#debugText.text = "(n=2 left) " + str(level.left_generator.call(2)) + "\n(n=2 right) " + str(level.right_generator.call(2))
 
 # CODE EXECUTION
 

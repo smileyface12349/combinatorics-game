@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://eq7m207hslss"]
+[gd_scene load_steps=17 format=3 uid="uid://eq7m207hslss"]
 
 [ext_resource type="Theme" uid="uid://nm3tnjbbbaxg" path="res://Menu/heading.tres" id="2_50h1c"]
 [ext_resource type="Theme" uid="uid://b26p2vjohd0vr" path="res://Menu/body.tres" id="2_afsmt"]
@@ -17,6 +17,9 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qw4w5"]
 bg_color = Color(0.870588, 0.854902, 0.772549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ymrcp"]
+bg_color = Color(0.75, 0.2925, 0.2925, 1)
 
 [node name="ColouringSettings" type="Control"]
 layout_mode = 3
@@ -41,6 +44,7 @@ offset_right = 39.0
 offset_bottom = 719.0
 
 [node name="ChallengeTitle" type="RichTextLabel" parent="Panel/Challenge"]
+layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 68.0
 theme = ExtResource("2_50h1c")
@@ -69,6 +73,7 @@ text = "[center]Solved: 0/10"
 
 [node name="ChallengeButton" type="Button" parent="Panel/Challenge"]
 custom_minimum_size = Vector2(75, 60)
+layout_mode = 0
 offset_left = 877.0
 offset_top = 253.0
 offset_right = 1052.0
@@ -76,6 +81,16 @@ offset_bottom = 313.0
 size_flags_horizontal = 4
 theme = ExtResource("3_w5qae")
 text = "Challenge"
+
+[node name="ExitButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 1851.0
+offset_top = 23.0
+offset_right = 1892.0
+offset_bottom = 68.0
+theme = ExtResource("12_pm4xm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ymrcp")
+text = "X"
 
 [node name="Terminology" type="RichTextLabel" parent="."]
 visible = false
@@ -196,7 +211,7 @@ title = "Edge Density
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer" node_paths=PackedStringArray("numNodes", "edgeChance")]
+[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer" node_paths=PackedStringArray("numNodes", "edgeChance", "challengeButton", "exitButton")]
 custom_minimum_size = Vector2(75, 60)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -206,3 +221,5 @@ text = "Go"
 script = ExtResource("13_6qmfu")
 numNodes = NodePath("../NumNodes")
 edgeChance = NodePath("../EdgeDensity")
+challengeButton = NodePath("../../../Panel/Challenge/ChallengeButton")
+exitButton = NodePath("../../../Panel/ExitButton")

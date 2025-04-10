@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bi0rbhbcaaomf"]
+[gd_scene load_steps=7 format=3 uid="uid://bi0rbhbcaaomf"]
 
 [ext_resource type="Script" path="res://Bijections/Catalan/catalan_menu.gd" id="1_ave0k"]
 [ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="1_pjdfp"]
@@ -8,7 +8,10 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n8mbj"]
 bg_color = Color(0.870588, 0.854902, 0.772549, 1)
 
-[node name="CatalanMenu" type="Control" node_paths=PackedStringArray("generateProblemButton")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ty10"]
+bg_color = Color(0.75, 0.2925, 0.2925, 1)
+
+[node name="CatalanMenu" type="Control" node_paths=PackedStringArray("generateProblemButton", "solvedProblemsDisplay", "exitButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,12 +20,24 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ave0k")
 generateProblemButton = NodePath("Button")
+solvedProblemsDisplay = NodePath("Panel/ProblemsSolved")
+exitButton = NodePath("Panel/ExitButton")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
 offset_right = 1922.0
 offset_bottom = 1081.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_n8mbj")
+
+[node name="ExitButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 1851.0
+offset_top = 23.0
+offset_right = 1892.0
+offset_bottom = 68.0
+theme = ExtResource("3_vwxwu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_2ty10")
+text = "X"
 
 [node name="Title" type="RichTextLabel" parent="Panel"]
 layout_mode = 1
@@ -42,14 +57,22 @@ layout_mode = 0
 offset_left = 75.0
 offset_top = 308.0
 offset_right = 1846.0
-offset_bottom = 729.0
+offset_bottom = 491.0
 theme = ExtResource("2_e2075")
 bbcode_enabled = true
-text = "[center]Random bijection problems! 
+text = "[center]Randomly generated bijection problems counted by the Catalan numbers."
 
-All of these problems are counted by a famous sequence called the Catalan numbers.
-
-You may want to check out the Bijections topic first."
+[node name="ProblemsSolved" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 83.0
+offset_top = 525.0
+offset_right = 1854.0
+offset_bottom = 708.0
+theme = ExtResource("2_e2075")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 48
+bbcode_enabled = true
+text = "[center]No problems solved."
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1

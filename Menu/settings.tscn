@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_slider_button.gd" id="9_2cecq"]
 [ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="10_ufvua"]
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("doneButton", "musicVolume", "effectsVolume", "showIntroButton")]
+[node name="Settings" type="Control" node_paths=PackedStringArray("doneButton", "musicVolume", "effectsVolume", "bijectionsMenu", "showIntroButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +21,7 @@ script = ExtResource("1_shvpa")
 doneButton = NodePath("MenuBackground/VBoxContainer/Button")
 musicVolume = NodePath("MenuBackground/VBoxContainer/MusicVolume")
 effectsVolume = NodePath("MenuBackground/VBoxContainer/EffectsVolume")
+bijectionsMenu = NodePath("MenuBackground/VBoxContainer/BijectionsMenu")
 showIntroButton = NodePath("MenuBackground/VBoxContainer/ShowIntro")
 
 [node name="MenuBackground" type="Panel" parent="."]
@@ -84,6 +85,19 @@ value_label_visibility = 1
 value_separation = 25
 title = "Effects Volume
 "
+
+[node name="BijectionsMenu" type="Button" parent="MenuBackground/VBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme = ExtResource("5_8k7sy")
+script = ExtResource("6_uvhwx")
+items = Array[String](["Lake (recommended)", "Accessible Menu"])
+selected = 0
+item_count = 2
+loop = true
+next_icon = ExtResource("7_0mvdd")
+prev_icon = ExtResource("8_w5t20")
+title = "Bijections Menu"
 
 [node name="ShowIntro" type="Button" parent="MenuBackground/VBoxContainer"]
 layout_mode = 2

@@ -173,7 +173,10 @@ func _input(event: InputEvent) -> void:
 			get_tree().change_scene_to_file("res://Bijections/Catalan/catalan_menu.tscn")
 		else:
 			BijectionSettings.current_level = null
-			get_tree().change_scene_to_packed(bijection_level_select_scene)
+			if SaveData.boring_bijections:
+				get_tree().change_scene_to_file("res://Bijections/LevelSelect/boring_level_select.tscn")
+			else:
+				get_tree().change_scene_to_packed(bijection_level_select_scene)
 
 # Code documentation popup
 func open_documentation() -> void:

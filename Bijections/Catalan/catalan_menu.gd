@@ -1,17 +1,32 @@
 extends Node
 
 @export var generateProblemButton: Button
+@export var solvedProblemsDisplay: RichTextLabel
+@export var exitButton: Button
 
 var chooseTopicScene: PackedScene = preload("res://ChooseTopic/choose_topic.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	exitButton.pressed.connect(exit)
 	generateProblemButton.connect("pressed", generate_problem)
+	if SaveData.catalan_problems_solved.is_empty():
+		solvedProblemsDisplay.text = "[center]No problems solved.\n"
+	else:
+		solvedProblemsDisplay.text = "[center][b]Solved Problems[/b]:\n"
+		for solved_problem: Array in SaveData.catalan_problems_solved:
+			solvedProblemsDisplay.text += CatalanProblems.new().PROBLEMS[solved_problem[0]].title + " with " + CatalanProblems.new().PROBLEMS[solved_problem[0]].title + "\n"
+	solvedProblemsDisplay.text += "\nSolve 5 problems to re-build the hut."
+
 
 func _input(event: InputEvent) -> void:
 	# ESC to go back to menu
 	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().change_scene_to_packed(chooseTopicScene)
+		exit()
+
+func exit() -> void:
+	get_tree().change_scene_to_file("res://ChooseTopic/choose_topic.tscn")
+
 
 func generate_problem() -> void:
 	# Choose two random problems

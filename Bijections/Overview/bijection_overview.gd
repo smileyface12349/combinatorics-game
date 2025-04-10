@@ -4,14 +4,27 @@ class_name BijectionOverviewNode
 @export var text: RichTextLabel
 @export var availableHintsText: RichTextLabel
 @export var levelHintButton: Button
+@export var exitButton: Button
 
 var request_level_hint: Callable
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	levelHintButton.connect("pressed", request_level_hint)
+	exitButton.connect("pressed", exit_level)
 
-
+func exit_level() -> void:
+	if BijectionSettings.current_level.is_catalan:
+		BijectionSettings.current_level = null
+		get_tree().change_scene_to_file("res://Bijections/Catalan/catalan_menu.tscn")
+	else:
+		BijectionSettings.current_level = null
+		if SaveData.boring_bijections:
+			get_tree().change_scene_to_file("res://Bijections/LevelSelect/boring_level_select.tscn")
+		else:
+			get_tree().change_scene_to_file("res://Bijections/LevelSelect/lake_level_select.tscn")
+	
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
