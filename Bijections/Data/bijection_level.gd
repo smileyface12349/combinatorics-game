@@ -1,5 +1,6 @@
 class_name BijectionLevel
 
+var id: Variant
 var bijections: Dictionary # {problem_size: bijection}
 var left_generator: Callable
 var right_generator: Callable
@@ -17,7 +18,8 @@ var is_catalan: bool = false
 
 # TODO: Descriptions of coded representation
 
-func _init(left_title: String, right_title: String, left_description: String, right_description: String, bijections: Dictionary, left_generator: Callable = Callable(), right_generator: Callable = Callable(), left_representation: String = "", right_representation: String = "", definitions: Array[BijectionDefinition] = [], hint: String = "", proof: BijectionProof = BijectionProof.new(), alternate_solutions: int = 0, is_catalan: bool = false) -> void:
+func _init(id: Variant, left_title: String, right_title: String, left_description: String, right_description: String, bijections: Dictionary, left_generator: Callable = Callable(), right_generator: Callable = Callable(), left_representation: String = "", right_representation: String = "", definitions: Array[BijectionDefinition] = [], hint: String = "", proof: BijectionProof = BijectionProof.new(), alternate_solutions: int = 0, is_catalan: bool = false) -> void:
+	self.id = id
 	self.left_title = left_title
 	self.left_text = left_description
 	self.right_title = right_title
@@ -45,4 +47,4 @@ static func from_catalan_problems(problem1: CatalanProblem, problem2: CatalanPro
 		var to: Array[BijectionElement] = problem2_sizes[size] as Array[BijectionElement]
 		bijections[size] = Bijection.new(size, from, to)
 	# TODO: Add proofs
-	return BijectionLevel.new(problem1.title, problem2.title, problem1.description, problem2.description, bijections, problem1.generate_elements_code, problem2.generate_elements_code, problem1.representation, problem2.representation, problem1.definitions + problem2.definitions, "", BijectionProof.new(), 0, true)
+	return BijectionLevel.new([problem1.id, problem2.id], problem1.title, problem2.title, problem1.description, problem2.description, bijections, problem1.generate_elements_code, problem2.generate_elements_code, problem1.representation, problem2.representation, problem1.definitions + problem2.definitions, "", BijectionProof.new(), 0, true)

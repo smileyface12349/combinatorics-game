@@ -22,12 +22,13 @@ bg_color = Color(0.834614, 0.834614, 0.834614, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_akls2"]
 bg_color = Color(0.927769, 0.343238, 0.110748, 1)
 
-[node name="BijectionLevel" type="Node2D" node_paths=PackedStringArray("camera", "codeDocPopup", "closeCodeDocButton", "levelCompletePopup")]
+[node name="BijectionLevel" type="Node2D" node_paths=PackedStringArray("camera", "codeDocPopup", "closeCodeDocButton", "levelCompletePopup", "levelCompleteDoneButton")]
 script = ExtResource("1_lc3rp")
 camera = NodePath("Camera2D")
 codeDocPopup = NodePath("CodeDocPopup")
 closeCodeDocButton = NodePath("CodeDocPopup/Panel/CloseButton")
 levelCompletePopup = NodePath("LevelCompletePopup")
+levelCompleteDoneButton = NodePath("LevelCompletePopup/Panel/CloseButton")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1000, 540)
@@ -50,6 +51,7 @@ offset_bottom = 8670.0
 focus_mode = 1
 
 [node name="LevelCompletePopup" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Panel" type="Panel" parent="LevelCompletePopup"]
 offset_left = 585.0

@@ -5,6 +5,7 @@ extends BijectionLevel
 
 func _init() -> void:
 	super(
+		2,
 		"Object Types",
 		"Stars and Bars",
 		"Strings of length n over the alphabet {A, B, C} in alphabetical order",

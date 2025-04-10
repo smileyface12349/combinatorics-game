@@ -4,6 +4,7 @@ extends Node
 @export var codeDocPopup: CanvasLayer
 @export var closeCodeDocButton: Button
 @export var levelCompletePopup: CanvasLayer
+@export var levelCompleteDoneButton: Button
 
 const bijection_width: int = 1500
 const camera_offset: Vector2 = Vector2(0, 40)
@@ -18,6 +19,8 @@ var tracks: Array[AudioStream] = [
 	preload("res://Music/Inspired.mp3"),
 	preload("res://Music/Nowhere Land.mp3"),
 ]
+var catalan_win_dialogue: DialogueResource = preload("res://Dialogue/catalan_win.dialogue")
+var bijection_win_dialogue: DialogueResource = preload("res://Dialogue/bijections_win.dialogue")
 
 var show_diagrams: bool = false
 var bijection_problems: Array[BijectionLevelNode] = []
@@ -55,7 +58,7 @@ func create_level(level: BijectionLevel) -> void:
 
 	# Add the code input section
 	bijection_code = bijection_code_scene.instantiate()
-	bijection_code.set_level(level, open_documentation, camera)
+	bijection_code.set_level(level, open_documentation, on_win, camera)
 	bijection_code.position = position
 	add_child(bijection_code)
 
@@ -109,7 +112,6 @@ func request_level_hint() -> void:
 		add_hint(1, "[u]Hint[/u]: " + level_hint)
 		bijection_overview.hide_hint_button()
 
-
 func set_show_diagrams(show_diagrams: bool, origin_problem: int) -> void:
 	# Update it for us
 	self.show_diagrams = show_diagrams
@@ -156,6 +158,7 @@ func check_all() -> void:
 	if is_any_correct:
 		for problem_n: BijectionLevelNode in bijection_problems:
 			problem_n.mark_as_done()
+		on_win()
 			
 	# At least one is wrong - make sure they are all red
 	else:
@@ -180,3 +183,40 @@ func open_documentation() -> void:
 func close_documentation() -> void:
 	GeneralSettings.is_popup_open = false
 	codeDocPopup.hide()
+
+func on_win() -> void:
+	# Save the level as complete
+	if level.is_catalan:
+		if level.id not in SaveData.catalan_problems_solved:
+			SaveData.catalan_problems_solved.append(level.id)
+			SaveData.write()
+			check_catalan_complete()
+	else:
+		if level.id not in SaveData.bijection_levels_done:
+			SaveData.bijection_levels_done.append(level.id)
+			SaveData.write()
+			check_bijections_complete()
+
+	GeneralSettings.is_popup_open = true
+	levelCompletePopup.show()
+	levelCompleteDoneButton.pressed.connect(on_win_done)
+
+func on_win_done() -> void:
+	GeneralSettings.is_popup_open = false
+	levelCompletePopup.hide()
+
+func check_catalan_complete() -> void:
+	if len(SaveData.catalan_problems_solved) >= 5:
+		SaveData.topics_done.append("catalan")
+		SaveData.write()
+		get_tree().change_scene_to_file("res://ChooseTopic/choose_topic.tscn")
+		DialogueManager.show_dialogue_balloon(catalan_win_dialogue)
+
+func check_bijections_complete() -> void:
+	if len(SaveData.bijection_levels_done) >= 5:
+		SaveData.topics_done.append("bijections")
+		SaveData.write()
+		get_tree().change_scene_to_file("res://ChooseTopic/choose_topic.tscn")
+		DialogueManager.show_dialogue_balloon(bijection_win_dialogue)
+	
+	

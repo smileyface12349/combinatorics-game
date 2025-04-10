@@ -5,6 +5,7 @@ extends BijectionLevel
 
 func _init() -> void:
     super(
+        5,
         "Integer Partitions",
         "Integer Partitions",
         "Partitions of n into distinct parts",

@@ -5,6 +5,7 @@ extends BijectionLevel
 
 func _init() -> void:
 	super(
+		0,
 		"Binary Strings",
 		"Binary Strings",
 		"Strings of length n over the alphabet {A, B}",

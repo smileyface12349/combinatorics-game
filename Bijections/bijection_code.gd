@@ -22,6 +22,7 @@ var level: BijectionLevel
 var camera: FreeCamera
 
 var open_documentation: Callable
+var on_win: Callable
 
 func _ready() -> void:
 	# Executing buttons
@@ -61,10 +62,11 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		on_mouse_click()
 
-func set_level(level: BijectionLevel, open_documentation: Callable, camera: FreeCamera) -> void:
+func set_level(level: BijectionLevel, open_documentation: Callable, on_win: Callable, camera: FreeCamera) -> void:
 	self.level = level
 	self.open_documentation = open_documentation
 	self.camera = camera
+	self.on_win = on_win
 
 	# Debug stuff
 	representationText.text = "[b]Input[/b]: " + level.left_representation + "\n[b]Output[/b]: " + level.right_representation
@@ -124,6 +126,7 @@ func check_bijection() -> void:
 
 	# Success!
 	extendedOutput.text = "Output: [color=green]Bijection is correct[/color]"
+	on_win.call()
 
 
 

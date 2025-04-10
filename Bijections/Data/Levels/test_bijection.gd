@@ -6,6 +6,7 @@ extends BijectionLevel
 
 func _init() -> void:
 	super(
+		-1,
 		"A Very Long Title",
 		"ééééééééééé",
 		"A really really complicated description of something that actually isn't that complicated",

@@ -3,6 +3,7 @@ extends BijectionLevel
 
 func _init() -> void:
 	super(
+		1,
 		"Subsets",
 		"Binary Strings",
 		"Subsets of {1, 2, ..., n}",
