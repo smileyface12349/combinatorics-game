@@ -346,7 +346,8 @@ class GraphDrawing extends Graph:
 		return vertices
 		
 	# Gets the intersection point between two edges by solving parametric equations
-	# AI DECLARATION: ChatGPT was used in writing this function
+	# Returns (-1, -1) if they do not intersect
+	# ChatGPT was used in writing this function
 	static func get_intersection_point(e1: Edge, e2: Edge) -> Vector2:
 		var x1: float = e1.t.p.x
 		var y1: float = e1.t.p.y
@@ -357,6 +358,12 @@ class GraphDrawing extends Graph:
 		var y3: float = e2.t.p.y
 		var x4: float = e2.h.p.x
 		var y4: float = e2.h.p.y
+
+		# Test bounding rectangles first (optimisation)
+		var rect1: Rect2 = Rect2(Vector2(x1, y1), Vector2(x2-x1, y2-y1))
+		var rect2: Rect2 = Rect2(Vector2(x3, y3), Vector2(x4-x3, y4-y3))
+		if not rect1.intersects(rect2):
+			return Vector2(-1, -1)
 
 		var denom: float = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
 		if abs(denom) < 0.0001:  # Check for parallel lines

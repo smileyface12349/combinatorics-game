@@ -36,9 +36,8 @@ func goto_2() -> void:
 	get_tree().change_scene_to_file("res://Bijections/bijection_level.tscn")
 
 func goto_3() -> void:
-	pass
-	# BijectionSettings.current_level = BijectionLevel3.new()
-	# get_tree().change_scene_to_file("res://Bijections/bijection_level.tscn")
+	BijectionSettings.current_level = BijectionLevel3.new()
+	get_tree().change_scene_to_file("res://Bijections/bijection_level.tscn")
 
 func goto_4() -> void:
 	BijectionSettings.current_level = BijectionLevel4.new()

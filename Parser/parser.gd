@@ -289,6 +289,12 @@ class RepeatStmtAST extends StmtAST:
 
 	func execute(variables: Dictionary) -> Dictionary:
 		variables = self.expr.execute(variables)
+		# Check if the result is an integer
+		if typeof(variables["%result"]) != TYPE_INT:
+			variables["%error%"] = "Repeat count must be an integer"
+			variables["%error_pos%"] = self.expr.end_pos - len(self.expr.literal)
+			variables["%error_pos_end%"] = self.expr.end_pos
+			return variables
 		var count: int = variables["%result%"]
 		for i: int in range(count):
 			variables["i"] = i+1

@@ -15,6 +15,8 @@ func go() -> void:
 		BijectionSettings.current_level = BijectionLevel1.new()
 	elif parent.id == 2:
 		BijectionSettings.current_level = BijectionLevel2.new()
+	elif parent.id == 3:
+		BijectionSettings.current_level = BijectionLevel3.new()
 	elif parent.id == 4:
 		BijectionSettings.current_level = BijectionLevel4.new()
 	elif parent.id == 5:
