@@ -62,5 +62,8 @@ func _init() -> void:
             )
         },
         "Each vertex is an array of length two, where each element is either another array or 0. E.g. 0 is the empty tree, [0, 0] is one node, [0, [0, 0]] is a root and a right child.",
-        [DefinitionBinaryTree.new()]
+        [
+            DefinitionBinaryTree.new(),
+            DefinitionComplete.new()
+        ]
     )

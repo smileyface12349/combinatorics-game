@@ -54,5 +54,5 @@ func _init() -> void:
 			)
 		},
 		"An array of interior edges e.g. [[1, 3], [2, 4]]",
-		[DefinitionDyckPath.new()]
+		[DefinitionTriangulation.new()]
 	)

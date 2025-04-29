@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bw5nw7s0uevf7"]
+[gd_scene load_steps=19 format=3 uid="uid://bw5nw7s0uevf7"]
 
 [ext_resource type="Theme" uid="uid://crnnsrj7q2hwh" path="res://General/Background.tres" id="1_t604e"]
 [ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="2_8ii1i"]
@@ -9,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://b6q7hj0kflkpj" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Bold.ttf" id="4_pewdh"]
 [ext_resource type="Theme" uid="uid://c33ih5c1w6hv4" path="res://Bijections/hint_button_theme.tres" id="4_qwnd2"]
 [ext_resource type="Theme" uid="uid://dlcxcyr3vrmuw" path="res://Menu/SpinButton.tres" id="5_n38al"]
+[ext_resource type="Theme" uid="uid://cga5cn2w2stsy" path="res://Planarity/manipulation_button.tres" id="5_tngdo"]
 [ext_resource type="Texture2D" uid="uid://0b3v0imcjtk3" path="res://addons/spin_button/example/assets/icons/buttons/navs/arrow_right_x32.png" id="7_hkp87"]
 [ext_resource type="Theme" uid="uid://nm3tnjbbbaxg" path="res://Menu/heading.tres" id="7_unj3n"]
 [ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_slider_button.gd" id="8_dsqc8"]
@@ -90,7 +91,7 @@ offset_left = 1858.0
 offset_top = -654.0
 offset_right = 1899.0
 offset_bottom = -609.0
-theme = ExtResource("9_6x0t8")
+theme = ExtResource("5_tngdo")
 theme_override_styles/normal = SubResource("StyleBoxFlat_h3q16")
 text = "X"
 
@@ -187,9 +188,10 @@ prev_icon = ExtResource("8_hg4ud")
 title = "Graph Generation"
 
 [node name="NumNodes" type="Button" parent="ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 31)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme = ExtResource("5_n38al")
+theme_override_font_sizes/font_size = 20
 script = ExtResource("8_dsqc8")
 min_value = 6.0
 max_value = 12.0
@@ -200,9 +202,10 @@ value_separation = 25
 title = "Number of Nodes"
 
 [node name="EdgeDensity" type="Button" parent="ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 31)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme = ExtResource("5_n38al")
+theme_override_font_sizes/font_size = 20
 script = ExtResource("8_dsqc8")
 min_value = 0.1
 max_value = 0.6

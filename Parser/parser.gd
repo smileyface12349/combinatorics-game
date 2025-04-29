@@ -143,6 +143,8 @@ class BlockAST extends AST:
 				if statements[-1] is ErrorAST:
 					return statements[-1]
 				pos = end_pos
+		if pos >= len(code) and block_type != "main":
+			return ErrorAST.new("Unclosed block: missing 'end" + block_type + "'", pos-1, pos-1)
 		print("Exiting " + block_type + " block at pos: " + str(pos) + ", leaving code: " + code.substr(pos, 7).replace("\n", "<NL>") + "...")
 		return BlockAST.new(statements, pos)
 
@@ -290,7 +292,7 @@ class RepeatStmtAST extends StmtAST:
 	func execute(variables: Dictionary) -> Dictionary:
 		variables = self.expr.execute(variables)
 		# Check if the result is an integer
-		if typeof(variables["%result"]) != TYPE_INT:
+		if typeof(variables["%result%"]) != TYPE_INT:
 			variables["%error%"] = "Repeat count must be an integer"
 			variables["%error_pos%"] = self.expr.end_pos - len(self.expr.literal)
 			variables["%error_pos_end%"] = self.expr.end_pos

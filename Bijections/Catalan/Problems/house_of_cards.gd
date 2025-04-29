@@ -17,5 +17,5 @@ func _init() -> void:
 			)
 		},
 		"An array for each level, where each level is an array of length one less than the one before. Each element is a 0 if empty or 1 if filled. The bottom layer is all 1s. E.g. [[1, 1, 1], [1, 0], [0]]",
-		[DefinitionDyckPath.new()]
+		[DefinitionHouseOfCards.new()]
 	)

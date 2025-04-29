@@ -1,8 +1,8 @@
 extends Node
 
 # User settings
-var music_volume: int
-var effects_volume: int
+var music_volume: int = 50
+var effects_volume: int = 50
 var fullscreen: bool
 var boring_bijections: bool
 

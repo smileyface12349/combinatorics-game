@@ -59,11 +59,12 @@ text = "
 
 [node name="Subtitle" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
-offset_left = 397.0
+offset_left = 375.0
 offset_top = 163.0
-offset_right = 1035.0
+offset_right = 1057.0
 offset_bottom = 209.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[center]If you're stuck, here's the place to be! If you're not, press right arrow.
 [/center]"

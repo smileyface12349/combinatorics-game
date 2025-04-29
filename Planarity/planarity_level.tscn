@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://pttw3w884dtk"]
+[gd_scene load_steps=15 format=3 uid="uid://pttw3w884dtk"]
 
 [ext_resource type="Script" path="res://Planarity/planarity_level.gd" id="1_bvqhp"]
 [ext_resource type="PackedScene" uid="uid://b56b0ua4mtymv" path="res://Planarity/non_planar_table.tscn" id="2_3gqbe"]
 [ext_resource type="Script" path="res://Planarity/planar_graph.gd" id="2_ca3q1"]
 [ext_resource type="Texture2D" uid="uid://bd7o84al3f5qd" path="res://Planarity/flip-chart.png" id="2_mipig"]
+[ext_resource type="Theme" uid="uid://cga5cn2w2stsy" path="res://Planarity/manipulation_button.tres" id="3_nkyg6"]
 [ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="3_uqq12"]
 [ext_resource type="FontFile" uid="uid://c13m3wup8q1k5" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Black.ttf" id="3_xbkjo"]
 [ext_resource type="Script" path="res://Planarity/non_planar_graph.gd" id="4_4fd3f"]
@@ -12,7 +13,11 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yjt5m"]
 bg_color = Color(0.870588, 0.854902, 0.772549, 1)
 
-[sub_resource type="Theme" id="Theme_uh2o2"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3llf5"]
+bg_color = Color(0.247059, 0.690196, 0.278431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3kc8o"]
+bg_color = Color(0.2484, 0.69, 0.27784, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u72h0"]
 bg_color = Color(0.86, 0.69746, 0.1634, 1)
@@ -53,9 +58,9 @@ texture = ExtResource("2_mipig")
 
 [node name="NonPlanarHeading" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
-offset_left = 1045.0
+offset_left = 942.0
 offset_top = 30.0
-offset_right = 1737.0
+offset_right = 1753.0
 offset_bottom = 280.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 64
@@ -64,21 +69,24 @@ text = "[center]Non-Planar"
 
 [node name="NonPlanarSubheading" type="RichTextLabel" parent="Panel/NonPlanarHeading"]
 layout_mode = 0
-offset_left = -39.0
+offset_left = -10.0
 offset_top = 89.0
-offset_right = 730.0
+offset_right = 808.0
 offset_bottom = 191.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[center]Think it's non-planar? Obtain K_5 or K_3,3 as a minor (Kuratowski's Theorem)."
 
 [node name="NonPlanarInstructions" type="RichTextLabel" parent="Panel/NonPlanarHeading"]
 layout_mode = 0
-offset_left = 23.0
-offset_top = 149.0
-offset_right = 758.0
-offset_bottom = 243.0
+offset_left = 75.0
+offset_top = 146.0
+offset_right = 810.0
+offset_bottom = 240.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "Left Click: Move vertices.
 Right Click: Delete vertices and edges.
@@ -88,8 +96,9 @@ Drag a vertex on top of another to contract them [i](if connected by an edge)[/i
 layout_mode = 0
 offset_left = 466.0
 offset_top = 3.0
-offset_right = 569.0
+offset_right = 602.0
 offset_bottom = 34.0
+theme = ExtResource("3_nkyg6")
 text = "Reset Graph"
 
 [node name="PlanarHeading" type="RichTextLabel" parent="Panel"]
@@ -110,6 +119,7 @@ offset_top = 92.0
 offset_right = 700.0
 offset_bottom = 132.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[center]Think it's planar? Rearrange it to find a planar drawing!"
 
@@ -120,50 +130,56 @@ offset_top = 147.0
 offset_right = 679.0
 offset_bottom = 240.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-text = "Destructive Operations:
+theme_override_font_sizes/normal_font_size = 20
+text = "Destructive:
 
-Non Destructive Operations:
+Non Destructive:
 "
 
 [node name="ResetDrawingButton" type="Button" parent="Panel/PlanarHeading/PlanarInstructions"]
 layout_mode = 0
-offset_left = 207.0
-offset_right = 413.0
+offset_left = 133.0
+offset_right = 289.0
 offset_bottom = 31.0
-theme = SubResource("Theme_uh2o2")
-text = "Position Nodes Randomly"
+theme = ExtResource("3_nkyg6")
+text = "Reset Drawing"
 
 [node name="ShrinkDrawingButton" type="Button" parent="Panel/PlanarHeading/PlanarInstructions"]
 layout_mode = 0
-offset_left = 425.0
-offset_top = 50.0
-offset_right = 552.0
-offset_bottom = 81.0
-text = "Shrink Drawing"
+offset_left = 313.0
+offset_top = 55.0
+offset_right = 452.0
+offset_bottom = 86.0
+theme = ExtResource("3_nkyg6")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3llf5")
+text = "Shrink (hold)"
 
 [node name="RecenterDrawingButton" type="Button" parent="Panel/PlanarHeading/PlanarInstructions"]
 layout_mode = 0
-offset_left = 251.0
-offset_top = 51.0
-offset_right = 397.0
-offset_bottom = 82.0
-text = "Recenter Drawing"
+offset_left = 178.0
+offset_top = 55.0
+offset_right = 288.0
+offset_bottom = 86.0
+theme = ExtResource("3_nkyg6")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3kc8o")
+text = "Re-Center"
 
 [node name="ImproveDrawingButton" type="Button" parent="Panel/PlanarHeading/PlanarInstructions"]
 layout_mode = 0
-offset_left = 444.0
-offset_top = 2.0
-offset_right = 626.0
-offset_bottom = 33.0
-text = "Improve Node Spacing"
+offset_left = 313.0
+offset_right = 543.0
+offset_bottom = 31.0
+theme = ExtResource("3_nkyg6")
+text = "Re-Space Nodes (hold)"
 
 [node name="HighDegreeVertices" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
-offset_left = 1692.0
+offset_left = 1677.0
 offset_top = 826.0
-offset_right = 1868.0
+offset_right = 1880.0
 offset_bottom = 859.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[center]Yellow = degree ≥4"
 
@@ -175,22 +191,20 @@ offset_right = 23.0
 offset_bottom = -10.0
 
 [node name="NonPlanarWinButton" type="Button" parent="Panel"]
-visible = false
 layout_mode = 0
-offset_left = 1176.0
-offset_top = 967.0
-offset_right = 1660.0
-offset_bottom = 1015.0
+offset_left = 1108.0
+offset_top = 969.0
+offset_right = 1592.0
+offset_bottom = 1017.0
 theme = ExtResource("3_uqq12")
 text = "You win! Click for a new graph"
 
 [node name="PlanarWinButton" type="Button" parent="Panel"]
-visible = false
 layout_mode = 0
-offset_left = 279.0
-offset_top = 959.0
-offset_right = 756.0
-offset_bottom = 1007.0
+offset_left = 231.0
+offset_top = 965.0
+offset_right = 708.0
+offset_bottom = 1013.0
 theme = ExtResource("3_uqq12")
 text = "You win! Click for a new graph"
 

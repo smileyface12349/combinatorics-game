@@ -167,6 +167,7 @@ func _init() -> void:
         "An array of integers in descending order representing the parts, e.g. [7, 5, 1] or [11, 9, 1]",
         "An array of integers in descending order representing the parts, e.g. [7, 5, 1] or [5, 3, 3]",
         [
-            DefinitionPartition.new()
+            DefinitionPartition.new(),
+            DefinitionYoungDiagram.new(),
         ]
     )

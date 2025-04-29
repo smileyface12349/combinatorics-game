@@ -360,10 +360,10 @@ class GraphDrawing extends Graph:
 		var y4: float = e2.h.p.y
 
 		# Test bounding rectangles first (optimisation)
-		var rect1: Rect2 = Rect2(Vector2(x1, y1), Vector2(x2-x1, y2-y1))
-		var rect2: Rect2 = Rect2(Vector2(x3, y3), Vector2(x4-x3, y4-y3))
-		if not rect1.intersects(rect2):
-			return Vector2(-1, -1)
+		# var rect1: Rect2 = Rect2(Vector2(x1, y1), Vector2(x2-x1, y2-y1))
+		# var rect2: Rect2 = Rect2(Vector2(x3, y3), Vector2(x4-x3, y4-y3))
+		# if not rect1.intersects(rect2):
+		# 	return Vector2(-1, -1)
 
 		var denom: float = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
 		if abs(denom) < 0.0001:  # Check for parallel lines

@@ -16,8 +16,11 @@ func _ready() -> void:
 	MusicPlayer.change_track(track)
 	SaveData.read()
 
-	# Test code
-	#Parser.parse("repeat 5 times\n  x <- 2\nendrepeat\nwhile x < 5 do\nx <- x + 1\nendwhile\nfor i in [1, 2] do\nx <- x + i\n2\n\nendfor\nif x == 8 then\n x <- 9\nendif\n\nreturn x")
+	# Set fullscreen
+	if SaveData.fullscreen:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

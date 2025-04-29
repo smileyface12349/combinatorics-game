@@ -6,6 +6,7 @@
 bg_color = Color(1, 0.224749, 0.695544, 1)
 
 [resource]
+default_font_size = 20
 SpinButton/base_type = &"RichTextLabel"
 SpinButton/colors/default_color = Color(0, 0, 0, 1)
 SpinButton/font_sizes/normal_font_size = 32

@@ -27,6 +27,7 @@ offset_top = 40.0
 offset_right = 68.0
 offset_bottom = 80.0
 theme = ExtResource("2_tajbw")
+theme_override_font_sizes/normal_font_size = 20
 text = "Nodes"
 
 [node name="Edges" type="RichTextLabel" parent="Col1"]
@@ -35,6 +36,7 @@ offset_top = 80.0
 offset_right = 68.0
 offset_bottom = 120.0
 theme = ExtResource("2_tajbw")
+theme_override_font_sizes/normal_font_size = 20
 text = "Edges"
 
 [node name="Col2" type="Control" parent="."]
@@ -48,6 +50,7 @@ layout_mode = 0
 offset_right = 98.0
 offset_bottom = 40.0
 theme = ExtResource("2_tajbw")
+theme_override_font_sizes/normal_font_size = 20
 text = "Graph"
 
 [node name="CustomNodes" type="RichTextLabel" parent="Col2"]
@@ -56,6 +59,7 @@ offset_top = 40.0
 offset_right = 98.0
 offset_bottom = 80.0
 theme = ExtResource("2_tajbw")
+theme_override_font_sizes/normal_font_size = 20
 text = "###"
 
 [node name="CustomEdges" type="RichTextLabel" parent="Col2"]
@@ -64,6 +68,7 @@ offset_top = 80.0
 offset_right = 98.0
 offset_bottom = 120.0
 theme = ExtResource("2_tajbw")
+theme_override_font_sizes/normal_font_size = 20
 text = "###"
 
 [node name="Col3" type="Control" parent="."]
@@ -78,6 +83,7 @@ layout_mode = 0
 offset_right = 98.0
 offset_bottom = 40.0
 theme = ExtResource("2_tajbw")
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "K₅"
 
@@ -87,6 +93,7 @@ offset_top = 40.0
 offset_right = 98.0
 offset_bottom = 80.0
 theme = ExtResource("2_tajbw")
+theme_override_font_sizes/normal_font_size = 20
 text = "5"
 
 [node name="K5Edges" type="RichTextLabel" parent="Col3"]
@@ -95,6 +102,7 @@ offset_top = 80.0
 offset_right = 98.0
 offset_bottom = 120.0
 theme = ExtResource("2_tajbw")
+theme_override_font_sizes/normal_font_size = 20
 text = "10"
 
 [node name="Col4" type="Control" parent="."]
@@ -109,6 +117,7 @@ layout_mode = 0
 offset_right = 98.0
 offset_bottom = 40.0
 theme = ExtResource("2_tajbw")
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "K₃₃"
 
@@ -118,6 +127,7 @@ offset_top = 40.0
 offset_right = 98.0
 offset_bottom = 80.0
 theme = ExtResource("2_tajbw")
+theme_override_font_sizes/normal_font_size = 20
 text = "6"
 
 [node name="K5Edges" type="RichTextLabel" parent="Col4"]
@@ -126,4 +136,5 @@ offset_top = 80.0
 offset_right = 98.0
 offset_bottom = 120.0
 theme = ExtResource("2_tajbw")
+theme_override_font_sizes/normal_font_size = 20
 text = "9"

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bx1rf617sltm8" path="res://Bijections/planks_2.png" id="3_8t2vb"]
 [ext_resource type="Theme" uid="uid://nm3tnjbbbaxg" path="res://Menu/heading.tres" id="4_61qg0"]
 [ext_resource type="Theme" uid="uid://b26p2vjohd0vr" path="res://Menu/body.tres" id="5_ahtip"]
-[ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="6_rorw7"]
+[ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="6_fldxw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bbgc1"]
 texture = ExtResource("3_8t2vb")
@@ -100,7 +100,7 @@ offset_left = 315.0
 offset_top = 524.0
 offset_right = 408.0
 offset_bottom = 569.0
-theme = ExtResource("6_rorw7")
+theme = ExtResource("6_fldxw")
 text = "Done"
 
 [node name="CodeDocPopup" type="CanvasLayer" parent="."]

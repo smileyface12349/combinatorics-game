@@ -54,7 +54,7 @@ func _input(event: InputEvent) -> void:
 		get_tree().change_scene_to_file("res://Planarity/planarity_level.tscn")
 	# Graph of Catalan problems
 	if Input.is_action_just_pressed("num_2"):
-		PlanarSettings.custom_graph = Graphs.Graph.new({ 1: [2, 3], 2: [1, 5, 6], 3: [1, 4, 8], 4: [3], 5: [2], 6: [2, 7], 7: [6], 8: [3]})
+		PlanarSettings.custom_graph = Graphs.Graph.new({ 1: [2, 3], 2: [1, 5, 6], 3: [1, 4, 5, 8], 4: [3], 5: [2, 3], 6: [2, 7], 7: [6], 8: [3]})
 		PlanarSettings.is_challenge = false
 		get_tree().change_scene_to_file("res://Planarity/planarity_level.tscn")
 

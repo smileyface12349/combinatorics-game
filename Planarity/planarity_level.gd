@@ -43,6 +43,8 @@ func _ready() -> void:
 	nonPlanarWinButton.pressed.connect(non_planar_win_new_graph)
 	skipButton.pressed.connect(new_graph)
 	exitButton.pressed.connect(exit)
+	SaveData.read()
+	successSound.volume_db = SaveData.effects_volume * 2 * 12 / 100 - 12
 	
 func _process(delta: float) -> void:
 	if improve_button_held:
@@ -72,11 +74,13 @@ func exit() -> void:
 
 func on_planar_win() -> void:
 	planarWinButton.visible = true
-	successSound.play()
+	if SaveData.effects_volume > 0:
+		successSound.play()
 	
 func on_non_planar_win() -> void:
 	nonPlanarWinButton.visible = true
-	successSound.play()
+	if SaveData.effects_volume > 0:
+		successSound.play()
 
 func planar_win_new_graph() -> void:
 	if PlanarSettings.is_challenge:

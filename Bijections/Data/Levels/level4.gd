@@ -216,6 +216,7 @@ func _init() -> void:
 		[
 			DefinitionSelfConjugate.new(),
 			DefinitionPartition.new(),
+			DefinitionYoungDiagram.new(),
 		],
 		"Try to draw lines across the Ferrer diagram to reinterpret it in a different way"
 	)

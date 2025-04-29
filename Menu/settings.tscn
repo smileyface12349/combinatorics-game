@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_slider_button.gd" id="9_2cecq"]
 [ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="10_ufvua"]
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("doneButton", "musicVolume", "effectsVolume", "bijectionsMenu", "showIntroButton")]
+[node name="Settings" type="Control" node_paths=PackedStringArray("doneButton", "musicVolume", "effectsVolume", "bijectionsMenu", "fullscreenButton", "showIntroButton", "resetDialogueButton", "resetConfirmButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,7 +22,10 @@ doneButton = NodePath("MenuBackground/VBoxContainer/Button")
 musicVolume = NodePath("MenuBackground/VBoxContainer/MusicVolume")
 effectsVolume = NodePath("MenuBackground/VBoxContainer/EffectsVolume")
 bijectionsMenu = NodePath("MenuBackground/VBoxContainer/BijectionsMenu")
+fullscreenButton = NodePath("MenuBackground/VBoxContainer/DisplayMode")
 showIntroButton = NodePath("MenuBackground/VBoxContainer/ShowIntro")
+resetDialogueButton = NodePath("MenuBackground/VBoxContainer/ResetDialogue")
+resetConfirmButton = NodePath("MenuBackground/VBoxContainer/ResetDialogueConfirm")
 
 [node name="MenuBackground" type="Panel" parent="."]
 layout_mode = 1
@@ -56,8 +59,9 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme = ExtResource("5_8k7sy")
+theme_override_font_sizes/font_size = 20
 script = ExtResource("6_uvhwx")
-items = Array[String](["Fullscreen", "Windowed"])
+items = Array[String](["Windowed", "Fullscreen"])
 selected = 0
 item_count = 2
 loop = true
@@ -66,9 +70,10 @@ prev_icon = ExtResource("8_w5t20")
 title = "Display Mode"
 
 [node name="MusicVolume" type="Button" parent="MenuBackground/VBoxContainer"]
-custom_minimum_size = Vector2(0, 31)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme = ExtResource("5_8k7sy")
+theme_override_font_sizes/font_size = 20
 script = ExtResource("9_2cecq")
 value = 50.0
 value_label_visibility = 1
@@ -76,9 +81,10 @@ value_separation = 25
 title = "Music Volume"
 
 [node name="EffectsVolume" type="Button" parent="MenuBackground/VBoxContainer"]
-custom_minimum_size = Vector2(0, 31)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme = ExtResource("5_8k7sy")
+theme_override_font_sizes/font_size = 20
 script = ExtResource("9_2cecq")
 value = 50.0
 value_label_visibility = 1
@@ -90,6 +96,7 @@ title = "Effects Volume
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme = ExtResource("5_8k7sy")
+theme_override_font_sizes/font_size = 20
 script = ExtResource("6_uvhwx")
 items = Array[String](["Lake (recommended)", "Accessible Menu"])
 selected = 0
@@ -101,7 +108,24 @@ title = "Bijections Menu"
 
 [node name="ShowIntro" type="Button" parent="MenuBackground/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
 text = "Show Intro Next Time"
+alignment = 0
+
+[node name="ResetDialogue" type="Button" parent="MenuBackground/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Reset All Dialogue"
+alignment = 0
+
+[node name="ResetDialogueConfirm" type="Button" parent="MenuBackground/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Characters will forget they have ever seen you, but you will not lose progress. Click again to confirm."
 alignment = 0
 
 [node name="Spacer" type="Control" parent="MenuBackground/VBoxContainer"]

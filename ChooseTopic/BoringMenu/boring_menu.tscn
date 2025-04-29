@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://vr7vbitqwv3"]
+[gd_scene load_steps=9 format=3 uid="uid://vr7vbitqwv3"]
 
 [ext_resource type="Script" path="res://ChooseTopic/BoringMenu/boring_menu.gd" id="1_461ef"]
 [ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="1_nb1xa"]
 [ext_resource type="Theme" uid="uid://nm3tnjbbbaxg" path="res://Menu/heading.tres" id="2_ddwr2"]
 [ext_resource type="Theme" uid="uid://b26p2vjohd0vr" path="res://Menu/body.tres" id="3_6qgiy"]
 [ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="3_8v8s1"]
+[ext_resource type="Theme" uid="uid://cga5cn2w2stsy" path="res://Planarity/manipulation_button.tres" id="6_jhqdo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsduq"]
 bg_color = Color(0.870588, 0.854902, 0.772549, 1)
@@ -171,7 +172,7 @@ text = "If you want to go back to driving around"
 [node name="GoButton" type="Button" parent="PanelContainer/OldMenu/House"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
-theme = ExtResource("3_8v8s1")
+theme = ExtResource("6_jhqdo")
 text = "Go"
 
 [node name="Spacer3" type="Control" parent="PanelContainer/OldMenu"]
@@ -203,7 +204,7 @@ text = "A set of curated bijection problems"
 [node name="GoButton" type="Button" parent="PanelContainer/OldMenu/BijectionsTopic"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
-theme = ExtResource("3_8v8s1")
+theme = ExtResource("6_jhqdo")
 text = "Go"
 
 [node name="CatalanTopic" type="HBoxContainer" parent="PanelContainer/OldMenu"]
@@ -224,7 +225,7 @@ text = "Procedurally generated bijection problems"
 [node name="GoButton" type="Button" parent="PanelContainer/OldMenu/CatalanTopic"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
-theme = ExtResource("3_8v8s1")
+theme = ExtResource("6_jhqdo")
 text = "Go"
 
 [node name="PlanarGraphs" type="HBoxContainer" parent="PanelContainer/OldMenu"]
@@ -245,7 +246,7 @@ text = "Proving if graphs are planar or non-planar"
 [node name="GoButton" type="Button" parent="PanelContainer/OldMenu/PlanarGraphs"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
-theme = ExtResource("3_8v8s1")
+theme = ExtResource("6_jhqdo")
 text = "Go"
 
 [node name="GraphColouring" type="HBoxContainer" parent="PanelContainer/OldMenu"]
@@ -266,7 +267,7 @@ text = "Finding a minimum vertex colouring"
 [node name="GoButton" type="Button" parent="PanelContainer/OldMenu/GraphColouring"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
-theme = ExtResource("3_8v8s1")
+theme = ExtResource("6_jhqdo")
 text = "Go"
 
 [node name="Spacer2" type="Control" parent="PanelContainer/OldMenu"]

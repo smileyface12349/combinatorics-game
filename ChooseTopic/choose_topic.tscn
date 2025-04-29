@@ -59,7 +59,6 @@
 [ext_resource type="Script" path="res://ChooseTopic/Topics/go_to_planar.gd" id="55_c65t8"]
 [ext_resource type="PackedScene" uid="uid://2y3mwqr6b2re" path="res://ChooseTopic/Exercises/exercise_in_world.tscn" id="57_6btr7"]
 [ext_resource type="Texture2D" uid="uid://vqc1n3ayonra" path="res://ChooseTopic/portal.png" id="57_h0168"]
-[ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="59_66fcn"]
 [ext_resource type="Script" path="res://ChooseTopic/Huts/hut.gd" id="59_axl0d"]
 [ext_resource type="Texture2D" uid="uid://bin02x3xitrb8" path="res://ChooseTopic/Huts/planar-icon.png" id="59_wo2xu"]
 [ext_resource type="Texture2D" uid="uid://ba4indmgido25" path="res://ChooseTopic/Huts/broken-hut.png" id="61_1b1mg"]
@@ -68,6 +67,7 @@
 [ext_resource type="Texture2D" uid="uid://6pduhsp480v8" path="res://ChooseTopic/Huts/bijections-icon.png" id="62_apmbv"]
 [ext_resource type="Texture2D" uid="uid://bs6isc1ekmxma" path="res://ChooseTopic/Huts/colouring-icon.png" id="65_dggf5"]
 [ext_resource type="Texture2D" uid="uid://b6ruxgxw31tt1" path="res://ChooseTopic/Huts/house.png" id="66_jr3ih"]
+[ext_resource type="Theme" uid="uid://cga5cn2w2stsy" path="res://Planarity/manipulation_button.tres" id="68_0byes"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c6q06"]
 texture = ExtResource("1_yccy3")
@@ -665,7 +665,7 @@ offset_left = 1690.0
 offset_top = 257.0
 offset_right = 1798.0
 offset_bottom = 296.0
-theme = ExtResource("59_66fcn")
+theme = ExtResource("68_0byes")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_3p1ee")
 text = "Teleport"

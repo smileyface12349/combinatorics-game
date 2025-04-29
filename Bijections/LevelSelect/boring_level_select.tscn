@@ -25,6 +25,7 @@ level5 = NodePath("PanelContainer/NewMenu/Level5")
 backButton = NodePath("PanelContainer/NewMenu/HomeButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
 offset_right = 1924.0
 offset_bottom = 1098.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ql812")
@@ -89,11 +90,11 @@ theme = ExtResource("4_038rc")
 text = "2 - Stars and Bars"
 
 [node name="Level3" type="Button" parent="PanelContainer/NewMenu"]
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(640, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("4_038rc")
-text = "3 - Not Yet Implemented"
+text = "3 - Robinson-Schensted Correspondence"
 
 [node name="Level4" type="Button" parent="PanelContainer/NewMenu"]
 custom_minimum_size = Vector2(450, 0)

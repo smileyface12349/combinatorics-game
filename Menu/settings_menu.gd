@@ -4,7 +4,10 @@ extends Node
 @export var musicVolume: SBSliderButton
 @export var effectsVolume: SBSliderButton
 @export var bijectionsMenu: SBSpinButton
+@export var fullscreenButton: SBSpinButton
 @export var showIntroButton: Button
+@export var resetDialogueButton: Button
+@export var resetConfirmButton: Button
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,7 +18,14 @@ func _ready() -> void:
 		bijectionsMenu.selected = 1
 	else:
 		bijectionsMenu.selected = 0
+	if SaveData.fullscreen:
+		fullscreenButton.selected = 1
+	else:
+		fullscreenButton.selected = 0
 	showIntroButton.pressed.connect(show_intro)
+	fullscreenButton.item_selected.connect(fullscreen_changed)
+	resetDialogueButton.pressed.connect(reset_dialogue)
+	resetConfirmButton.pressed.connect(reset_confirm)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -36,3 +46,19 @@ func go_to_menu() -> void:
 func show_intro() -> void:
 	SaveData.seen_dialogue.erase("intro")
 	SaveData.write()
+
+func fullscreen_changed(selected: int) -> void:
+	if selected == 0:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	elif selected == 1:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	SaveData.fullscreen = selected == 1
+	SaveData.write()
+
+func reset_confirm() -> void:
+	SaveData.seen_dialogue = []
+	SaveData.write()
+
+func reset_dialogue() -> void:
+	resetConfirmButton.show()
+	resetDialogueButton.hide()

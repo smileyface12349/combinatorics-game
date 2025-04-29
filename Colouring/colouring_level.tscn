@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://digoswc3vjcon"]
+[gd_scene load_steps=12 format=3 uid="uid://digoswc3vjcon"]
 
 [ext_resource type="Script" path="res://Colouring/colouring_level.gd" id="1_41mup"]
 [ext_resource type="Theme" uid="uid://crnnsrj7q2hwh" path="res://General/Background.tres" id="1_cuwys"]
 [ext_resource type="Script" path="res://Colouring/colouring_graph.gd" id="2_tow41"]
+[ext_resource type="Theme" uid="uid://cga5cn2w2stsy" path="res://Planarity/manipulation_button.tres" id="3_cj8s7"]
 [ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="3_u48ww"]
 [ext_resource type="FontFile" uid="uid://c13m3wup8q1k5" path="res://fonts/source-code-pro/source-code-pro-2.010R-ro-1.030R-it/TTF/SourceCodePro-Black.ttf" id="4_3e5f3"]
 [ext_resource type="Theme" uid="uid://ddq17un4mmhvy" path="res://Colouring/bounds_text.tres" id="4_5djmr"]
@@ -55,7 +56,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_unf8a")
 layout_mode = 0
 offset_top = 29.0
 offset_right = 606.0
-offset_bottom = 272.0
+offset_bottom = 309.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
@@ -63,15 +64,16 @@ text = "[center]Bounds"
 
 [node name="BoundsSubheading" type="RichTextLabel" parent="Panel/BoundsPanel/BoundsHeading"]
 layout_mode = 0
-offset_left = 50.0
-offset_top = 99.0
-offset_right = 553.0
-offset_bottom = 227.0
+offset_left = 43.0
+offset_top = 105.0
+offset_right = 566.0
+offset_bottom = 266.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "[center]χ(G) := minimum number of colours needed to colour this graph.
+text = "[center]χ(G) := minimum number of colours needed.
 
-Using various theorems, we can obtain upper and lower bounds on χ(G). This gives you an idea of what you're aiming for when coming up with the final colouring."
+Using various theorems, we can obtain upper and lower bounds on χ(G). This gives you an idea of what you're aiming for when coming up with the colouring."
 
 [node name="Bound" type="RichTextLabel" parent="Panel/BoundsPanel"]
 layout_mode = 0
@@ -107,7 +109,7 @@ offset_top = -156.0
 offset_right = -171.0
 offset_bottom = -108.0
 grow_vertical = 0
-theme = ExtResource("3_u48ww")
+theme = ExtResource("3_cj8s7")
 text = "New Graph"
 
 [node name="SkipGraphButton" type="Button" parent="Panel/BoundsPanel"]
@@ -131,9 +133,9 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 92.0
-offset_top = 465.0
+offset_top = 501.0
 offset_right = -84.0
-offset_bottom = 510.0
+offset_bottom = 546.0
 grow_horizontal = 2
 
 [node name="BoundName" type="RichTextLabel" parent="Panel/BoundsPanel/CliqueBound"]
@@ -160,9 +162,9 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 92.0
-offset_top = 413.0
+offset_top = 449.0
 offset_right = -84.0
-offset_bottom = 458.0
+offset_bottom = 494.0
 grow_horizontal = 2
 
 [node name="BoundName" type="RichTextLabel" parent="Panel/BoundsPanel/PlanarBound"]
@@ -189,9 +191,9 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 94.0
-offset_top = 360.0
+offset_top = 396.0
 offset_right = -82.0
-offset_bottom = 405.0
+offset_bottom = 441.0
 grow_horizontal = 2
 
 [node name="BoundName" type="RichTextLabel" parent="Panel/BoundsPanel/BrookeBound"]
@@ -218,9 +220,9 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 95.0
-offset_top = 309.0
+offset_top = 345.0
 offset_right = -81.0
-offset_bottom = 354.0
+offset_bottom = 390.0
 grow_horizontal = 2
 
 [node name="BoundName" type="RichTextLabel" parent="Panel/BoundsPanel/GreedyBound"]
@@ -260,8 +262,9 @@ anchor_left = 0.005
 anchor_right = 1.0
 offset_left = -3.575
 offset_top = 102.0
-offset_bottom = 204.0
+offset_bottom = 222.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[center]Now have a go at finding a colouring that uses as few colours as possible!
 
@@ -269,7 +272,7 @@ Right click on a vertex to change its colour.
 Left click to move vertices around (for 4-colour theorem)."
 
 [node name="Graph" type="Node2D" parent="Panel"]
-position = Vector2(742, 263)
+position = Vector2(742, 268)
 script = ExtResource("2_tow41")
 font = ExtResource("4_3e5f3")
 
@@ -279,6 +282,6 @@ offset_left = 1861.0
 offset_top = 18.0
 offset_right = 1901.0
 offset_bottom = 63.0
-theme = ExtResource("3_u48ww")
+theme = ExtResource("3_cj8s7")
 theme_override_styles/normal = SubResource("StyleBoxFlat_uqiyb")
 text = "X"

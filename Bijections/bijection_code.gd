@@ -34,6 +34,8 @@ func _ready() -> void:
 	for keyword: String in ['return', 'if', 'then', 'else', 'endif', 'while', 'do', 'endwhile', 'for', 'in', 'endfor', 'repeat', 'times', 'endrepeat']:
 		codeInput.syntax_highlighter.add_keyword_color(keyword, Color.ORANGE)
 	codeInput.syntax_highlighter.add_color_region("//", "", Color.BLACK)
+	codeInput.syntax_highlighter.add_color_region("\"", "\"", Color.GREEN)
+	codeInput.syntax_highlighter.add_color_region("'", "'", Color.GREEN)
 
 	# Fiddly focus stuff
 	codeInput.focus_entered.connect(text_focus_entered)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bi0rbhbcaaomf"]
+[gd_scene load_steps=8 format=3 uid="uid://bi0rbhbcaaomf"]
 
 [ext_resource type="Script" path="res://Bijections/Catalan/catalan_menu.gd" id="1_ave0k"]
 [ext_resource type="Theme" uid="uid://dwml1kdw5tc6" path="res://Menu/section_title.tres" id="1_pjdfp"]
+[ext_resource type="Theme" uid="uid://cga5cn2w2stsy" path="res://Planarity/manipulation_button.tres" id="2_ar8uf"]
 [ext_resource type="Theme" uid="uid://nm3tnjbbbaxg" path="res://Menu/heading.tres" id="2_e2075"]
 [ext_resource type="Theme" uid="uid://chda3relvewy7" path="res://Planarity/success_button.tres" id="3_vwxwu"]
 
@@ -35,7 +36,7 @@ offset_left = 1851.0
 offset_top = 23.0
 offset_right = 1892.0
 offset_bottom = 68.0
-theme = ExtResource("3_vwxwu")
+theme = ExtResource("2_ar8uf")
 theme_override_styles/normal = SubResource("StyleBoxFlat_2ty10")
 text = "X"
 
