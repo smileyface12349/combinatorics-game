@@ -10,4 +10,4 @@ Consists of a few topics:
 * Graph Colouring: Find graph colourings, and establish bounds on the chromatic number.
 
 # License
-This code is fully open source. Do whatever you want with it. If you do something cool with my code, I'd love it if you could let me know! 
+This code is fully open source. I've chosen the MIT license, so you can do whatever you want with it as long as you credit me. If you do something cool with my code, I'd love it if you could let me know! 
